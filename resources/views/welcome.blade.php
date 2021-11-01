@@ -8,8 +8,7 @@
 
     </head>
     <body>
-        <div id = "app">
-            <order-management> </order-management>
+        <div id="app">
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>

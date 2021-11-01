@@ -24,4 +24,5 @@ Route::prefix('/order') -> group ( function (){
     Route::post('/store', [OrderController::class, 'store']);
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
+    Route::get('/{id}', [OrderController::class, 'show']);
 });

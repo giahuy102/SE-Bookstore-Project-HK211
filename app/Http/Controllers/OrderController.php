@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         //
-        return Order::orderBy('create_at', 'DESC')->get();
+        return Order::orderBy('id', 'asc')->get();
     }
 
     /**
@@ -40,6 +40,8 @@ class OrderController extends Controller
         $newOrder = new Order;
         $newOrder->customer = $request->order["customer"];
         $newOrder->total = $request->order["total"];
+        $newOrder->orderStatus = $request->order["orderStatus"];
+        $newOrder->delivery = $request->order["delivery"];
         $newOrder->save();
 
         return $newOrder;
@@ -53,7 +55,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::find($id);
+        if ($order){
+            return $order;
+        }
+        return "Order not found.";
     }
 
     /**
@@ -80,6 +86,8 @@ class OrderController extends Controller
         $order = Order::find($id);
         if ($order){
             $order->total = $request->order['total'];
+            $newOrder->orderStatus = $request->order["orderStatus"];
+            $newOrder->delivery = $request->order["delivery"];
             $order->save();
 
             return $order;
