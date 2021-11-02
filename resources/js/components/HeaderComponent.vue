@@ -112,7 +112,7 @@ a, a:hover {
 
 
 h1 img {
-    width: 228px;
+    width: 230px;
 }
 
 form button {

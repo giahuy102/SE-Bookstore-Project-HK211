@@ -67,6 +67,7 @@ a {
     width: 150px;
     height: 54px;
     border-radius: 50px;
+    font-size: 20px;
     
 }
 
