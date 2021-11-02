@@ -78,6 +78,7 @@ export default {
     background-color: #091139;
     height: 527px;
     padding-top: 90px;
+    margin-top: 70px;
 }
 
 

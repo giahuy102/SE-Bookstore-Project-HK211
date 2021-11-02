@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@splidejs/vue-splide": "^0.5.5",
         "bootstrap-vue": "^2.21.2"
     }
 }

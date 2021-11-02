@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('', 'HomePageController@index');
+Route::get('/category', 'CategoryController@index');
 
 
 

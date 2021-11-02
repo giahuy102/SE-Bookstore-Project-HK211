@@ -33,6 +33,22 @@
  Vue.use(IconsPlugin)
 
 
+
+
+
+
+//  import VueSplide from '@splidejs/vue-splide';
+//  Vue.use( VueSplide );
+
+
+
+
+
+
+
+
+
+
  Vue.component('example-component', require('./components/ExampleComponent.vue').default);
  Vue.component('header-component', require('./components/HeaderComponent.vue').default);
  Vue.component('footer-component', require('./components/FooterComponent.vue').default);

@@ -10,6 +10,92 @@
             </div>
 
         </div>
+        
+
+        <div id="category">
+
+            <!-- <Splide :options="{ rewind: true }">
+                <SplideSlide>
+                    <p>fsfsfsfs</p>
+                </SplideSlide>
+                <SplideSlide>
+                    <p>fsfsfsfsfs</p>
+                </SplideSlide>
+            </Splide> -->
+        </div>
+
+
+        <div id="book-list">
+            <div class="container-custom">
+                <h3>Popular Books this Week</h3>
+                <div class="d-flex flex-wrap justify-content-between">
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="container-custom">
+                <h3>Best Seller</h3>
+
+                <div class="d-flex flex-wrap justify-content-between">
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+
+                </div>
+            </div>
+
+
+            <div class="container-custom">
+                <h3>Special Discount</h3>
+
+
+                <div class="d-flex flex-wrap justify-content-between">
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+                    <a href="#">
+                        <img src="/images/harry-potter-1.png" alt="">
+                    </a>
+
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -20,6 +106,8 @@ export default {
         
     },
 }
+
+
 </script>
 
 
@@ -28,6 +116,7 @@ export default {
 a {
     text-decoration: none;
     color: white;
+    display: inline-block;
 }
 
 
@@ -82,5 +171,20 @@ a {
 }
 
 
+#book-list a {
+    width: 18%;
+}
 
+#book-list img {
+    width: 100%;
+}
+
+#book-list h3 {
+    margin-top: 60px;
+    margin-bottom: 50px;
+    font-family: "Inria Serif";
+    font-weight: 700;
+    color: #011445;
+    font-size: 40px;
+}
 </style>
