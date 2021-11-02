@@ -23,8 +23,9 @@
 </head>
 <body>
     <div id="app">
-        <!-- <example-component></example-component> -->
-        <header-component></header-component>
+        
+        <!-- <header-component></header-component> -->
+        <footer-component></footer-component>
     </div>
 
     <script src="{{ mix('js/homepage.js') }}"></script>

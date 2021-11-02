@@ -1,23 +1,24 @@
 <template>
     <div id="header">
         <div class="container-custom">
-            <div class="row">
-                <div class="col d-flex align-items-center">
+            <div class="row no-gutters">
+                <div class="col-3 d-flex align-items-center">
                     <h1>
                         
                         <a href="#">
                             <img src="/images/logo.png" alt="Bookstore">
-                            <span>BOOK STORE</span>
                         </a>
                     </h1>
                 </div>
 
 
-                <div class="col-1.5 d-flex align-items-center">
-                    <form  action="">
-                        <input type="search" required>
+                <div class="col-4 d-flex align-items-center">
+                    <button>
                         <i class="fa fa-search"></i>
-                        <a href="javascript:void(0)" id="clear-btn">Clear</a>
+                    </button>
+                    <form  action="">
+                        <input type="text" name="" id="">
+
                     </form>
                 </div>
 
@@ -29,22 +30,26 @@
                 </div> -->
 
 
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-15 d-flex align-items-center">
                     <a href="#"><li>CATEGORY</li></a>
                 </div>
 
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-15 d-flex align-items-center">
                     <a href="#">BEST SELLER</a>
                 </div>
 
-                <div class="col-2 d-flex align-items-center">
+                <div class="col-15 d-flex align-items-center">
                     <a href="#">DISCOUNT</a>
                 </div>
 
-                <div class="col-1 d-flex align-items-center">
+                <div class="col item d-flex align-items-center justify-content-center">
                     <i class="fas fa-user"></i>
+                </div>
+
+                <div class="col item d-flex align-items-center justify-content-end">
                     <i class="fas fa-shopping-cart"></i>
                 </div>
+
             </div>
 
         </div>
@@ -70,8 +75,23 @@ export default {
 <style scoped>
 #header {
     background-color: rgba(0, 32, 69, 0.91);
-    height: 90px;
+    height: 68px;
 }
+
+.col-15 {
+    font-family: "Monserat";
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 35px;
+}
+
+.item {
+    color: #ffffff;
+    font-size: 22px;
+
+}
+
+
 
 a, a:hover {
     text-decoration: none;
@@ -91,18 +111,21 @@ a, a:hover {
 
 
 
-h1 span {
-    font-family: "Monserat";
-    font-size: 35px;
+h1 img {
+    width: 228px;
 }
+
+form button {
+    border-radius: 100%;
+}
+
 
     /* position: relative; */
     /* top: 50%;
     left: 50%; */
 
-form{
+/* form{
 
-    /* transform: translate(-50%,-50%); */
     position: relative;
     transition: all 1s;
     width: 50px;
@@ -181,5 +204,5 @@ form a {
 
 form:valid a {
   display: block;
-}
+} */
 </style>
