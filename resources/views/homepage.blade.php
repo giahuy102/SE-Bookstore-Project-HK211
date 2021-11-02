@@ -24,7 +24,9 @@
 <body>
     <div id="app">
         
-        <!-- <header-component></header-component> -->
+        <header-component></header-component>
+        
+        <home-component></home-component>
         <footer-component></footer-component>
     </div>
 

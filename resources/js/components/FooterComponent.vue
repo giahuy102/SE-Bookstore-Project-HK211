@@ -106,12 +106,12 @@ export default {
 }
 
 h4 {
-    font-size: 25px;
+    font-size: 22px;
 }
 
 .item {
     color: white;
-    font-size: 25px;
+    font-size: 23px;
 }
 
 #copy-right {
