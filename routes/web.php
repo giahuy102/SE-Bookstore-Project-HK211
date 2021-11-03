@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('', 'HomePageController@index');
 Route::get('/category', 'CategoryController@index');
-
+Route::get('/detail', 'DetailController@index');
 
 
 Auth::routes();
