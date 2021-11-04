@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-// use App\Http\Controllers\HomePageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('homepage');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('', 'HomePageController@index');
-Route::get('/category', 'CategoryController@index');
-Route::get('/detail', 'DetailController@index');
+Route::get('/{any}', function () {
+    return view('admin');
+})->where('any', '.*');
+
+
 
 
 Auth::routes();

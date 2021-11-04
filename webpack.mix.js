@@ -13,7 +13,3 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
-
-mix.js('resources/js/homepage.js', 'public/js/homepage.js');
-mix.js('resources/js/category.js', 'public/js/category.js');
-mix.js('resources/js/detail.js', 'public/js/detail.js');

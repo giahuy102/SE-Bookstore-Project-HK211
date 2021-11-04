@@ -1,7 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
-    "/js/category.js": "/js/category.js",
-    "/js/detail.js": "/js/detail.js",
-    "/js/homepage.js": "/js/homepage.js"
+    "/Messages.js": "/Messages.js",
+    "/Overview.js": "/Overview.js",
+    "/Profile.js": "/Profile.js",
+    "/Overview~Profile.js": "/Overview~Profile.js"
 }
