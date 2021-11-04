@@ -65,8 +65,8 @@
         </div>
       </div>
 
-      <div class="purchased">
-        <button>Purchased</button>
+      <div class="purchases">
+        <button>Purchases</button>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@ export default {
 .headerCart,
 .itemCart,
 .footerCart,
-.purchased {
+.purchases {
   display: flex;
   align-items: center;
   text-align: center;
@@ -216,7 +216,7 @@ export default {
 
 .footerCart button {
   margin: 0 30px;
-  width: 15%;
+  width: 20%;
   background-color: inherit;
   border: none;
   font-size: 20px;
@@ -229,6 +229,9 @@ export default {
   align-items: center;
   text-align: center;
 }
+.total p {
+  margin: auto 0;
+}
 p.totalPrice {
   width: 30%;
   margin-left: 0;
@@ -237,11 +240,11 @@ p.totalPrice {
   font-size: 30px;
 }
 
-.purchased {
+.purchases {
   /* background-color: #fff; */
   justify-content: flex-end;
 }
-.purchased button {
+.purchases button {
   color: white;
   background-color: #1dcaff;
   font-weight: bold;

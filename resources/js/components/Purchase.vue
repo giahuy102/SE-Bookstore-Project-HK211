@@ -1,5 +1,5 @@
 <template>
-  <div class="purchsedPage">
+  <div class="purchasedPage">
     <!-- <router-link :to="{ name: 'ordermanagement' }">
       <button class="goBackButton">
         <font-awesome-icon icon="arrow-circle-left" class="goBackIcon" />
@@ -99,7 +99,7 @@ export default {
 };
 </script>
 <style scoped>
-.purchsedPage {
+.purchasedPage {
   margin: auto;
   width: 1000px;
   font-family: inter, Courier, monospace;
