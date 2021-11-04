@@ -7,8 +7,8 @@
         <title>OrderManagement</title>
 
     </head>
-    <body>
-        <div id="app">
+    <body style="background-color:#ebedef">
+        <div id="app" >
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>

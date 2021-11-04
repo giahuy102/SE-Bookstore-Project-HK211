@@ -7,10 +7,10 @@ import App from './components/App.vue'
 import router from './router.js'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTrash, faInfoCircle, faArrowCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faInfoCircle, faArrowCircleLeft, faPlusCircle, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faTrash, faInfoCircle, faArrowCircleLeft)
+library.add(faTrash, faInfoCircle, faArrowCircleLeft, faPlusCircle, faMinusCircle)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
