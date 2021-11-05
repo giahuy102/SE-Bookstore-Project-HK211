@@ -78,14 +78,10 @@
                     </form>
                     
                     <div class="button-below">
-                        <!-- <router-link to="/admin/changePassword">     
+                        <router-link :to="{name: 'changePassword', params: {userID: user_account.id}}">     
                             <button class="change-password">Change password</button>
-                        </router-link> -->
-
-                        <!-- <router-link to="/admin/editProfile">     
-                            <button class="edit-profile">Edit Profile</button>
-                        </router-link> -->
-
+                        </router-link>
+                        
                         <router-link :to="{name: 'editProfile', params: {userID: user_account.id}}">   
                             <button class="edit-profile">Edit Profile</button>
                         </router-link> 
@@ -101,9 +97,12 @@
 
 <script>
 import editProfile from './EditProfile.vue'
+import changePassword from './ChangePassword.vue'
+
     export default {
         components: {
-            editProfile
+            editProfile,
+            changePassword
         },
 
 
@@ -261,7 +260,7 @@ import editProfile from './EditProfile.vue'
 }
 
 .edit-profile {
-    margin-left: 505px;
+    margin-left: 290px;
     background-color: #00ACED;
     border: none ;
     color: white;

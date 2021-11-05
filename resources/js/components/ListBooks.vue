@@ -5,7 +5,7 @@
                 <tr>
                     <th class="col-2">ID</th>
                     <th class="col-4">Title</th>
-                    <th class="col-2">Price</th>
+                    <th class="col-2">Price (USD)</th>
                     <th class="col-2">Quantity</th>
                     <th class="col-2"></th>
                 </tr>

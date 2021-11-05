@@ -10,10 +10,7 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _EditProfile_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditProfile.vue */ "./resources/js/components/EditProfile.vue");
-//
-//
-//
-//
+/* harmony import */ var _ChangePassword_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChangePassword.vue */ "./resources/js/components/ChangePassword.vue");
 //
 //
 //
@@ -112,9 +109,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    editProfile: _EditProfile_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    editProfile: _EditProfile_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    changePassword: _ChangePassword_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
     return {
@@ -164,7 +163,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.overview[data-v-f2b6376c] {         /*not use*/\r\n    /* display: flex;\r\n    justify-content: center;\r\n    align-items: center; */\r\n    height: 100%;\r\n    width: 100%;\r\n    font-size: 30px;\r\n    /* color: rgb(167, 167, 167); */\r\n    color: black;\r\n    font-weight: 600;\r\n    margin-top: 30px;\n}\n.no-padding[data-v-f2b6376c] {\r\n    padding: 0;\n}\n.star[data-v-f2b6376c] {\r\n    color: red;\n}\n.avatar[data-v-f2b6376c] {\r\n    font-size: 20px;\n}\n.image-container[data-v-f2b6376c] {\r\n    width: 200px;\r\n    height: 200px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    border-radius: 50%;\r\n    border: 3px solid #0084B4;\r\n    margin-left: 75px;\n}\n.image-avatar[data-v-f2b6376c] {\r\n    /* margin-top: 10px;\r\n    border-radius: 50%;\r\n    border: 2px solid blue; */\r\n    display: inline;\r\n  margin: 0 auto;\r\n  height: 100%;\r\n  width: auto;\n}\n.name[data-v-f2b6376c] {\r\n    margin-top: 30px;\r\n    /* border: 1px solid red; */\r\n    width: 200px;\r\n    margin-left: 75px;\r\n    background-color: #0084B4;\r\n    border-radius: 20px 0px 20px 0px;\r\n    color: white;\r\n    border: none;\r\n    height: 50px;\r\n    padding-top: 10px;\n}\n.title[data-v-f2b6376c] {      \r\n    /* display: flex;\r\n    justify-content: center;\r\n    align-items: center; */\r\n    /* height: 100%;\r\n    width: 100%; */\r\n    font-size: 30px;\r\n    /* color: rgb(167, 167, 167); */\r\n    color: black;\r\n    font-weight: bold;\r\n    margin-top: 30px;\n}\n.content[data-v-f2b6376c] {\r\n    margin-top: 40px;\r\n    overflow: hidden;\n}\n.filling[data-v-f2b6376c] {\r\n    font-size: 23px;\n}\n.input-field[data-v-f2b6376c] {\r\n    font-size: 20px;\r\n    color: #0084B4;\r\n    font-weight: normal;\r\n    margin-top: 10px;\n}\n.input-filling[data-v-f2b6376c] {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.button-below[data-v-f2b6376c] {\r\n    margin-top: 30px;\r\n    margin-bottom: 5px;\n}\n.change-password[data-v-f2b6376c] {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\n}\n.change-password[data-v-f2b6376c]:hover {\r\n    background-color: #d0d6d6;\n}\n.change-password[data-v-f2b6376c]:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.edit-profile[data-v-f2b6376c] {\r\n    margin-left: 505px;\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\n}\n.edit-profile[data-v-f2b6376c]:hover {\r\n    background-color: #0084B4;\n}\n.edit-profile[data-v-f2b6376c]:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.overview[data-v-f2b6376c] {         /*not use*/\r\n    /* display: flex;\r\n    justify-content: center;\r\n    align-items: center; */\r\n    height: 100%;\r\n    width: 100%;\r\n    font-size: 30px;\r\n    /* color: rgb(167, 167, 167); */\r\n    color: black;\r\n    font-weight: 600;\r\n    margin-top: 30px;\n}\n.no-padding[data-v-f2b6376c] {\r\n    padding: 0;\n}\n.star[data-v-f2b6376c] {\r\n    color: red;\n}\n.avatar[data-v-f2b6376c] {\r\n    font-size: 20px;\n}\n.image-container[data-v-f2b6376c] {\r\n    width: 200px;\r\n    height: 200px;\r\n    position: relative;\r\n    overflow: hidden;\r\n    border-radius: 50%;\r\n    border: 3px solid #0084B4;\r\n    margin-left: 75px;\n}\n.image-avatar[data-v-f2b6376c] {\r\n    /* margin-top: 10px;\r\n    border-radius: 50%;\r\n    border: 2px solid blue; */\r\n    display: inline;\r\n  margin: 0 auto;\r\n  height: 100%;\r\n  width: auto;\n}\n.name[data-v-f2b6376c] {\r\n    margin-top: 30px;\r\n    /* border: 1px solid red; */\r\n    width: 200px;\r\n    margin-left: 75px;\r\n    background-color: #0084B4;\r\n    border-radius: 20px 0px 20px 0px;\r\n    color: white;\r\n    border: none;\r\n    height: 50px;\r\n    padding-top: 10px;\n}\n.title[data-v-f2b6376c] {      \r\n    /* display: flex;\r\n    justify-content: center;\r\n    align-items: center; */\r\n    /* height: 100%;\r\n    width: 100%; */\r\n    font-size: 30px;\r\n    /* color: rgb(167, 167, 167); */\r\n    color: black;\r\n    font-weight: bold;\r\n    margin-top: 30px;\n}\n.content[data-v-f2b6376c] {\r\n    margin-top: 40px;\r\n    overflow: hidden;\n}\n.filling[data-v-f2b6376c] {\r\n    font-size: 23px;\n}\n.input-field[data-v-f2b6376c] {\r\n    font-size: 20px;\r\n    color: #0084B4;\r\n    font-weight: normal;\r\n    margin-top: 10px;\n}\n.input-filling[data-v-f2b6376c] {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.button-below[data-v-f2b6376c] {\r\n    margin-top: 30px;\r\n    margin-bottom: 5px;\n}\n.change-password[data-v-f2b6376c] {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\n}\n.change-password[data-v-f2b6376c]:hover {\r\n    background-color: #d0d6d6;\n}\n.change-password[data-v-f2b6376c]:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.edit-profile[data-v-f2b6376c] {\r\n    margin-left: 290px;\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\n}\n.edit-profile[data-v-f2b6376c]:hover {\r\n    background-color: #0084B4;\n}\n.edit-profile[data-v-f2b6376c]:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -408,6 +407,23 @@ var render = function() {
             "div",
             { staticClass: "button-below" },
             [
+              _c(
+                "router-link",
+                {
+                  attrs: {
+                    to: {
+                      name: "changePassword",
+                      params: { userID: _vm.user_account.id }
+                    }
+                  }
+                },
+                [
+                  _c("button", { staticClass: "change-password" }, [
+                    _vm._v("Change password")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
               _c(
                 "router-link",
                 {

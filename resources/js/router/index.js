@@ -40,7 +40,8 @@ const routes = [
         //     component: () => import(/* webpackChunkName: "Profile" */ '../components/EditProfile.vue')
         // },
         {
-            path: 'changePassword',
+            path: 'changePassword/:userID',
+            name: 'changePassword',
             component: () => import(/* webpackChunkName: "Profile" */ '../components/ChangePassword.vue')
         },
         {
