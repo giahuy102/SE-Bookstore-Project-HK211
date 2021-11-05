@@ -28,7 +28,7 @@
                 <div class="col-3"></div> 
                 <div class="col text-right">
                   <router-link to="/admin"> <button class="cancle">Cancle</button> </router-link>
-                  <button class="change"  @click="updateUser(userID)">Change</button>
+                  <button class="change" @click="updateUser(userID)" v-on:click="success_change_info()">Change</button>
                 </div>
           </div>
           
@@ -71,6 +71,9 @@ export default {
       .catch(error => {
           console.log(error.response)
       });
+    },
+    success_change_info() {
+        alert("Sucessfully change information!")
     }
   }
 }

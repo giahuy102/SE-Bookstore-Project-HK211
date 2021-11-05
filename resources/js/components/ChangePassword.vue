@@ -22,8 +22,8 @@
                 <div class="col-3"></div> 
                 <div class="col text-right">
                   <router-link to="/admin"> <button class="cancle">Cancle</button> </router-link>
-                  <button class="change">Change</button>
-                </div>
+                  <button class="change" v-on:click="sucess_alert()">Change</button>
+                </div>  
           </div>
           
       </div>
@@ -32,7 +32,11 @@
 
 <script>
 export default {
-
+    methods: {
+        sucess_alert() {
+            alert("Successfully change password!")
+        }
+    }
 }
 </script>
 

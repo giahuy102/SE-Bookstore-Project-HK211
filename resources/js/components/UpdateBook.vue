@@ -38,7 +38,26 @@
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Category<span class="red-star">*</span> </div>
-                <div class="col text-left"><input class="row-input" v-model="book.category" type="text" size="80"></div>
+                <!-- <div class="col text-left"><input class="row-input" v-model="book.category" type="text" size="80"></div> -->
+
+                <div class="col text-left"> 
+                    <select class="select-category" v-model="book.category">
+                        <option value="Business">Business</option>
+                        <option value="Comic">Comic</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Cooking">Cooking</option>
+                        <option value="Education">Education</option>
+                        <option value="Self-help">Self-help</option>
+                        <option value="History">History</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Health">Health</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Novel">Novel</option>
+                    </select>
+                </div> 
+
+
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Publisher<span class="red-star">*</span> </div>
@@ -66,7 +85,17 @@
                 <div class="col-3 text-left field-name-left">Publish date<span class="red-star">*</span> </div>
                 <div class="col-3 text-left"><input class="row-input" v-model="book.publish_date" type="text" size = "20" placeholder="yyyy/mm/dd"></div>
                 <div class="col-2 text-left field-name-right">Language<span class="red-star">*</span> </div>
-                <div class="col-3 text-left field-right"><input class="row-input" v-model="book.language" type="text" size = "21"></div>
+                <!-- <div class="col-3 text-left field-right"><input class="row-input" v-model="book.language" type="text" size = "21"></div> -->
+                <div class="col-3 text-left field-right">
+                    <select v-model="book.language" class="select-language" data-placeholder="Choose a Language...">
+                        <option value="Vietnamese">Vietnamese</option>
+                        <option value="English">English</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="French">French</option>
+                        <option value="	Japanese">	Japanese</option>
+                    </select>
+                </div>
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Picture<span class="red-star">*</span> </div>
@@ -84,7 +113,7 @@
                     <router-link to="/admin/managebooks">
                         <button class="cancle-update">Back</button>
                     </router-link>
-                    <button class="update" @click="updateBook(bookID)">Update</button>
+                    <button class="update" @click="updateBook(bookID)" v-on:click="sucess_update()">Update</button>
                 </div>
             </div>
         </div>
@@ -101,6 +130,8 @@ export default {
     return {
       book: {},
       bookID: this.$route.params.bookID,
+
+      
     }
   },
 
@@ -128,6 +159,10 @@ export default {
       .catch(error => {
           console.log(error.response)
       });
+    },
+
+    sucess_update() {
+        alert("Sucessfully update book information!")
     }
   },
 
@@ -182,6 +217,20 @@ export default {
 
 .text-area {
     margin-left: 3px;
+}
+
+.select-category {
+    width: 684px;
+    height: 30px;
+    border: 2px solid #D8DBE0;
+    border-radius: 3px;
+}
+
+.select-language {
+    width: 210px;
+    height: 30px;
+    border: 2px solid #D8DBE0;
+    border-radius: 3px;
 }
 
 .button-below {

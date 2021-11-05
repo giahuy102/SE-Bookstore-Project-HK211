@@ -5,7 +5,24 @@
                 <!-- <img class="search-icon" src="../assets/search.svg" alt=""> -->
                 <div class="col-5 text-start"> <input class="search-typing" type="text" placeholder="Name, ID" size="50"> </div>
                 <div class="col-1 text-right text-category">Category:</div>
-                <div class="col-3 text-left"><input class="category" type="text" placeholder="Choose..."></div>
+                <!-- <div class="col-3 text-left"><input class="category" type="text" placeholder="Choose..."></div> -->
+                <div class="col-3 text-left">   
+                    <select class="search-category">
+                        <option value="Choose..."> </option>
+                        <option value="Business">Business</option>
+                        <option value="Comic">Comic</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Cooking">Cooking</option>
+                        <option value="Education">Education</option>
+                        <option value="Self-help">Self-help</option>
+                        <option value="History">History</option>
+                        <option value="Sports">Sports</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Health">Health</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Literature">Novel</option>
+                    </select>
+                </div>
                 <div class="col text-left"><button class="search-button">Search</button></div>
             </div>
         </div>
@@ -181,6 +198,14 @@ export default {
 .category {
     border: 2px solid #D8DBE0;
     border-radius: 3px;
+}
+
+
+.search-category {
+    border: 2px solid #D8DBE0;
+    border-radius: 3px;
+    width: 145px;
+    height: 30px;
 }
 
 .search-button {

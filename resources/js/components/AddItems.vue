@@ -33,6 +33,7 @@
                         <option value="Travel">Travel</option>
                         <option value="Health">Health</option>
                         <option value="Literature">Literature</option>
+                        <option value="Novel">Novel</option>
                     </select>
                 </div>
             </div>
@@ -91,7 +92,7 @@
                 <div class="col-3"></div> 
                 <div class="col text-right">
                 <button class="cancle" @click="refresh">Cancle</button>
-                <button class="addbook" @click="createBook">Add book</button>
+                <button class="addbook" @click="createBook" v-on:click="success_add_book()">Add book</button>
                 </div>
             </div>
         </div>
@@ -107,18 +108,26 @@ export default {
             //     language, picture, description }
             book: {
             title: ' ', id: '', author: '', category: '', publisher: '', input_date: '', quantity: '', cost_price: '', selling_price: '', 
-            page_number: '', sale: '', publish_date: '', language: '', picture: '', description: ''}
+            page_number: '', sale: '', publish_date: '', language: '', picture: '', description: ''},
+            
+            check_add_id: ''
         }
     },
     methods: {
         createBook() {
             
+            this.check_add_id = this.book.id;
+            // console.log(this.check_add_id);
+            // console.log(this.book.id);
+
             axios.post('/api/book', {title: this.book.title, id: this.book.id, author: this.book.author, category: this.book.category,
             publisher: this.book.publisher, input_date: this.book.input_date, quantity: this.book.quantity, cost_price: this.book.cost_price,
             selling_price: this.book.selling_price, page_number: this.book.page_number, sale: this.book.sale, publish_date: this.book.publish_date,
             language: this.book.language, picture: this.book.picture, description: this.book.description})
             .then(response => {
-                console.log(response)
+                // this.check_add_id = this.book.id;
+                // console.log(this.check_add_id);
+                console.log(response);
             })
             .catch(error => {
                 console.log(error.response)
@@ -157,6 +166,13 @@ export default {
             this.book.language = '';
             this.book.picture = '';
             this.book.description = '';
+        },
+
+        success_add_book() {
+            
+            if (this.check_add_id == '')
+                alert("Error. Check new book information again!")
+            else alert("Sucessfully add new book!")
         }
     }
 }

@@ -109,6 +109,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -131,11 +132,15 @@ __webpack_require__.r(__webpack_exports__);
         language: '',
         picture: '',
         description: ''
-      }
+      },
+      check_add_id: ''
     };
   },
   methods: {
     createBook: function createBook() {
+      this.check_add_id = this.book.id; // console.log(this.check_add_id);
+      // console.log(this.book.id);
+
       axios.post('/api/book', {
         title: this.book.title,
         id: this.book.id,
@@ -153,6 +158,8 @@ __webpack_require__.r(__webpack_exports__);
         picture: this.book.picture,
         description: this.book.description
       }).then(function (response) {
+        // this.check_add_id = this.book.id;
+        // console.log(this.check_add_id);
         console.log(response);
       })["catch"](function (error) {
         console.log(error.response);
@@ -189,6 +196,9 @@ __webpack_require__.r(__webpack_exports__);
       this.book.language = '';
       this.book.picture = '';
       this.book.description = '';
+    },
+    success_add_book: function success_add_book() {
+      if (this.check_add_id == '') alert("Error. Check new book information again!");else alert("Sucessfully add new book!");
     }
   }
 });
@@ -419,7 +429,9 @@ var render = function() {
               _vm._v(" "),
               _c("option", { attrs: { value: "Literature" } }, [
                 _vm._v("Literature")
-              ])
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Novel" } }, [_vm._v("Novel")])
             ]
           )
         ])
@@ -769,7 +781,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "button",
-            { staticClass: "addbook", on: { click: _vm.createBook } },
+            {
+              staticClass: "addbook",
+              on: {
+                click: [
+                  _vm.createBook,
+                  function($event) {
+                    return _vm.success_add_book()
+                  }
+                ]
+              }
+            },
             [_vm._v("Add book")]
           )
         ])

@@ -389,6 +389,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -526,6 +543,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -567,6 +613,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response);
       });
+    },
+    sucess_update: function sucess_update() {
+      alert("Sucessfully update book information!");
     }
   },
   created: function created() {
@@ -609,7 +658,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.search {\r\n    margin-top: 10px;\n}\n.search-icon {\n}\n.search-typing {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    text-indent: 30px;\r\n    /* background: url(../assets/hcmut1.png) no-repeat;\r\n    background-size: 10px 10px; */\r\n    background: url(" + escape(__webpack_require__(/*! ../assets/search-icon.png */ "./resources/js/assets/search-icon.png")) + ") no-repeat scroll 5px 5px; \r\n    background-size: 15px 15px;\n}\n.text-category {\r\n    color: #0084B4;\r\n    font-weight: bold;\r\n    font-size: 18px;\n}\n.category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.search-button {\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.search-button:hover {\r\n    background-color: #0084B4;\n}\n.search-button:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.list-book {\r\n    margin-top: 30px;\n}\n.icon {\r\n    margin-top: -7px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.search {\r\n    margin-top: 10px;\n}\n.search-icon {\n}\n.search-typing {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    text-indent: 30px;\r\n    /* background: url(../assets/hcmut1.png) no-repeat;\r\n    background-size: 10px 10px; */\r\n    background: url(" + escape(__webpack_require__(/*! ../assets/search-icon.png */ "./resources/js/assets/search-icon.png")) + ") no-repeat scroll 5px 5px; \r\n    background-size: 15px 15px;\n}\n.text-category {\r\n    color: #0084B4;\r\n    font-weight: bold;\r\n    font-size: 18px;\n}\n.category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.search-category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    width: 145px;\r\n    height: 30px;\n}\n.search-button {\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.search-button:hover {\r\n    background-color: #0084B4;\n}\n.search-button:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.list-book {\r\n    margin-top: 30px;\n}\n.icon {\r\n    margin-top: -7px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -628,7 +677,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header-update {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle-update {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle-update:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle-update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.update {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.update:hover {\r\n    background-color: #0084B4;\n}\n.update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n", ""]);
+exports.push([module.i, "\n.header-update {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.select-category {\r\n    width: 684px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.select-language {\r\n    width: 210px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle-update {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle-update:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle-update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.update {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.update:hover {\r\n    background-color: #0084B4;\n}\n.update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n", ""]);
 
 // exports
 
@@ -1601,10 +1650,43 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-3 text-left" }, [
-          _c("input", {
-            staticClass: "category",
-            attrs: { type: "text", placeholder: "Choose..." }
-          })
+          _c("select", { staticClass: "search-category" }, [
+            _c("option", { attrs: { value: "Choose..." } }),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Business" } }, [
+              _vm._v("Business")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Comic" } }, [_vm._v("Comic")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Technology" } }, [
+              _vm._v("Technology")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Cooking" } }, [_vm._v("Cooking")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Education" } }, [
+              _vm._v("Education")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Self-help" } }, [
+              _vm._v("Self-help")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "History" } }, [_vm._v("History")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Sports" } }, [_vm._v("Sports")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Travel" } }, [_vm._v("Travel")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Health" } }, [_vm._v("Health")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Literature" } }, [
+              _vm._v("Literature")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "Literature" } }, [_vm._v("Novel")])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
@@ -1729,27 +1811,76 @@ var render = function() {
         _vm._m(3),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.book.category,
-                expression: "book.category"
-              }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "80" },
-            domProps: { value: _vm.book.category },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.book.category,
+                  expression: "book.category"
                 }
-                _vm.$set(_vm.book, "category", $event.target.value)
+              ],
+              staticClass: "select-category",
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.book,
+                    "category",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            }
-          })
+            },
+            [
+              _c("option", { attrs: { value: "Business" } }, [
+                _vm._v("Business")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Comic" } }, [_vm._v("Comic")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Technology" } }, [
+                _vm._v("Technology")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Cooking" } }, [
+                _vm._v("Cooking")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Education" } }, [
+                _vm._v("Education")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Self-help" } }, [
+                _vm._v("Self-help")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "History" } }, [
+                _vm._v("History")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Sports" } }, [_vm._v("Sports")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Travel" } }, [_vm._v("Travel")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Health" } }, [_vm._v("Health")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Literature" } }, [
+                _vm._v("Literature")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Novel" } }, [_vm._v("Novel")])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -1975,27 +2106,59 @@ var render = function() {
         _vm._m(11),
         _vm._v(" "),
         _c("div", { staticClass: "col-3 text-left field-right" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.book.language,
-                expression: "book.language"
-              }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "21" },
-            domProps: { value: _vm.book.language },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.book.language,
+                  expression: "book.language"
                 }
-                _vm.$set(_vm.book, "language", $event.target.value)
+              ],
+              staticClass: "select-language",
+              attrs: { "data-placeholder": "Choose a Language..." },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.book,
+                    "language",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            }
-          })
+            },
+            [
+              _c("option", { attrs: { value: "Vietnamese" } }, [
+                _vm._v("Vietnamese")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "English" } }, [
+                _vm._v("English")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Chinese" } }, [
+                _vm._v("Chinese")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Korean" } }, [_vm._v("Korean")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "French" } }, [_vm._v("French")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "\tJapanese" } }, [
+                _vm._v("\tJapanese")
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
@@ -2071,9 +2234,14 @@ var render = function() {
               {
                 staticClass: "update",
                 on: {
-                  click: function($event) {
-                    return _vm.updateBook(_vm.bookID)
-                  }
+                  click: [
+                    function($event) {
+                      return _vm.updateBook(_vm.bookID)
+                    },
+                    function($event) {
+                      return _vm.sucess_update()
+                    }
+                  ]
                 }
               },
               [_vm._v("Update")]

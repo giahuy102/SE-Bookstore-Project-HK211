@@ -41,7 +41,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    sucess_alert: function sucess_alert() {
+      alert("Successfully change password!");
+    }
+  }
+});
 
 /***/ }),
 
@@ -125,6 +131,9 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response);
       });
+    },
+    success_change_info: function success_change_info() {
+      alert("Sucessfully change information!");
     }
   }
 });
@@ -267,7 +276,18 @@ var render = function() {
               _c("button", { staticClass: "cancle" }, [_vm._v("Cancle")])
             ]),
             _vm._v(" "),
-            _c("button", { staticClass: "change" }, [_vm._v("Change")])
+            _c(
+              "button",
+              {
+                staticClass: "change",
+                on: {
+                  click: function($event) {
+                    return _vm.sucess_alert()
+                  }
+                }
+              },
+              [_vm._v("Change")]
+            )
           ],
           1
         )
@@ -494,9 +514,14 @@ var render = function() {
               {
                 staticClass: "change",
                 on: {
-                  click: function($event) {
-                    return _vm.updateUser(_vm.userID)
-                  }
+                  click: [
+                    function($event) {
+                      return _vm.updateUser(_vm.userID)
+                    },
+                    function($event) {
+                      return _vm.success_change_info()
+                    }
+                  ]
                 }
               },
               [_vm._v("Change")]
