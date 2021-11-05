@@ -7,6 +7,7 @@
                     <a href="#" id="buy-link" class="d-flex justify-content-center align-items-center">Buy now</a>
                     <a href="#" id="detail-link" class="d-flex justify-content-center align-items-center">See details</a>
                 </div>
+                <img src="/images/harry-potter-1.png" alt="">
             </div>
 
         </div>
@@ -29,7 +30,7 @@
             <div class="container-custom">
                 <h3>Popular Books this Week</h3>
                 <div class="d-flex flex-wrap justify-content-between">
-                    <a href="#">
+                    <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
                     <a href="#">
@@ -43,16 +44,26 @@
                     </a>
                     <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
+                    </a> -->
+
+
+                    <a v-for="book in popularBooks"
+                        :key="book.id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                    >
+                        <img :src="'/images/' + book.image" :alt="book.name">
                     </a>
 
                 </div>
+
+                
             </div>
 
             <div class="container-custom">
                 <h3>Best Seller</h3>
 
                 <div class="d-flex flex-wrap justify-content-between">
-                    <a href="#">
+                    <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
                     <a href="#">
@@ -66,8 +77,13 @@
                     </a>
                     <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
+                    </a> -->
+                    <a v-for="book in bestSellers"
+                        :key="book.id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                    >
+                        <img :src="'/images/' + book.image" :alt="book.name">
                     </a>
-
                 </div>
             </div>
 
@@ -77,7 +93,7 @@
 
 
                 <div class="d-flex flex-wrap justify-content-between">
-                    <a href="#">
+                    <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
                     <a href="#">
@@ -91,8 +107,13 @@
                     </a>
                     <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
+                    </a> -->
+                    <a v-for="book in specialDiscounts"
+                        :key="book.id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                    >
+                        <img :src="'/images/' + book.image" :alt="book.name">
                     </a>
-
                 </div>
             </div>
         </div>
@@ -102,9 +123,45 @@
 
 <script>
 export default {
-    setup() {
-        
+    props: ['books', 'categories'],
+    data() {
+        return {
+            popularBooks: [],
+            bestSellers: [],
+            specialDiscounts: []
+        }
     },
+    methods: {
+        getPopularBooks() {
+            this.popularBooks = this.books.slice();
+            this.popularBooks.sort(function(a, b) {
+                return b.num_view - a.num_view;
+            })
+            this.popularBooks.slice(0, 5);
+
+        },
+        getBestSellers() {
+            this.bestSellers = this.books.slice();
+            this.bestSellers.sort(function(a, b) {
+                return b.num_sale - a.num_sale;
+            })
+            this.popularBooks.slice(0, 5);
+
+        },
+        getSpecialDiscounts() {
+            this.specialDiscounts = this.books.slice();
+            this.specialDiscounts.sort(function(a, b) {
+                return b.discount - a.discount;
+            })
+            this.specialDiscounts.slice(0, 5);
+        }
+    },
+    mounted() {
+        console.log(this.categories);
+        this.getPopularBooks();
+        this.getBestSellers();
+        this.getSpecialDiscounts();
+    }
 }
 
 
@@ -136,9 +193,29 @@ a {
 
 #hot-sale {
     padding-top: 100px;
+    
 }
 
 
+
+#hot-sale .container-custom {
+    position: relative;
+}
+
+#hot-sale img {
+    position: absolute;
+    right: 150px;
+    top: -50px;
+    display: inline-block;
+    height: 422px;
+    width: 291px;
+    cursor: pointer;
+}
+
+#detail-link:hover {
+    background-color: #113963;
+    color: white;
+}
 
 #button-link-group {
     margin-top: 40px;
@@ -177,6 +254,7 @@ a {
 
 #book-list img {
     width: 100%;
+    height: 355px;
 }
 
 #book-list h3 {

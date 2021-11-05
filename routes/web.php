@@ -21,8 +21,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('', 'HomePageController@index');
-Route::get('/category', 'CategoryController@index');
-Route::get('/detail', 'DetailController@index');
+Route::get('/detail/{id}', 'DetailController@index');
+Route::get('/category/{type}', 'CategoryController@index');
 
 
 Auth::routes();

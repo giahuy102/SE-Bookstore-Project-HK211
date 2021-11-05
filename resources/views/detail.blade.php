@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <detail-component></detail-component>
+        <detail-component :book="{{ $book }}" :category="{{ $category }}"></detail-component>
     </div>
 
     <script src="{{ mix('js/detail.js') }}"></script>

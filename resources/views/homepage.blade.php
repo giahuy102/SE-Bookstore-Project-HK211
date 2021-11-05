@@ -23,10 +23,9 @@
 </head>
 <body>
     <div id="app">
-        
         <header-component></header-component>
         
-        <home-component></home-component>
+        <home-component :books="{{ $books }}" :categories="{{ $categories }}"></home-component>
         <footer-component></footer-component>
     </div>
 
