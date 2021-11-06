@@ -1,56 +1,62 @@
 <template>
-  <div class="purchasedPage">
-    <!-- <router-link :to="{ name: 'ordermanagement' }">
+  <div>
+    <header-component />
+    <div class="purchasedPage">
+      <!-- <router-link :to="{ name: 'ordermanagement' }">
       <button class="goBackButton">
         <font-awesome-icon icon="arrow-circle-left" class="goBackIcon" />
       </button>
     </router-link> -->
-    <div class="bigTitle">
-      <div class="box-placeholder"></div>
-      <div>
-        <h1><strong>Purchased</strong></h1>
-      </div>
-    </div>
-
-    <div class="cart">
-      <div class="headerCart">
-        <div class="product">Product</div>
-        <div class="unitPrice">Unit Price</div>
-        <div class="quantity">Quantity</div>
-        <div class="price">Price(USD)</div>
-        <div class="state">State</div>
+      <div class="bigTitle">
+        <div class="box-placeholder"></div>
+        <div>
+          <h1><strong>Purchased</strong></h1>
+        </div>
       </div>
 
-      <div class="itemCart" v-for="item in itemPurchased" :key="item.id">
-        <div class="product">
-          <img class="image" v-bind:src="item.image" />
-          <div class="title-rating">
-            <p>{{ item.name }}</p>
-            <div class="rating">
-              <i class="fas fa-star"></i>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
+      <div class="cart">
+        <div class="headerCart">
+          <div class="product">Product</div>
+          <div class="unitPrice">Unit Price</div>
+          <div class="quantity">Quantity</div>
+          <div class="price">Price(USD)</div>
+          <div class="state">State</div>
+        </div>
+
+        <div class="itemCart" v-for="item in itemPurchased" :key="item.id">
+          <div class="product">
+            <img class="image" v-bind:src="item.image" />
+            <div class="title-rating">
+              <p>{{ item.name }}</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star checked"></span>
+                <span class="fa fa-star"></span>
+                <span class="fa fa-star"></span>
+              </div>
             </div>
           </div>
+          <div class="unitPrice">{{ item.unitPrice }}</div>
+          <div class="quantity">
+            <span class="quantity">{{ item.quantity }}</span>
+          </div>
+          <div class="price">
+            {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
+          </div>
+          <div class="state" v-bind:id="item.state">{{ item.state }}</div>
         </div>
-        <div class="unitPrice">{{ item.unitPrice }}</div>
-        <div class="quantity">
-          <span class="quantity">{{ item.quantity }}</span>
-        </div>
-        <div class="price">
-          {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
-        </div>
-        <div class="state" v-bind:id="item.state">{{item.state}}</div>
       </div>
-
     </div>
+    <footer-component />
   </div>
 </template>
 
 <script>
+import FooterComponent from "./FooterComponent.vue";
+import HeaderComponent from "./HeaderComponent.vue";
 export default {
+  components: { FooterComponent, HeaderComponent },
   data: function () {
     return {
       itemPurchased: {},
@@ -245,7 +251,6 @@ p.totalPrice {
   margin-right: 20px;
 }
 
-
 .itemCart .state {
   font-size: 14px;
   color: white;
@@ -254,14 +259,14 @@ p.totalPrice {
 }
 
 #COMPLETED {
-  background-color: #00A410;
+  background-color: #00a410;
 }
 
 #CANCELLED {
-  background-color: #FE0000;
+  background-color: #fe0000;
 }
 
 #PROCESSING {
-  background-color: #FEC400;
+  background-color: #fec400;
 }
 </style>

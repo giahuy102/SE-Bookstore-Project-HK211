@@ -1,60 +1,66 @@
 <template>
-  <div class="paymentPage">
-    <!-- <payment-popup-result result:"1"> -->
-    <div class="bigTitle">
-      <div class="box-placeholder"></div>
-      <div>
-        <h1><strong>Payment</strong></h1>
+  <div>
+    <header-component/>
+    <div class="paymentPage">
+      <!-- <payment-popup-result result:"1"> -->
+      <div class="bigTitle">
+        <div class="box-placeholder"></div>
+        <div>
+          <h1><strong>Payment</strong></h1>
+        </div>
+      </div>
+
+      <div class="formPayment">
+        <label for="cardNumber">CARD NUMBER</label>
+        <input
+          v-model="cardNumber"
+          type="text"
+          size="10"
+          class="form-control"
+          name="cardNumber"
+          placeholder="Valid Card Number"
+          autocomplete="cc-number"
+          required
+          autofocus
+        />
+        <!-- <span class="input-group-addon"><i class="fa fa-credit-card"></i></span> -->
+        <label for="cardExpir">EXPIRATION DATE</label>
+        <input
+          v-model="cardExpir"
+          type="text"
+          size="5"
+          class="form-control"
+          name="cardExpiry"
+          placeholder="MM / YY"
+          autocomplete="cc-exp"
+          required
+        />
+        <label for="cardCVC">CV CODE</label>
+        <input
+          v-model="cardCVC"
+          type="text"
+          size="3"
+          class="form-control"
+          name="cardCVC"
+          placeholder="CVC"
+          autocomplete="cc-csc"
+          required
+        />
+
+        <button class="blueButton" type="submit" @click="checkForm">
+          Confirm Payment
+        </button>
       </div>
     </div>
-
-    <div class="formPayment">
-      <label for="cardNumber">CARD NUMBER</label>
-      <input
-        v-model="this.cardNumber"
-        type="text"
-        size="10"
-        class="form-control"
-        name="cardNumber"
-        placeholder="Valid Card Number"
-        autocomplete="cc-number"
-        required
-        autofocus
-      />
-      <!-- <span class="input-group-addon"><i class="fa fa-credit-card"></i></span> -->
-      <label for="cardExpir">EXPIRATION DATE</label>
-      <input
-        v-model="cardExpir"
-        type="text"
-        size="5"
-        class="form-control"
-        name="cardExpiry"
-        placeholder="MM / YY"
-        autocomplete="cc-exp"
-        required
-      />
-      <label for="cardCVC">CV CODE</label>
-      <input
-        v-model="cardCVC"
-        type="text"
-        size="3"
-        class="form-control"
-        name="cardCVC"
-        placeholder="CVC"
-        autocomplete="cc-csc"
-        required
-      />
-
-      <button class="blueButton" type="submit" @click="checkForm">
-        Confirm Payment
-      </button>
-    </div>
+    <footer-component/>
   </div>
 </template>
 
 <script>
 // import PaymentPopupResult from './PaymentPopupResult.vue';
 import swal from "sweetalert";
+import HeaderComponent from './HeaderComponent.vue';
+import FooterComponent from './FooterComponent.vue';
 export default {
   data: {
     cardNumber: null,
@@ -62,6 +68,8 @@ export default {
     cardCVC: null,
   },
   components: {
+    HeaderComponent,
+    FooterComponent
     // PaymentPopupResult,
   },
   methods: {

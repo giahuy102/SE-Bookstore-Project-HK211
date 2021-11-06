@@ -1,88 +1,95 @@
 <template>
-  <div class="cartPage">
-    <!-- <router-link :to="{ name: 'ordermanagement' }">
+  <div>
+    <header-component />
+    <div class="cartPage">
+      
+      <!-- <router-link :to="{ name: 'ordermanagement' }">
       <button class="goBackButton">
         <font-awesome-icon icon="arrow-circle-left" class="goBackIcon" />
       </button>
     </router-link> -->
 
-    <div class="bigTitle">
-      <div class="box-placeholder"></div>
-      <div>
-        <h1><strong>Cart</strong></h1>
+      <div class="bigTitle">
+        <div class="box-placeholder"></div>
+        <div>
+          <h1><strong>Cart</strong></h1>
+        </div>
       </div>
-    </div>
-    <empty-cart v-if="itemCart.length === 0" />
-    <div class="cart" v-else>
-      <div class="headerCart">
-        <div class="select" style="text-align: left">Select</div>
-        <div class="product">Product</div>
-        <div class="unitPrice">Unit Price</div>
-        <div class="quantity">Quantity</div>
-        <div class="price">Price(USD)</div>
-      </div>
+      <empty-cart v-if="itemCart.length === 0" />
+      <div class="cart" v-else>
+        <div class="headerCart">
+          <div class="select" style="text-align: left">Select</div>
+          <div class="product">Product</div>
+          <div class="unitPrice">Unit Price</div>
+          <div class="quantity">Quantity</div>
+          <div class="price">Price(USD)</div>
+        </div>
 
-      <div class="itemCart" v-for="(item, index) in itemCart" :key="item.id">
-        <input
-          class="select"
-          type="checkbox"
-          v-model="selected"
-          :value="item.id"
-          number
-        />
-        <div class="product">
-          <img class="image" v-bind:src="item.image" />
-          <div class="title-rating">
-            <p>{{ item.name }}</p>
-            <!-- <div class="rating">
+        <div class="itemCart" v-for="(item, index) in itemCart" :key="item.id">
+          <input
+            class="select"
+            type="checkbox"
+            v-model="selected"
+            :value="item.id"
+            number
+          />
+          <div class="product">
+            <img class="image" v-bind:src="item.image" />
+            <div class="title-rating">
+              <p>{{ item.name }}</p>
+              <!-- <div class="rating">
               <i class="fas fa-star"></i>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
             </div> -->
+            </div>
+          </div>
+          <div class="unitPrice">{{ item.unitPrice }}</div>
+          <div class="quantity">
+            <font-awesome-icon
+              icon="minus-circle"
+              class="button minus"
+              v-on:click="changeQuantity(index, -1)"
+            />
+            <span class="quantity">{{ item.quantity }}</span>
+            <font-awesome-icon
+              icon="plus-circle"
+              class="button plus"
+              v-on:click="changeQuantity(index, 1)"
+            />
+          </div>
+          <div class="price">
+            {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
           </div>
         </div>
-        <div class="unitPrice">{{ item.unitPrice }}</div>
-        <div class="quantity">
-          <font-awesome-icon
-            icon="minus-circle"
-            class="button minus"
-            v-on:click="changeQuantity(index, -1)"
-          />
-          <span class="quantity">{{ item.quantity }}</span>
-          <font-awesome-icon
-            icon="plus-circle"
-            class="button plus"
-            v-on:click="changeQuantity(index, 1)"
-          />
-        </div>
-        <div class="price">
-          {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
-        </div>
-      </div>
 
-      <div class="footerCart">
-        <input class="select" type="checkbox" v-model="selectAll" />
-        <button class="selectAll" @click="toggleSelect">Select all</button>
-        <button class="delete" @click="deleteSelect">Delete</button>
-        <div class="total">
-          <p class="totalPayment">Total Payment</p>
-          <p class="totalPrice">{{ totalCal() }}</p>
+        <div class="footerCart">
+          <input class="select" type="checkbox" v-model="selectAll" />
+          <button class="selectAll" @click="toggleSelect">Select all</button>
+          <button class="delete" @click="deleteSelect">Delete</button>
+          <div class="total">
+            <p class="totalPayment">Total Payment</p>
+            <p class="totalPrice">{{ totalCal() }}</p>
+          </div>
         </div>
-      </div>
 
-      <div class="purchases">
-        <button class="blueButton">Purchases</button>
+        <div class="purchases">
+          <button class="blueButton">Purchases</button>
+        </div>
       </div>
     </div>
+    <footer-component/>
   </div>
 </template>
 
 <script>
 import EmptyCart from "./EmptyCart.vue";
+import FooterComponent from './FooterComponent.vue';
+import HeaderComponent from "./HeaderComponent.vue";
 export default {
-  components: { EmptyCart },
+  components: { EmptyCart, HeaderComponent, FooterComponent },
   data: function () {
     return {
       itemCart: {},
@@ -211,9 +218,9 @@ export default {
   font-family: inter, Courier, monospace;
   background-color: #ebedef;
 }
-.cartPage .emptyCart{
+.cartPage .emptyCart {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
 }
 .select {
