@@ -21,7 +21,7 @@
           <div class="row button-below">
                 <div class="col-3"></div> 
                 <div class="col text-right">
-                  <router-link to="/admin"> <button class="cancle">Cancle</button> </router-link>
+                  <router-link to="/admin"> <button class="cancle">Cancel</button> </router-link>
                   <button class="change" v-on:click="sucess_alert()">Change</button>
                 </div>  
           </div>

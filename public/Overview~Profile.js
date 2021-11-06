@@ -273,7 +273,7 @@ var render = function() {
           { staticClass: "col text-right" },
           [
             _c("router-link", { attrs: { to: "/admin" } }, [
-              _c("button", { staticClass: "cancle" }, [_vm._v("Cancle")])
+              _c("button", { staticClass: "cancle" }, [_vm._v("Cancel")])
             ]),
             _vm._v(" "),
             _c(
@@ -506,7 +506,7 @@ var render = function() {
           { staticClass: "col text-right" },
           [
             _c("router-link", { attrs: { to: "/admin" } }, [
-              _c("button", { staticClass: "cancle" }, [_vm._v("Cancle")])
+              _c("button", { staticClass: "cancle" }, [_vm._v("Cancel")])
             ]),
             _vm._v(" "),
             _c(
