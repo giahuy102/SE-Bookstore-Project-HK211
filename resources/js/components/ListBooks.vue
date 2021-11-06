@@ -48,7 +48,7 @@
 
             <tbody>
                 <tr v-for="item in items" :key="item.id" v-on:orderchanged="getList()">
-                    <td > {{item.id}} </td>
+                    <td  > {{item.id}} </td>
                     <td > {{item.title}} </td>
                     <td > {{item.selling_price}} </td>
                     <td > {{item.quantity}} </td>

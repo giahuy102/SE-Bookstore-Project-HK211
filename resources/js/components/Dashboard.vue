@@ -3,7 +3,11 @@
         <Sidebar/>
         <div class=".container-fluid no-padding content">
             <div class="row header">
-                <div class="col-2"> </div>
+                <div class="col-2 text-left"> 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list side-bar" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg> 
+                </div>
                 <div class="col-10 text-right">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle icon-admin" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
@@ -82,9 +86,15 @@ export default {
     border-bottom: 2px solid #D8DBE0;
 }
 
+.side-bar {
+    margin-left: 10px;
+    margin-top: 15px;
+}
+
 .icon-admin {
    margin-top: 18px;
    margin-right: 15px;
 }
+
 
 </style>

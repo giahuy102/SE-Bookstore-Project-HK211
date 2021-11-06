@@ -776,7 +776,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col text-right" }, [
           _c("button", { staticClass: "cancle", on: { click: _vm.refresh } }, [
-            _vm._v("Cancle")
+            _vm._v("Cancel")
           ]),
           _vm._v(" "),
           _c(

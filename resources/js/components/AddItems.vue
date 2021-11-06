@@ -91,7 +91,7 @@
             <div class="row button-below">
                 <div class="col-3"></div> 
                 <div class="col text-right">
-                <button class="cancle" @click="refresh">Cancle</button>
+                <button class="cancle" @click="refresh">Cancel</button>
                 <button class="addbook" @click="createBook" v-on:click="success_add_book()">Add book</button>
                 </div>
             </div>
