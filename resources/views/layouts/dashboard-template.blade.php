@@ -39,7 +39,7 @@
                 </li>
                 <li class="active">
                     <!-- <a href="{{ route('dashboard') }}"><img src="images/dashboard-icon.svg" alt=""> Dashboard</a> -->
-                    <a href="#"><img src="images/dashboard-icon.svg" alt="" class="pl-2 pr-2"> Dashboard</a>
+                    <a href="{{route('dashboard')}}"><img src="images/dashboard-icon.svg" alt="" class="pl-2 pr-2"> Dashboard</a>
                 </li>
 
             </ul>
@@ -65,7 +65,7 @@
                                 <button class="btn bg-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 50%;">
                                     <img src="images/person.svg" alt=""  width="40px">
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#">Logout</a>
                                     <a class="dropdown-item" href="#">Account info</a>
 

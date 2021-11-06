@@ -5,9 +5,9 @@
   <div class="inner-container">
     <div class="button-gr text-center pb-2">
       <div class="btn-group" role="group" aria-label="Basic example">
-        <a href="{{route('dashboard')}}"  role="button" class="btn btn-primary" style="border-radius: 45% 0 0 45%; width:4.5rem;border: 1px solid #0084B4">Day</a>
-        <a href="{{route('dashboard_w')}}" role="button" class="btn" style="width:4.5rem; border: 1px solid #0084B4">Week</a>
-        <a href="{{route('dashboard_m')}}" role="button" class="btn" style="border-radius: 0 45% 45% 0;width:4.5rem; border: 1px solid #0084B4">Month</a>
+        <a href="{{route('dashboard')}}"   role="button" class="btn" style="border-radius: 45% 0 0 45%; width:4.5rem;border: 1px solid #0084B4">Day</a>
+        <a href="{{route('dashboard_w')}}"role="button" class="btn" style="width:4.5rem; border: 1px solid #0084B4">Week</a>
+        <a href="{{route('dashboard_m')}}"role="button" class="btn btn-primary" style="border-radius: 0 45% 45% 0;width:4.5rem; border: 1px solid #0084B4">Month</a>
       </div>
     </div>
     <div class="row pt-2 pb-3">
@@ -63,7 +63,7 @@
     <div class="col-8 ">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title"> Today's Sale </h5>
+          <h5 class="card-title"> Monthly Sale </h5>
           <h6 class="card-subtitle mb-2 text-muted">as of 01 Nov 2021, 9:00PM</h6>
           <canvas id="salechart" height="455px" style="width:100%;max-width:600px"></canvas>
         </div>
@@ -162,7 +162,7 @@
     var day_label = [];
     var today_value = [];
     var yesterday_value = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 1; i <= 30; i++) {
       day_label.push(i);
       today_value.push(getRndInteger(2, 10));
       yesterday_value.push(getRndInteger(2, 10));
@@ -173,7 +173,7 @@
         labels: day_label,
         datasets: [{
 
-            label: 'Today',
+            label: 'This month',
             fill: false,
             data: today_value,
             backgroundColor: 'rgba(255, 99, 132, 0.7)',
@@ -181,7 +181,7 @@
             borderWidth: 1
           },
           {
-            label: 'Yesterday',
+            label: 'Last month',
             data: yesterday_value,
             fill: false,
             backgoundColor: 'rgba(0, 128, 128, 0.7)',

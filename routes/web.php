@@ -26,6 +26,8 @@ Route::get('/detail', function () {
     return view('detail');
 });
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/dashboardw', 'DashboardController@show_dashboardw')->name('dashboard_w');
+Route::get('/dashboardm', 'DashboardController@show_dashboardm')->name('dashboard_m');
 
 Route::get('', 'HomePageController@index');
 Route::get('/category', 'CategoryController@index');
