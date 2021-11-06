@@ -14,23 +14,34 @@ class CategoryController extends Controller
 {
     //
     public function index(Request $request, $type) {
-        // $books = DB::table('book')->leftJoin('category', 'book.category_id', '=', 'category.id');
-        // if (!ctype_digit($type)) {
-        //     if ($type == 'best_seller') {
-        //         $books = $books->orderBy('num_sale', 'DESC')->take(10)->get();
-        //         print_r($books);
-        //     }
-        //     else if ($type == "special_discount") {
-        //         $books = $books->orderBy('discount', 'DESC')->take(10);
-        //     }
-        //     else if ($type == "popular_week") {
-        //         $books = $books->orderBy('num_view', 'DESC')->take(10);
-        //     }
-        //     else abort(404);
-        // }
-        // else {
-        //     $books = $books->where('category_id', $type)->get();
-        // }
-        return view('category');
+        $books = DB::table('book')->join('category', 'book.category_id', '=', 'category.cid');
+        $returnType = NULL;
+        if (!ctype_digit($type)) {
+            if ($type == 'best_seller') {
+                $books = $books->orderBy('num_sale', 'DESC')->take(10)->get();
+                $returnType = 'Best Seller';
+            }
+            else if ($type == "special_discount") {
+                $books = $books->orderBy('discount', 'DESC')->take(10)->get();
+                $returnType = "Special Discount";
+            }
+            else if ($type == "popular_week") {
+                $books = $books->orderBy('num_view', 'DESC')->take(10)->get();
+                $returnType = "Popular This Week";
+            }
+            else abort(404);
+        }
+        else {
+            $books = $books->where('category_id', $type)->get();
+            if (count($books->toArray()) == 0) abort(404);
+            else {
+                $category = DB::table('category')->where('cid', $type)->get();
+            }
+        }
+        // return view('category')->with('books', $books)->with('category', $returnType);
+        return view('category')->with([
+            'books' => $books,
+
+        ]);
     }
 }

@@ -23,7 +23,9 @@
 </head>
 <body>
     <div id="app">
+        <header-component></header-component>
         <detail-component :book="{{ $book }}" :category="{{ $category }}"></detail-component>
+        <footer-component></footer-component>
     </div>
 
     <script src="{{ mix('js/detail.js') }}"></script>

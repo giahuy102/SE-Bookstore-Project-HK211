@@ -5,9 +5,9 @@
                 <h3>Hot Sale!</h3>
                 <div id="button-link-group" class="d-flex">
                     <a href="#" id="buy-link" class="d-flex justify-content-center align-items-center">Buy now</a>
-                    <a href="#" id="detail-link" class="d-flex justify-content-center align-items-center">See details</a>
+                    <a href="/detail/3" id="detail-link" class="d-flex justify-content-center align-items-center">See details</a>
                 </div>
-                <img src="/images/harry-potter-1.png" alt="">
+                <img src="/images/imaginary-friend.png" alt="">
             </div>
 
         </div>
@@ -23,12 +23,29 @@
                     <p>fsfsfsfsfs</p>
                 </SplideSlide>
             </Splide> -->
+            <h2>Explore The World with This Categories of Books</h2>
+            <Flicking :options="{ circular: true }" :plugins="plugins">
+                <!-- <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
+                <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
+                <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div> -->
+                <div  v-for="category in categories" :key="category.cid" class="card-panel">
+                    <a :href="'/category/' + category.cid">
+                        <img :src="'/images/' + category.category_image" alt="">
+                    </a>
+                    
+                </div>
+                <span slot="viewport" class="flicking-arrow-prev"></span>
+                <span slot="viewport" class="flicking-arrow-next"></span>
+            </Flicking>    
+
         </div>
 
 
         <div id="book-list">
             <div class="container-custom">
-                <h3>Popular Books this Week</h3>
+                <h3>
+                    <a href="/category/popular_week">Popular Books this Week</a>
+                </h3>
                 <div class="d-flex flex-wrap justify-content-between">
                     <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
@@ -60,7 +77,10 @@
             </div>
 
             <div class="container-custom">
-                <h3>Best Seller</h3>
+                <h3>
+                    <a href="/category/best_seller">Best seller</a>
+                </h3>
+
 
                 <div class="d-flex flex-wrap justify-content-between">
                     <!-- <a href="#">
@@ -89,8 +109,10 @@
 
 
             <div class="container-custom">
-                <h3>Special Discount</h3>
 
+                <h3>
+                    <a href="/category/special_discount">Special Discount</a>
+                </h3>
 
                 <div class="d-flex flex-wrap justify-content-between">
                     <!-- <a href="#">
@@ -122,13 +144,17 @@
 
 
 <script>
+import { Arrow } from "@egjs/flicking-plugins";
+import "@egjs/flicking-plugins/dist/arrow.css";
+
 export default {
     props: ['books', 'categories'],
     data() {
         return {
             popularBooks: [],
             bestSellers: [],
-            specialDiscounts: []
+            specialDiscounts: [],
+            plugins: [new Arrow()]
         }
     },
     methods: {
@@ -169,6 +195,8 @@ export default {
 
 
 <style scoped>
+
+
 
 a {
     text-decoration: none;
@@ -248,21 +276,54 @@ a {
 }
 
 
-#book-list a {
+/* #book-list a {
     width: 18%;
-}
+} */
 
 #book-list img {
-    width: 100%;
+    width: 222.18px;
     height: 355px;
 }
 
-#book-list h3 {
+#book-list h3 a {
     margin-top: 60px;
     margin-bottom: 50px;
     font-family: "Inria Serif";
     font-weight: 700;
     color: #011445;
     font-size: 40px;
+    display: inline-block;
+
+}
+
+
+.card-panel {
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+
+#category {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-image: url("/images/background-category.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background:linear-gradient(0deg, rgba(1, 14, 33, 0.8), rgba(1, 14, 33, 0.8)), url(/images/background-category.png);
+}
+
+#category h2 {
+    text-align: center;
+    font-family: "Inria Serif";
+    font-size: 45px;
+    font-weight: 700;
+    color: white;
+    padding-bottom: 70px;
+
+}
+
+#category img {
+    width: 255px;
+    height: 420px;
 }
 </style>

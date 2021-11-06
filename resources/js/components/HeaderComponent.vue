@@ -37,19 +37,19 @@
                             CATEGORY
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="/category/1">Fantasy</a>
+                            <a class="dropdown-item" href="/category/2">Horror</a>
+                            <a class="dropdown-item" href="/category/3">Romance</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-15 d-flex align-items-center">
-                    <a href="#">BEST SELLER</a>
+                    <a href="/category/best_seller">BEST SELLER</a>
                 </div>
 
                 <div class="col-15 d-flex align-items-center">
-                    <a href="#">DISCOUNT</a>
+                    <a href="/category/special_discount">DISCOUNT</a>
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-center">
@@ -86,6 +86,7 @@ export default {
 #header {
     background-color: rgba(0, 32, 69, 0.91);
     height: 68px;
+    margin-bottom: 30px;
 }
 
 .col-15 {

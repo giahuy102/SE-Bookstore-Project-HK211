@@ -18,7 +18,7 @@ class DetailController extends Controller
         if (!$book) {
             abort(404);
         }
-        $category = Category::where('id', $book->category_id)->first();
+        $category = Category::where('cid', $book->category_id)->first();
 
         return view("detail")->with([
             'book' => $book,

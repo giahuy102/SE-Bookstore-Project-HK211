@@ -26,6 +26,21 @@
  // Import Bootstrap an BootstrapVue CSS files (order is important)
  import 'bootstrap/dist/css/bootstrap.css'
  import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+
+
+
+
+
+ import Flicking from "@egjs/vue-flicking";
+ import "@egjs/vue-flicking/dist/flicking.css";
+
+ Vue.use(Flicking);
+
+
+
+
+
  
  // Make BootstrapVue available throughout your project
  Vue.use(BootstrapVue)
