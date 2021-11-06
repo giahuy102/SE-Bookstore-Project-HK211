@@ -1,35 +1,34 @@
 <template>
     <div class="dashboard">
-        <Sidebar/>
+        <Sidebar id="sidebar"/>
         <div class=".container-fluid no-padding content">
             <div class="row header">
+                
+                
+                
                 <div class="col-2 text-left"> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list side-bar" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg> 
                 </div>
-                <div class="col-10 text-right">
+
+
+                <!-- <div class="col-10 text-right">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle icon-admin" viewBox="0 0 16 16">
                     <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                     <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                     </svg>
+                </div> -->
+
+
+                <div class="col text-right dropdown">
+                    <button style="border-radius: 50%;" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="../assets/person.svg" alt=""  width="40px">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/">Logout</a>
+                    </div>
                 </div>
-
-                <!-- Example single danger button -->
-
-                <!-- <div class="col-2 dropdown mt-5">  
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">  
-                        Nhan Vo  
-                    </button>  
-                    <div class="dropdown-menu">  
-                        <a href="http://127.0.0.1:8000/">
-                            <i class="fa fa-home"></i> Home 
-                        </a>
-                    </div>  
-                </div>   -->
-
-                
-
 
             </div>
             <router-view/>
@@ -45,8 +44,11 @@ export default {
 
     components: {
         Sidebar
-    }
+    },
+
 }
+
+
 </script>
 
 <style>
