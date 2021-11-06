@@ -7,6 +7,7 @@ import OrderManagement from './components/OrderManagement.vue'
 import CustomerDetail from './components/CustomerDetail.vue'
 import Cart from './components/Cart.vue'
 import Purchase from './components/Purchase.vue'
+import Payment from './components/Payment.vue'
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -37,7 +38,12 @@ const router = new VueRouter({
             path: '/purchase',
             name: 'purchase',
             component: Purchase
-        }
+        },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: Payment
+        },
     ]
 });
 

@@ -16,7 +16,7 @@
       <div class="headerCart">
         <div class="product">Product</div>
         <div class="unitPrice">Unit Price</div>
-        <div class="amount">Amount</div>
+        <div class="quantity">Quantity</div>
         <div class="price">Price(USD)</div>
         <div class="state">State</div>
       </div>
@@ -36,11 +36,11 @@
           </div>
         </div>
         <div class="unitPrice">{{ item.unitPrice }}</div>
-        <div class="amount">
-          <span class="quantity">{{ item.amount }}</span>
+        <div class="quantity">
+          <span class="quantity">{{ item.quantity }}</span>
         </div>
         <div class="price">
-          {{ parseFloat(item.amount * item.unitPrice).toFixed(2) }}
+          {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
         </div>
         <div class="state" v-bind:id="item.state">{{item.state}}</div>
       </div>
@@ -64,7 +64,7 @@ export default {
           id: 0,
           name: "Nha gia kim",
           rating: 4.0,
-          amount: 2,
+          quantity: 2,
           unitPrice: 3.1,
           image:
             "https://eccthai.com/wp-content/uploads/2021/03/nha-gia-kim.jpg",
@@ -74,7 +74,7 @@ export default {
           id: 1,
           name: "Cha giau cha ngheo",
           rating: 5.0,
-          amount: 10,
+          quantity: 10,
           unitPrice: 36.2,
           image:
             "https://chagiauchangheo.club/wp-content/uploads/2018/11/d%E1%BA%A1y-con-l%C3%A0m-gi%C3%A0u-t%E1%BA%ADp-3-cha-gi%C3%A0u-cha-ngh%C3%A8o.jpg",
@@ -84,7 +84,7 @@ export default {
           id: 2,
           name: "Cha giau cha ngheo",
           rating: 5.0,
-          amount: 10,
+          quantity: 10,
           unitPrice: 36.2,
           image:
             "https://chagiauchangheo.club/wp-content/uploads/2018/11/d%E1%BA%A1y-con-l%C3%A0m-gi%C3%A0u-t%E1%BA%ADp-3-cha-gi%C3%A0u-cha-ngh%C3%A8o.jpg",
@@ -115,7 +115,7 @@ export default {
 .unitPrice {
   width: 15%;
 }
-.amount {
+.quantity {
   width: 15%;
 }
 .price {
@@ -175,21 +175,21 @@ export default {
   font-weight: normal;
 }
 
-.amount {
+.quantity {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
 }
-.amount .button {
+.quantity .button {
   margin: 15%;
   background: none;
 }
-.amount .button.minus {
+.quantity .button.minus {
   color: red;
   border-color: red;
 }
-.amount .button.plus {
+.quantity .button.plus {
   color: green;
   border-color: green;
 }

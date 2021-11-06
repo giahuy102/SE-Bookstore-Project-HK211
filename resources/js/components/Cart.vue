@@ -5,60 +5,67 @@
         <font-awesome-icon icon="arrow-circle-left" class="goBackIcon" />
       </button>
     </router-link> -->
+
     <div class="bigTitle">
       <div class="box-placeholder"></div>
       <div>
         <h1><strong>Cart</strong></h1>
       </div>
     </div>
-
-    <div class="cart">
+    <empty-cart v-if="itemCart.length === 0" />
+    <div class="cart" v-else>
       <div class="headerCart">
         <div class="select" style="text-align: left">Select</div>
         <div class="product">Product</div>
         <div class="unitPrice">Unit Price</div>
-        <div class="amount">Amount</div>
+        <div class="quantity">Quantity</div>
         <div class="price">Price(USD)</div>
       </div>
 
       <div class="itemCart" v-for="(item, index) in itemCart" :key="item.id">
-        <input class="select" type="checkbox" />
+        <input
+          class="select"
+          type="checkbox"
+          v-model="selected"
+          :value="item.id"
+          number
+        />
         <div class="product">
           <img class="image" v-bind:src="item.image" />
           <div class="title-rating">
             <p>{{ item.name }}</p>
-            <div class="rating">
+            <!-- <div class="rating">
               <i class="fas fa-star"></i>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star checked"></span>
               <span class="fa fa-star"></span>
               <span class="fa fa-star"></span>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="unitPrice">{{ item.unitPrice }}</div>
-        <div class="amount">
+        <div class="quantity">
           <font-awesome-icon
             icon="minus-circle"
             class="button minus"
-            v-on:click="changeAmount(index, -1)"
+            v-on:click="changeQuantity(index, -1)"
           />
-          <span class="quantity">{{ item.amount }}</span>
+          <span class="quantity">{{ item.quantity }}</span>
           <font-awesome-icon
             icon="plus-circle"
             class="button plus"
-            v-on:click="changeAmount(index, 1)"
+            v-on:click="changeQuantity(index, 1)"
           />
         </div>
         <div class="price">
-          {{ parseFloat(item.amount * item.unitPrice).toFixed(2) }}
+          {{ parseFloat(item.quantity * item.unitPrice).toFixed(2) }}
         </div>
       </div>
 
       <div class="footerCart">
-        <input class="select" type="checkbox" />
-        <button class="selectAll">Select all</button>
-        <button class="delete">Delete</button>
+        <input class="select" type="checkbox" v-model="selectAll" />
+        <button class="selectAll" @click="toggleSelect">Select all</button>
+        <button class="delete" @click="deleteSelect">Delete</button>
         <div class="total">
           <p class="totalPayment">Total Payment</p>
           <p class="totalPrice">{{ totalCal() }}</p>
@@ -66,17 +73,20 @@
       </div>
 
       <div class="purchases">
-        <button>Purchases</button>
+        <button class="blueButton">Purchases</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import EmptyCart from "./EmptyCart.vue";
 export default {
+  components: { EmptyCart },
   data: function () {
     return {
       itemCart: {},
+      selected: [],
     };
   },
 
@@ -87,7 +97,7 @@ export default {
           id: 0,
           name: "Nha gia kim",
           rating: 4.0,
-          amount: 2,
+          quantity: 2,
           unitPrice: 3.1,
           image:
             "https://eccthai.com/wp-content/uploads/2021/03/nha-gia-kim.jpg",
@@ -96,21 +106,97 @@ export default {
           id: 1,
           name: "Cha giau cha ngheo",
           rating: 5.0,
-          amount: 10,
+          quantity: 10,
           unitPrice: 36.2,
           image:
             "https://chagiauchangheo.club/wp-content/uploads/2018/11/d%E1%BA%A1y-con-l%C3%A0m-gi%C3%A0u-t%E1%BA%ADp-3-cha-gi%C3%A0u-cha-ngh%C3%A8o.jpg",
         },
+        {
+          id: 2,
+          name: "Đắc nhân tâm",
+          rating: 5.0,
+          quantity: 2,
+          unitPrice: 20.2,
+          image:
+            "https://eccthai.com/wp-content/uploads/2021/01/sach-dac-nhan-tam-dale-carnegie.jpg",
+        },
+        {
+          id: 3,
+          name: "Tôi tài giỏi bạn cũng thế",
+          rating: 5.0,
+          quantity: 3,
+          unitPrice: 30.3,
+          image:
+            "https://salt.tikicdn.com/ts/product/76/c0/1e/0ff7ee76ba4d2529b177c7891132abac.jpg",
+        },
+        {
+          id: 4,
+          name: "Chiến binh cầu vồng",
+          rating: 5.0,
+          quantity: 4,
+          unitPrice: 40.4,
+          image:
+            "https://salt.tikicdn.com/cache/w1200/media/catalog/product/c/h/chienbinhcauvong.u5430.d20170927.t153952.139563.jpg",
+        },
       ];
     },
 
-    changeAmount: function (index, x) {
-      if (x == -1 && this.itemCart[index].amount == 1) return;
-      this.itemCart[index].amount += x;
+    changeQuantity: function (index, x) {
+      if (x == -1 && this.itemCart[index].quantity == 1)
+        this.deleteId(this.itemCart[index].id);
+      else this.itemCart[index].quantity += x;
     },
     totalCal: function () {
-      var res = this.itemCart.reduce((x, y) => x + y.amount * y.unitPrice, 0);
+      var res = this.itemCart.reduce(
+        (x, y) =>
+          this.selected.includes(y.id) ? x + y.quantity * y.unitPrice : x,
+        0
+      );
       return parseFloat(res).toFixed(2);
+    },
+    toggleSelect: function () {
+      var select = this.selectAll;
+      this.itemCart.forEach(function (item) {
+        item.checked = !select;
+      });
+      this.selectAll = !select;
+    },
+    deleteSelect: function () {
+      console.log("start delete", this.itemCart, this.selected);
+      while (this.selected.length != 0) {
+        this.deleteId(this.selected[0]);
+        this.selected.splice(0, 1);
+      }
+      console.log("end delete", this.itemCart, this.selected);
+    },
+    deleteId: function (id) {
+      for (var i = 0; i < this.itemCart.length; i++) {
+        if (this.itemCart[i].id === id) {
+          this.itemCart.splice(i, 1);
+          return true;
+        }
+      }
+      return false;
+    },
+  },
+  computed: {
+    selectAll: {
+      get: function () {
+        return this.itemCart
+          ? this.selected.length == this.itemCart.length
+          : false;
+      },
+      set: function (value) {
+        var selected = [];
+
+        if (value) {
+          this.itemCart.forEach(function (item) {
+            selected.push(item.id);
+          });
+        }
+
+        this.selected = selected;
+      },
     },
   },
   created() {
@@ -125,6 +211,11 @@ export default {
   font-family: inter, Courier, monospace;
   background-color: #ebedef;
 }
+.cartPage .emptyCart{
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+}
 .select {
   width: 10%;
 }
@@ -135,7 +226,7 @@ export default {
 .unitPrice {
   width: 15%;
 }
-.amount {
+.quantity {
   width: 15%;
 }
 .price {
@@ -195,21 +286,21 @@ export default {
   font-weight: normal;
 }
 
-.amount {
+.quantity {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
 }
-.amount .button {
+.quantity .button {
   margin: 15%;
   background: none;
 }
-.amount .button.minus {
+.quantity .button.minus {
   color: red;
   border-color: red;
 }
-.amount .button.plus {
+.quantity .button.plus {
   color: green;
   border-color: green;
 }
@@ -244,7 +335,7 @@ p.totalPrice {
   /* background-color: #fff; */
   justify-content: flex-end;
 }
-.purchases button {
+.blueButton {
   color: white;
   background-color: #1dcaff;
   font-weight: bold;
