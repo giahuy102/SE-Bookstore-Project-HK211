@@ -1,16 +1,16 @@
 <template>
     <div class="dashboard">
-        <Sidebar id="sidebar"/>
-        <div class=".container-fluid no-padding content">
+        <Sidebar id="sidebar_id" />
+        <div class=".container-fluid no-padding content" id="content_id">
             <div class="row header">
                 
                 
                 
-                <div class="col-2 text-left"> 
+                <!-- <div class="col-2 text-left"> 
                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list side-bar" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
                     </svg> 
-                </div>
+                </div> -->
 
 
                 <!-- <div class="col-10 text-right">
@@ -21,8 +21,24 @@
                 </div> -->
 
 
-                <div class="col text-right dropdown">
+                <button class="openbtn" @click="open_sidebar = !open_sidebar" v-on:click="moveSidebar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+
+
+                <!-- <div class="col text-right dropdown">
                     <button style="border-radius: 50%;" class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="../assets/person.svg" alt=""  width="40px">
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/">Logout</a>
+                    </div>
+                </div> -->
+
+                <div class="col text-right dropdown ">
+                    <button style="border-radius: 50%;" class="btn  dropdown-toggle icon-admin" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="../assets/person.svg" alt=""  width="40px">
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -46,6 +62,30 @@ export default {
         Sidebar
     },
 
+    data() {
+        return {
+            open_sidebar: true,
+        }
+    },
+
+    methods: {
+        moveSidebar(){
+            if (this.open_sidebar == true) {
+                document.getElementById("content_id").style.width = 'calc(100vw - 330px)';
+                document.getElementById("sidebar_id").style.width = '330px';
+                document.getElementById("sidebar_id").style.transition = 'all 0.45s ease-in-out';
+                document.getElementById("content_id").style.transition = 'all 0.45s ease-in-out';
+
+            }
+            else {
+                document.getElementById("content_id").style.width = '100vw';
+                document.getElementById("sidebar_id").style.width = '0';
+                document.getElementById("sidebar_id").style.transition = 'all 0.45s ease-in-out';
+                document.getElementById("content_id").style.transition = 'all 0.45s ease-in-out';
+            }
+        }
+    },
+
 }
 
 
@@ -54,6 +94,16 @@ export default {
 <style>
 .right {
     background-color: white;
+}
+
+.openbtn {
+    border: none;
+    background-color: transparent;
+    margin-left: 15px;
+}
+
+.openbtn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
 }
 
 .dashboard {
@@ -94,8 +144,9 @@ export default {
 }
 
 .icon-admin {
-   margin-top: 18px;
-   margin-right: 15px;
+   margin-top: 5px;
+   margin-right: 10px;
+   background-color: transparent;
 }
 
 
