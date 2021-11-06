@@ -35,7 +35,7 @@
             <br>
         </div>
         <div class="col">
-            <h2 id="category-name">Best seller</h2>
+            <h2 id="category-name">{{ category }}</h2>
             <div class="products d-flex flex-wrap">
                 <!-- <div class="product">
                     <img src="/images/imaginary-friend.png" alt="">
@@ -137,7 +137,7 @@ export default {
             picked: false,
             language: false,
             displayBooks: [],
-
+            category: null,
             under100: false,
             under200: false,
             under500: false,
@@ -190,6 +190,8 @@ export default {
     mounted() {
         this.getDisplayBooks();
         console.log(this.books);
+        this.category = window.posts;
+        console.log(window.posts);
     }
 }
 </script>

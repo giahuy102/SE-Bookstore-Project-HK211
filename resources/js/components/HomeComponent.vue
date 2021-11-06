@@ -296,6 +296,10 @@ a {
 
 }
 
+#book-list h3 a:hover {
+    color: rgb(34, 76, 165);
+}
+
 
 .card-panel {
     margin-right: 100px;

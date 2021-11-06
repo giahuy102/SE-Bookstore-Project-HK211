@@ -5,14 +5,14 @@
                 <div class="col-3 d-flex align-items-center">
                     <h1>
                         
-                        <a href="#">
+                        <a href="/">
                             <img src="/images/logo.png" alt="Bookstore">
                         </a>
                     </h1>
                 </div>
 
 
-                <div class="col-4 d-flex align-items-center">
+                <div class="col-3 d-flex align-items-center">
 
                     <form  action="">
                         <input type="text" name="" id="">
@@ -53,7 +53,16 @@
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-center">
-                    <i class="fas fa-user"></i>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle custom" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Log in</a>
+                            <a class="dropdown-item" href="#">Register</a>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-end">
@@ -93,7 +102,7 @@ export default {
     font-family: "Monserat";
     font-weight: 700;
     font-size: 16px;
-    margin-right: 35px;
+    margin-right: 47px;
 }
 
 .item {

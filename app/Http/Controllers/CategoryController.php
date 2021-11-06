@@ -10,6 +10,7 @@ use App\Category;
 use Illuminate\Support\Facades\DB;
 
 
+
 class CategoryController extends Controller
 {
     //
@@ -19,7 +20,7 @@ class CategoryController extends Controller
         if (!ctype_digit($type)) {
             if ($type == 'best_seller') {
                 $books = $books->orderBy('num_sale', 'DESC')->take(10)->get();
-                $returnType = 'Best Seller';
+                $returnType = "Best seller";
             }
             else if ($type == "special_discount") {
                 $books = $books->orderBy('discount', 'DESC')->take(10)->get();
@@ -36,12 +37,13 @@ class CategoryController extends Controller
             if (count($books->toArray()) == 0) abort(404);
             else {
                 $category = DB::table('category')->where('cid', $type)->get();
+                $returnType = ($category->toArray())[0]->category_name;
             }
         }
         // return view('category')->with('books', $books)->with('category', $returnType);
         return view('category')->with([
             'books' => $books,
-
+            'category' => $returnType
         ]);
     }
 }
