@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Book;
 use App\Category;
 
+use Illuminate\Support\Facades\Auth;
+
 class HomePageController extends Controller
 {
     //
@@ -20,9 +22,17 @@ class HomePageController extends Controller
         // }
 
 
+        $isLogin = false;
+        $username = null;
+        if (Auth::check()) {
+            $isLogin = true;
+            $username = Auth::user()->username;
+        }
         return view('homepage')->with([
             'categories' => $categories,
-            'books' => $books
+            'books' => $books,
+            'isLogin' => $isLogin,
+            'username' => $username
         ]);
     }
 }

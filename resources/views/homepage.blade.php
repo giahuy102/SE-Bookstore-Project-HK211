@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Home</title>
 
 
@@ -42,6 +43,11 @@
     <script src="https://unpkg.com/@egjs/flicking/dist/flicking.pkgd.min.js" crossorigin="anonymous"></script>
     <!-- cdnjs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.x.x/flicking.pkgd.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        window.isLogin= @json($isLogin);
+        window.username = @json($username);
+    </script>
     <script src="{{ mix('js/homepage.js') }}"></script>
 </body>
 </html>

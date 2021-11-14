@@ -28,8 +28,8 @@
                 <!-- <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
                 <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
                 <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div> -->
-                <div  v-for="category in categories" :key="category.cid" class="card-panel">
-                    <a :href="'/category/' + category.cid">
+                <div  v-for="category in categories" :key="category.category_id" class="card-panel">
+                    <a :href="'/category/' + category.category_id">
                         <img :src="'/images/' + category.category_image" alt="">
                     </a>
                     
@@ -65,10 +65,10 @@
 
 
                     <a v-for="book in popularBooks"
-                        :key="book.id"
-                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                        :key="book.book_id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.name">
+                        <img :src="'/images/' + book.image" :alt="book.title">
                     </a>
 
                 </div>
@@ -99,10 +99,10 @@
                         <img src="/images/harry-potter-1.png" alt="">
                     </a> -->
                     <a v-for="book in bestSellers"
-                        :key="book.id"
-                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                        :key="book.book_id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.name">
+                        <img :src="'/images/' + book.image" :alt="book.title">
                     </a>
                 </div>
             </div>
@@ -131,10 +131,10 @@
                         <img src="/images/harry-potter-1.png" alt="">
                     </a> -->
                     <a v-for="book in specialDiscounts"
-                        :key="book.id"
-                        :href="'http://127.0.0.1:8000/detail/' + book.id"
+                        :key="book.book_id"
+                        :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.name">
+                        <img :src="'/images/' + book.image" :alt="book.title">
                     </a>
                 </div>
             </div>
@@ -169,6 +169,7 @@ export default {
         getBestSellers() {
             this.bestSellers = this.books.slice();
             this.bestSellers.sort(function(a, b) {
+
                 return b.num_sale - a.num_sale;
             })
             this.popularBooks.slice(0, 5);
@@ -177,9 +178,10 @@ export default {
         getSpecialDiscounts() {
             this.specialDiscounts = this.books.slice();
             this.specialDiscounts.sort(function(a, b) {
-                return b.discount - a.discount;
+                return b.sale - a.sale;
             })
             this.specialDiscounts.slice(0, 5);
+            
         }
     },
     mounted() {

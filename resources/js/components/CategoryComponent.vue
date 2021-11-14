@@ -105,20 +105,20 @@
                 </div> -->
 
 
-                <div v-for="book in displayBooks" :key="book.id"  class="product">
-                    <a :href="'/detail/' + book.id">
+                <div v-for="book in displayBooks" :key="book.book_id"  class="product">
+                    <a :href="'/detail/' + book.book_id">
                         <img :src="'/images/' + book.image" alt="">
                     </a>
                     
                     <p class="author">{{ book.author }}</p>
                     <h4>
-                        <a :href="'/detail/' + book.id">{{ book.name }}</a>
+                        <a :href="'/detail/' + book.book_id">{{ book.title }}</a>
                         
                     </h4>
                     <p class="review">{{ book.num_view +"M review" }}</p>
                     <p class="price">
-                        <span>{{ "$" + book.price }}</span>
-                        <span>{{ "$" + (book.price - book.price * book.discount) }}</span>
+                        <span>{{ "$" + book.selling_price }}</span>
+                        <span>{{ "$" + (book.selling_price - book.selling_price * book.sale) }}</span>
                     </p>
                     <button>BUY NOW</button>
                 </div>
@@ -157,12 +157,12 @@ export default {
         },
         sortPriceLowToHigh() {
             this.displayBooks.sort((a, b) => {
-                return a.price - b.price;
+                return a.selling_price - b.selling_price;
             })
         },
         sortHighToLow() {
             this.displayBooks.sort((a, b) => {
-                return b.price - a.price;
+                return b.selling_price - a.selling_price;
             })
         },
         sortViewHighToLow() {
@@ -181,7 +181,7 @@ export default {
             this.displayBooks = []
             for (let i = 0; i < this.books.length; i++) {
                 if (this.under100 || this.under200 || this.under500 || this.under1000 || this.over1000 || this.english || this.vietnam) {
-                    if ((this.under100 && this.books[i].price < 100)  || (this.under200 && this.books[i].price < 200 && this.books[i].price >= 100)  || (this.under500 && this.books[i].price < 500 && this.books[i].price >= 200) || (this.under1000 && this.books[i].price < 1000 && this.books[i].price >= 500) || (this.over1000 && this.books[i].price > 1000) || (this.english && this.books[i].language == "English") || (this.vietnam && this.books[i].language == "Vietnamese")) this.displayBooks.push(this.books[i]);
+                    if ((this.under100 && this.books[i].selling_price < 100)  || (this.under200 && this.books[i].selling_price < 200 && this.books[i].selling_price >= 100)  || (this.under500 && this.books[i].selling_price < 500 && this.books[i].selling_price >= 200) || (this.under1000 && this.books[i].selling_price < 1000 && this.books[i].selling_price >= 500) || (this.over1000 && this.books[i].selling_price > 1000) || (this.english && this.books[i].language == "English") || (this.vietnam && this.books[i].language == "Vietnamese")) this.displayBooks.push(this.books[i]);
                 }
                 else this.displayBooks.push(this.books[i])
             }

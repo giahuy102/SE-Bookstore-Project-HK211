@@ -6,12 +6,12 @@
             </div>
 
             <div class="col">
-                <h2>{{ book.name }}</h2>
+                <h2>{{ book.title }}</h2>
                 <p id="author">{{ book.author + " (Author)" }} </p>
                 <p id="review">{{ book.num_view + "M review" }}</p>
                 <p id="price">
-                    <span>{{ "$" + book.price }}</span>
-                    <span>{{ "$" + (book.price - book.price * book.discount) }}</span>
+                    <span>{{ "$" + book.selling_price }}</span>
+                    <span>{{ "$" + (book.selling_price - book.selling_price * book.sale) }}</span>
                 </p>
                 <button>BUY NOW</button>
 
@@ -28,11 +28,11 @@
                     </li>
                     <li>
                         <span>Publish Date:</span>
-                        <span>{{ book.publication_day }}</span>
+                        <span>{{ book.publish_day }}</span>
                     </li>
                     <li>
                         <span>Page:</span>
-                        <span>{{ book.num_page }}</span>
+                        <span>{{ book.page_number }}</span>
                     </li>
                     <li>
                         <span>Language:</span>

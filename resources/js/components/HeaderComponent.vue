@@ -58,8 +58,10 @@
                             <i class="fas fa-user"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Log in</a>
-                            <a class="dropdown-item" href="#">Register</a>
+                            <a class="dropdown-item" href="/login" v-if="!isLogin">Log in</a>
+                            <a class="dropdown-item" href="/register" v-if="!isLogin">Register</a>
+                            <a class="dropdown-item" href="#" v-if="isLogin">{{ username }}</a>
+                            <a class="dropdown-item" href="/logout" v-if="isLogin" @click.prevent="handleLogout">Logout</a>
                         </div>
                     </div>
                     
@@ -74,6 +76,9 @@
         </div>
 
 
+        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+            <input type="hidden" name="_token" :value="csrf">
+        </form>
 
     </div>
 
@@ -83,9 +88,23 @@
 
 <script>
 export default {
-    setup() {
-        
+    data() {
+        return {
+            isLogin: false,
+            username: null,
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
     },
+    methods: {
+      handleLogout() {
+          document.getElementById('logout-form').submit();
+      }  
+    },
+    mounted() {
+        this.isLogin = window.isLogin;
+        this.username = window.username;
+        console.log(this.isLogin);
+    }
 }
 </script>
 
