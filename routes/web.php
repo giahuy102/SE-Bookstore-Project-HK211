@@ -32,3 +32,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// admin page
+Route::get('/{any}', function () {
+    return view('admin');
+})->where('any', '.*');
+
