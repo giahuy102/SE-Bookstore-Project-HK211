@@ -24,8 +24,13 @@ class BookShopController extends Controller
 
     }
 
+    // WRONG, but not use, so I have not fixed yet
     public function indexUser() {
         return DB::select("select * from user_account order by id asc");
+    }
+
+    public function indexCategories() {
+        return DB::select("select * from category order by category_id asc");
     }
 
     /**
@@ -55,7 +60,16 @@ class BookShopController extends Controller
         // $request->input('language'), $request->input('picture'), $request->input('description')]);
 
         //find cid
-        
+        // $temp = 0;
+        // echo $request->input('cid');
+        // $temp = DB::select("select SUM(category_id) from category where category_name = ?", [$request->input('cid')]);
+        // //print_r ($category_id);
+        // echo ("pass print r");
+        // print_r($temp);
+        // echo ("pass echo");
+        //echo $category_id[0];
+        //echo ("pass echo 0");
+
         // tam thoi test cid la 1
         $book = DB::insert("insert into book(book_id, title, page_number, author, cost_price, selling_price, input_date, publish_date, sale, num_view, 
         language, image, quantity, publisher, description, num_sale, cid) 
@@ -76,7 +90,7 @@ class BookShopController extends Controller
     {
         //
         //echo $id;
-        $book = DB::select("select * from book where book_id = ? ", [$id]);
+        $book = DB::select("select * from book, category where book_id = ? and cid = category_id", [$id]);
         if ($book) {
             return $book;
         }
@@ -91,6 +105,14 @@ class BookShopController extends Controller
         }
         return 'Not found user manager';
     }
+
+    // public function showCategory($id) {
+    //     $category = DB::select("select * from category where category_id = ? ", [$id]);
+    //     if ($category) {
+    //         return $category;
+    //     }
+    //     return 'Not found category';
+    // }
 
     // public function showUserPassword($id) {
     //     $user = DB::select("select * from users where user_id = ? ", [$id]);

@@ -38,7 +38,7 @@
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Category<span class="red-star">*</span> </div>
-                <div class="col text-left"><input class="row-input" v-model="book.cid" type="text" size="80"></div>
+                <!-- <div class="col text-left"><input class="row-input" v-model="book.cid" type="text" size="80"></div> -->
 
                 <!-- <div class="col text-left"> 
                     <select class="select-category" v-model="book.category">
@@ -56,6 +56,12 @@
                         <option value="Novel">Novel</option>
                     </select>
                 </div>  -->
+
+                <div class="col text-left">
+                    <select v-model="book.cid" class="select-category" data-placeholder="Choose a Language...">
+                        <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{category.category_name}} </option>
+                    </select>
+                </div>
 
 
             </div>
@@ -128,12 +134,13 @@ export default {
 
   data() {
     return {
-      book: {},
-      bookID: this.$route.params.bookID,
-
+        book: {},
+        bookID: this.$route.params.bookID,
+        categories: [],
       
     }
   },
+
 
   methods: {
     getBookByID(id) {
@@ -163,12 +170,25 @@ export default {
 
     sucess_update() {
         alert("Sucessfully update book information!")
-    }
+    },
+
+    getAllCategories() {
+            axios.get('/api/categories')
+            .then(response => {
+                //console.log("Get all categories");
+                this.categories = response.data;
+                console.log(this.categories)
+            })
+            .catch(error => {
+                console.log(error.response)
+            });
+        },
   },
 
   created(){
     //console.log("ahhaa")
     this.getBookByID(this.bookID);
+    this.getAllCategories();
   },
 }
 </script>

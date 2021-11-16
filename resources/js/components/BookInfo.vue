@@ -9,6 +9,7 @@
         <div><input type="text" v-model="book.title" :disabled="locking"></div>
         <div><input type="text" v-model="book.id" :disabled="locking"></div>
       </div> -->
+      
       <div class="container filling-all-info">
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Title<span class="red-star">*</span> </div>
@@ -25,7 +26,8 @@
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Category<span class="red-star">*</span> </div>
-                <div class="col text-left"><input class="row-input" v-model="book.cid" type="text" size="80" :disabled="locking"></div>
+                <!-- {{book.category_name}} -->
+                <div class="col text-left"><input class="row-input" v-model="book.category_name" type="text" size="80" :disabled="locking"></div>
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Publisher<span class="red-star">*</span> </div>
@@ -105,7 +107,7 @@ export default {
   },
 
   created(){
-    console.log("ahhaa")
+    //console.log("ahhaa")
     this.getBookByID(this.bookID);
   },
 }

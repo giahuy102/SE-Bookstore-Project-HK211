@@ -17,7 +17,7 @@
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Category<span class="red-star">*</span> </div>
-                <div class="col text-left"><input class="row-input" v-model="book.cid" type="text" size="80"></div>
+                <!-- <div class="col text-left"><input class="row-input" v-model="book.cid" type="text" size="80"></div> -->
 
 
                 <!-- <div class="col text-left">
@@ -36,6 +36,19 @@
                         <option value="Novel">Novel</option>
                     </select>
                 </div> -->
+
+                <!-- <div class="col text-left">
+                    <select v-model="book.category" class="select-category" data-placeholder="Choose a Language...">
+                        <option v-for="item in test_category" :value="item.value" :key="item.index"> {{item.value}} </option>
+                    </select>
+                </div> -->
+                <!-- {{book.cid}} -->
+                <div class="col text-left">
+                    <select v-model="book.cid" class="select-category" data-placeholder="Choose a Language...">
+                        <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{category.category_name}} </option>
+                    </select>
+                </div>
+
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Publisher<span class="red-star">*</span> </div>
@@ -108,9 +121,25 @@ export default {
             title: ' ', book_id: '', author: '', cid: '', publisher: '', input_date: '', quantity: '', cost_price: '', selling_price: '', 
             page_number: '', sale: '', publish_date: '', language: '', image: '', description: ''},
             
-            check_add_id: ''
+            check_add_id: '',
+
+            
+            // test_category: [
+            //     {index: 1, value: 'romantic'},
+            //     {index: 2, value: 'lang man'},
+            //     {index: 3, value: 'tieu thuyet'}
+            // ],
+
+            categories: [],
+           // category: {},
         }
     },
+
+
+    created() {
+        this.getAllCategories()
+    },
+
     methods: {
         createBook() {
             
@@ -171,8 +200,35 @@ export default {
             if (this.check_add_id == '')
                 alert("Error. Check new book information again!")
             else alert("Sucessfully add new book!")
-        }
-    }
+        },
+
+        getAllCategories() {
+            axios.get('/api/categories')
+            .then(response => {
+                //console.log("Get all categories");
+                this.categories = response.data;
+                console.log(this.categories)
+            })
+            .catch(error => {
+                console.log(error.response)
+            });
+        },
+
+        // findCid(id = 0) {
+        //     axios.get('/api/category/' + id)
+        //     .then (response => {
+        //         console.log("find cid")
+        //         console.log(response)
+        //         this.category = response.data[0]
+        //         console.log(this.category.category_name)
+        //     })
+        //     .catch (error => {
+        //         console.log(error)
+        //     })
+        // }
+    },
+
+    
 }
 </script>
 

@@ -91,6 +91,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -113,7 +115,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    console.log("ahhaa");
+    //console.log("ahhaa")
     this.getBookByID(this.bookID);
   }
 });
@@ -572,11 +574,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       book: {},
-      bookID: this.$route.params.bookID
+      bookID: this.$route.params.bookID,
+      categories: []
     };
   },
   methods: {
@@ -616,11 +625,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     sucess_update: function sucess_update() {
       alert("Sucessfully update book information!");
+    },
+    getAllCategories: function getAllCategories() {
+      var _this2 = this;
+
+      axios.get('/api/categories').then(function (response) {
+        //console.log("Get all categories");
+        _this2.categories = response.data;
+        console.log(_this2.categories);
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
     }
   },
   created: function created() {
     //console.log("ahhaa")
     this.getBookByID(this.bookID);
+    this.getAllCategories();
   }
 });
 
@@ -915,19 +936,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.book.cid,
-                expression: "book.cid"
+                value: _vm.book.category_name,
+                expression: "book.category_name"
               }
             ],
             staticClass: "row-input",
             attrs: { type: "text", size: "80", disabled: _vm.locking },
-            domProps: { value: _vm.book.cid },
+            domProps: { value: _vm.book.category_name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.book, "cid", $event.target.value)
+                _vm.$set(_vm.book, "category_name", $event.target.value)
               }
             }
           })
@@ -1817,27 +1838,49 @@ var render = function() {
         _vm._m(3),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.book.cid,
-                expression: "book.cid"
-              }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "80" },
-            domProps: { value: _vm.book.cid },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.book.cid,
+                  expression: "book.cid"
                 }
-                _vm.$set(_vm.book, "cid", $event.target.value)
+              ],
+              staticClass: "select-category",
+              attrs: { "data-placeholder": "Choose a Language..." },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.$set(
+                    _vm.book,
+                    "cid",
+                    $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                  )
+                }
               }
-            }
-          })
+            },
+            _vm._l(_vm.categories, function(category) {
+              return _c(
+                "option",
+                {
+                  key: category.category_id,
+                  domProps: { value: category.category_id }
+                },
+                [_vm._v(" " + _vm._s(category.category_name) + " ")]
+              )
+            }),
+            0
+          )
         ])
       ]),
       _vm._v(" "),
