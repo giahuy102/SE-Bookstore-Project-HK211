@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import dashboard from '../components/Dashboard'
+import OrderManagement from '../components/OrderManagement'
+import OrderDetail from '../components/OrderDetail'
 
 Vue.use(VueRouter)
 
@@ -48,7 +50,17 @@ const routes = [
             path: 'editProfile/:userID',
             name:  'editProfile',
             component: () => import(/* webpackChunkName: "Profile" */ '../components/EditProfile.vue')
-        }
+        },
+        {
+            path: 'ordermanagement',
+            name: 'ordermanagement',
+            component: OrderManagement
+        },
+        {
+            path: 'order/:orderID',
+            name: 'orderDetail',
+            component: OrderDetail
+        },
         ]
     }
 ]

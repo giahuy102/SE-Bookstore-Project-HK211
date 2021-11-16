@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,11 @@ Route::get('users', 'BookShopController@indexUser');          // get user inform
 Route::get('user/{id}', 'BookShopController@showUser');   // show information when editing profile
 Route::put('user/{id}', 'BookShopController@updateUser');   // update information
 Route::put('user/password/{id}', 'BookShopController@updateUserPassword');  // update password
+
+Route::get('/orders', [OrderController::class, 'index']);
+Route::prefix('/order') -> group ( function (){
+    Route::post('/store', [OrderController::class, 'store']);
+    Route::put('/{id}', [OrderController::class, 'update']);
+    Route::delete('/{id}', [OrderController::class, 'destroy']);
+    Route::get('/{id}', [OrderController::class, 'show']);
+});

@@ -24,12 +24,19 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+//font-awesome-icone
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTrash, faInfoCircle, faArrowCircleLeft, faCaretDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faTrash, faInfoCircle, faArrowCircleLeft, faCaretDown)
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 
 
-
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('example-component', require('./components/Warehouse.vue').default);  // register component
 
 new Vue({   // create vue instance
