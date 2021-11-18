@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CartController;
+use Illuminate\Auth\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::get('/cart', [CartController::class, 'index']);
+
+// Route::prefix('/cart')->group(function () {
+//     // Route::post('/store', [CartController::class, 'store']);
+//     Route::put('/{id}', [CartController::class, 'update']);
+//     // Route::delete('/{id}', [CartController::class, 'destroy']);
+// });
+
+Route::put('/cart/{id}', 'CartController@update');

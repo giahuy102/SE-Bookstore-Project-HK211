@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-end">
-                    <i class="fas fa-shopping-cart"></i>
+                    <a class="fas fa-shopping-cart" href="/cart"></a>
                 </div>
 
             </div>
