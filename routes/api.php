@@ -21,10 +21,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 // Route::get('/cart', [CartController::class, 'index']);
 
-// Route::prefix('/cart')->group(function () {
-//     // Route::post('/store', [CartController::class, 'store']);
-//     Route::put('/{id}', [CartController::class, 'update']);
-//     // Route::delete('/{id}', [CartController::class, 'destroy']);
-// });
+Route::prefix('/cart')->group(function () {
+    Route::post('/store', [CartController::class, 'store']);
+    Route::put('/{id}', [CartController::class, 'update']);
+    Route::delete('/{id}', [CartController::class, 'destroy']);
+    Route::post('/payment', [CartController::class, 'payment']);
+});
 
-Route::put('/cart/{id}', 'CartController@update');
+
+// Route::get('/purchased', 'PurchasedController@index');
+// Route::get('/purchased', 'CartController@getPurchased');

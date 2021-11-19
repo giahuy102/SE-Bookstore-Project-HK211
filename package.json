@@ -29,6 +29,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.36",
         "@fortawesome/free-solid-svg-icons": "^5.15.4",
         "@splidejs/vue-splide": "^0.5.5",
-        "bootstrap-vue": "^2.21.2"
+        "bootstrap-vue": "^2.21.2",
+        "sweetalert": "^2.1.2"
     }
 }

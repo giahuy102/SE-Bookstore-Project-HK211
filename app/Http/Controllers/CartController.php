@@ -8,6 +8,7 @@ use App\Book;
 use App\CartItem;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -18,10 +19,10 @@ class CartController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Display a listing of the resource.
@@ -34,12 +35,12 @@ class CartController extends Controller
         // $cartItems = DB::table('book')->rightJoin('cart', 'book.book_id', '=', 'cart.book_id');
         $isLogin = false;
         $username = null;
-        $user_id = null;
-        if (Auth::check()) {
-            $isLogin = true;
-            $username = Auth::user()->username;
-            $user_id = Auth::user()->user_id;
-        }
+        $user_id = 2;
+        // if (Auth::check()) {
+        //     $isLogin = true;
+        //     $username = Auth::user()->username;
+        //     $user_id = Auth::user()->user_id;
+        // }
 
         $mycart = DB::table('book')
             ->rightJoin('cart', 'book.book_id', '=', 'cart.book_id')
@@ -78,7 +79,23 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = 2;
+        $book_id = $request->data['book_id'];
+
+        if (DB::table('cart')
+            ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
+            ->exists()
+        )
+            return "Add failed ...";
+        else {
+            $affected = DB::table('cart')->insert([
+                'book_id' => $book_id,
+                'user_id' => $user_id,
+                'amount' => 1
+            ]);
+
+            if ($affected) return "Add successfull ...";
+        }
     }
 
     /**
@@ -112,7 +129,7 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $user_id = null;
+        $user_id = 2;
         // if (Auth::check()) {
         //     $user_id = Auth::user()->user_id;
         // }
@@ -123,14 +140,18 @@ class CartController extends Controller
         //     'book_id' => $id
         // ])->first();
 
-        $existingItem = CartItem::where(['book_id', '=', 5])->first();
+        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
 
-        if ($existingItem) {
-            $existingItem->amount = 100;
-            return $existingItem;
-        }
-
-        return "Item not found to update...";
+        // if ($existingItem) {
+        //     $existingItem->amount = 99;
+        //     return $existingItem;
+        // }
+        $affected = DB::table('cart')
+            ->where([['user_id', '=', $user_id], ['book_id', '=', $id]])
+            ->update(['amount' => $request->data['amount']]);
+        if ($affected) return "update successfull ...";
+        else
+            return "Item not found to update...";
     }
 
     /**
@@ -141,6 +162,70 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user_id = 2;
+        // if (Auth::check()) {
+        //     $user_id = Auth::user()->user_id;
+        // }
+
+        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
+        // $existingItem = CartItem::where([
+        //     'user_id' => $user_id,
+        //     'book_id' => $id
+        // ])->first();
+
+        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
+
+        // if ($existingItem) {
+        //     $existingItem->amount = 99;
+        //     return $existingItem;
+        // }
+        $affected = DB::table('cart')
+            ->where([['user_id', '=', $user_id], ['book_id', '=', $id]])
+            ->delete();
+        if ($affected) return "delete successfull ...";
+        else
+            return "Item not found to delete...";
+    }
+
+    public function payment(Request $request)
+    {
+        $user_id = 2;
+
+        $order_id = DB::table('orders')->insertGetId(
+            [
+                'delivery' => 'PROCESSING',
+                'order_status' => 'PROCESSING',
+                'create_at' => Carbon::now(),
+                'pay_state' => 'Uncheck',
+                'cus_id' => $user_id,
+                'payment_method' => 'Card',
+                'pay_time' => null
+            ]
+        );
+
+
+        $list_book = $request->data['selectedID'];
+
+        foreach ($list_book as $book_id) {
+            $amount = DB::table('cart')
+                ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
+                ->value('amount');
+
+            DB::table('include')->insert([
+                'order_id' => $order_id,
+                'book_id' => $book_id,
+                'amount' => $amount
+            ]);
+
+            DB::table('cart')
+                ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
+                ->delete();
+        }
+
+
+
+        return DB::table('include')
+            ->where('order_id', '=', $order_id)
+            ->get();
     }
 }

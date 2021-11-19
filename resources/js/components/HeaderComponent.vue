@@ -61,6 +61,7 @@
                             <a class="dropdown-item" href="/login" v-if="!isLogin">Log in</a>
                             <a class="dropdown-item" href="/register" v-if="!isLogin">Register</a>
                             <a class="dropdown-item" href="#" v-if="isLogin">{{ username }}</a>
+                            <a class="dropdown-item" href="/purchased" v-if="isLogin">Purchased</a>
                             <a class="dropdown-item" href="/logout" v-if="isLogin" @click.prevent="handleLogout">Logout</a>
                         </div>
                     </div>

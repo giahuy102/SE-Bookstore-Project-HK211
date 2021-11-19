@@ -13,7 +13,11 @@
           <h1><strong>Cart</strong></h1>
         </div>
       </div>
-      <empty-cart v-if="mycart.length == 0" />
+      <empty-cart
+        v-if="cartItem.length == 0"
+        image="https://images.all-free-download.com/images/graphiclarge/blue_shopping_cart_icon_vector_280786.jpg"
+        message="Your Cart is empty !"
+      />
       <div class="cart" v-else>
         <div class="headerCart">
           <div class="select" style="text-align: left">Select</div>
@@ -23,18 +27,26 @@
           <div class="price">Price(USD)</div>
         </div>
 
-        <div class="mycart" v-for="(item, index) in mycart" :key="index">
+        <div
+          class="cartItem"
+          v-for="(item, index) in cartItem"
+          v-bind:key="index"
+        >
           <input
             class="select"
             type="checkbox"
-            v-model="selected"
+            v-model="selectedID"
             :value="item.book_id"
             number
           />
           <div class="product">
             <img class="image" :src="'/images/' + item.image" alt="" />
             <div class="title-rating">
-              <p>{{ item.title }} ------- {{ item.book_id }}</p>
+              <p>
+                <a :href="'/detail/' + item.book_id"
+                  >{{ item.title }} --- {{ item.book_id }}</a
+                >
+              </p>
               <!-- <div class="rating">
               <i class="fas fa-star"></i>
               <span class="fa fa-star checked"></span>
@@ -48,12 +60,12 @@
           <div class="amount">
             <i
               class="fas fa-minus-circle button minus"
-              @click="changeAmount(index, -1)"
+              @click="changeAmount(item.book_id, -1)"
             ></i>
             <span class="amount">{{ item.amount }}</span>
             <i
               class="fas fa-plus-circle button plus"
-              @click="changeAmount(index, 1)"
+              @click="changeAmount(item.book_id, 1)"
             ></i>
           </div>
           <div class="price">
@@ -72,7 +84,52 @@
         </div>
 
         <div class="purchases">
-          <button class="blueButton">Purchases</button>
+          <b-button
+            class="blueButton"
+            v-b-modal.modal-prevent-closing
+            :disabled="selectedID.length <= 0"
+            >Purchases</b-button
+          >
+          <b-modal
+            id="modal-prevent-closing"
+            ref="modal"
+            title="Payment Information"
+            centered
+            @show="resetModal"
+            @hidden="resetModal"
+            @ok="handleOk"
+          >
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+              <b-form-group
+                label="CARD NUMBER"
+                label-for="cartNumber-input"
+                invalid-feedback="Cart Number is required"
+              >
+                <b-form-input
+                  id="cartNumber-input"
+                  v-model="cardNumber"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="EXPIRATION DATE"
+                label-for="expDate-input"
+                invalid-feedback="EXPIRATION DATE is required"
+              >
+                <b-form-input
+                  id="expDate-input"
+                  v-model="expDate"
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                label="CV CODE"
+                label-for="cvCode-input"
+                invalid-feedback="CV CODE is required"
+              >
+                <b-form-input id="cvCode-input" v-model="cvCode"></b-form-input>
+              </b-form-group>
+            </form>
+          </b-modal>
         </div>
       </div>
     </div>
@@ -81,48 +138,38 @@
 
 <script>
 import EmptyCart from "./EmptyCart.vue";
+import swal from "sweetalert";
 export default {
   props: ["mycart"],
   components: { EmptyCart },
   data: function () {
     return {
-      // mycart: {},
-      selected: [],
+      cartItem: {},
+      selectedID: [],
+
+      cardNumber: "",
+      expDate: "",
+      cvCode: "",
     };
   },
 
   methods: {
-    // getdata() {
-    //   axios
-    //     .get("/api/cart")
-    //     .then((response) => {
-    //       this.mycart = response.data;
-    //       console.log(this.mycart);
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
+    changeAmount: function (book_id, x) {
+      var index = 0;
+      for (; index < this.cartItem.length; index++) {
+        if (this.cartItem[index].book_id === book_id) {
+          break;
+        }
+      }
 
-    changeAmount: function (index, x) {
-      if (x == -1 && this.mycart[index].amount == 1)
-        this.deleteId(this.mycart[index].book_id);
+      if (x == -1 && this.cartItem[index].amount == 1) return;
       else {
-        this.mycart[index].amount += x;
-
-        console.log(this.mycart);
-
-        axios({
-          method: "put",
-          url: "api/cart/" + this.mycart[index].book_id,
-          data: {
-            amount: this.mycart[index].amount,
-          },
-          headers: {"X-CSRFToken": csrf_token},
-        })
-          // .put("api/cart/" + this.mycart[index].book_id, {
-          //   amount: this.mycart[index].amount,
-          // })
+        this.cartItem[index].amount += x;
+        console.log(this.cartItem);
+        axios
+          .put("api/cart/" + this.cartItem[index].book_id, {
+            data: { amount: this.cartItem[index].amount },
+          })
           .then((responde) => {
             if (responde.status == 200) {
               console.log("changeeeeeeeee!");
@@ -134,60 +181,115 @@ export default {
       }
     },
     totalCal: function () {
-      var res = this.mycart.reduce(
+      var res = this.cartItem.reduce(
         (x, y) =>
-          this.selected.includes(y.book_id) ? x + y.amount * y.cost_price : x,
+          this.selectedID.includes(y.book_id) ? x + y.amount * y.cost_price : x,
         0
       );
       return parseFloat(res).toFixed(2);
     },
     toggleSelect: function () {
       var select = this.selectAll;
-      this.mycart.forEach(function (item) {
+      this.cartItem.forEach(function (item) {
         item.checked = !select;
       });
       this.selectAll = !select;
     },
     deleteSelect: function () {
-      console.log("start delete", this.mycart, this.selected);
-      while (this.selected.length != 0) {
-        this.deleteId(this.selected[0]);
-        this.selected.splice(0, 1);
+      console.log("start delete", this.cartItem, this.selectedID);
+      while (this.selectedID.length != 0) {
+        this.deleteId(this.selectedID[0]);
+        this.selectedID.splice(0, 1);
       }
-      console.log("end delete", this.mycart, this.selected);
+      console.log("end delete", this.cartItem, this.selectedID);
     },
     deleteId: function (id) {
-      for (var i = 0; i < this.mycart.length; i++) {
-        if (this.mycart[i].book_id === id) {
-          this.mycart.splice(i, 1);
+      axios
+        .delete("api/cart/" + id)
+        .then((responde) => {
+          if (responde.status == 200) {
+            console.log("delete done");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      for (var i = 0; i < this.cartItem.length; i++) {
+        if (this.cartItem[i].book_id === id) {
+          this.cartItem.splice(i, 1);
           return true;
         }
       }
       return false;
     },
+
+    checkFormValidity() {
+      if (!this.cardNumber) {
+        return 0;
+      }
+      return 1;
+    },
+    resetModal() {
+      this.cardNumber = "";
+      this.expDate = "";
+      this.cvCode = "";
+    },
+    handleOk(bvModalEvt) {
+      // Prevent modal from closing
+      bvModalEvt.preventDefault();
+      // Trigger submit handler
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      // Exit when the form isn't valid
+      if (!this.checkFormValidity()) {
+        swal("Unsuccessful!", "Payment failed!", "error");
+        return;
+      }
+
+      // update table include
+      axios
+        .post("api/cart/payment/", {
+          data: { selectedID: this.selectedID },
+        })
+        .then((responde) => {
+          if (responde.status == 200) {
+            console.log("changeeeeeeeee!");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      swal("Successful!", "Payment successful!", "success").then(() => {
+        window.location.href = "/purchased";
+      });
+      // update cart
+      // this.deleteSelect();
+    },
   },
   computed: {
     selectAll: {
       get: function () {
-        return this.mycart ? this.selected.length == this.mycart.length : false;
+        return this.cartItem
+          ? this.selectedID.length == this.cartItem.length
+          : false;
       },
       set: function (value) {
-        var selected = [];
+        var selectedID = [];
 
         if (value) {
-          this.mycart.forEach(function (item) {
-            selected.push(item.book_id);
+          this.cartItem.forEach(function (item) {
+            selectedID.push(item.book_id);
           });
         }
 
-        this.selected = selected;
+        this.selectedID = selectedID;
       },
     },
   },
   created() {
-    // this.getData();
-    // this.mycart = mycart;
-    // console.log("carrtIemmmm =  ", mycart);
+    this.cartItem = this.mycart;
   },
 };
 </script>
@@ -227,7 +329,7 @@ export default {
 }
 
 .headerCart,
-.mycart,
+.cartItem,
 .footerCart,
 .purchases {
   display: flex;
@@ -249,16 +351,16 @@ export default {
   color: #0084b4;
   font-weight: bold;
 }
-.mycart .product {
+.cartItem .product {
   width: 45%;
 }
 
-.mycart .select,
+.cartItem .select,
 .footerCart .select {
   width: 5%;
 }
 
-.mycart {
+.cartItem {
   height: 100px;
   /* background-color: white; */
   font-weight: bold;
@@ -269,9 +371,11 @@ export default {
   width: 80px;
   height: 80px;
 }
-.product .title-rating {
+.title-rating a {
   padding-left: 10px;
   font-weight: normal;
+  color: #000;
+  text-decoration: none;
 }
 
 .amount {

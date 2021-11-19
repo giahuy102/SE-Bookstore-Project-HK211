@@ -18,3 +18,5 @@ mix.js('resources/js/homepage.js', 'public/js/homepage.js');
 mix.js('resources/js/category.js', 'public/js/category.js');
 mix.js('resources/js/detail.js', 'public/js/detail.js');
 mix.js('resources/js/cart.js', 'public/js/cart.js');
+// mix.js('resources/js/payment.js', 'public/js/payment.js');
+mix.js('resources/js/purchased.js', 'public/js/purchased.js');
