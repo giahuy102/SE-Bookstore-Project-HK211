@@ -684,33 +684,6 @@ exports.push([module.i, "\n.header-update {\r\n    margin-top: 30px;\r\n    font
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/lib/url/escape.js":
-/*!***************************************************!*\
-  !*** ./node_modules/css-loader/lib/url/escape.js ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function escape(url) {
-    if (typeof url !== 'string') {
-        return url
-    }
-    // If url is already wrapped in quotes, remove them
-    if (/^['"].*['"]$/.test(url)) {
-        url = url.slice(1, -1);
-    }
-    // Should url be wrapped?
-    // See https://drafts.csswg.org/css-values-3/#urls
-    if (/["'() \t\n]/.test(url)) {
-        return '"' + url.replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"'
-    }
-
-    return url
-}
-
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/BookInfo.vue?vue&type=style&index=0&lang=css&":
 /*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/BookInfo.vue?vue&type=style&index=0&lang=css& ***!
@@ -2341,17 +2314,6 @@ var staticRenderFns = [
 render._withStripped = true
 
 
-
-/***/ }),
-
-/***/ "./public/images/warehouse/search-icon.png":
-/*!*************************************************!*\
-  !*** ./public/images/warehouse/search-icon.png ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/search-icon.png?9e103a2eabbc454a72a0f63f720c2623";
 
 /***/ }),
 

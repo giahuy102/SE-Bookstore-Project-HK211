@@ -1,6 +1,5 @@
 <template>
     <div class="orderDetailPage">
-        <div class="mainOrderDetail">
             <router-link :to="{name: 'ordermanagement'}">
                 <button class = "goBackButton">
                     <font-awesome-icon
@@ -30,7 +29,7 @@
                     </div>
                 </div>
                 <div class="itemTable">
-                    <table class = "table hover">
+                    <table class = "table table-striped list-book">
                         <tbody>
                             <tr>
                                 <th>ID</th>
@@ -67,11 +66,10 @@
                 </div>
                 <div class="deleteOrder">
                     <router-link :to="{name: 'ordermanagement'}">
-                        <button class="deleteOrderButton" @click="removeOrder(order.order_id)">Delete</button>
+                        <button class="delete-button" @click="removeOrder(order.order_id)">Delete</button>
                     </router-link>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 <script>
@@ -131,14 +129,7 @@ export default {
 </script>
 <style scoped>
 .orderDetailPage{
-    background-color: white;
-    margin-left: 50px;
-    margin-top: 75px;
-    margin-right: 30px;
-}
-.mainOrderDetail{
     padding: 30px;
-    
 }
 .goBackButton{
     color: #00ACED;
@@ -164,12 +155,15 @@ h1{
     display: flex;
     background: #C0DEED;
     font-size: 20px;
+    padding-left: 75px;
 }
 .orderfield{
     margin: 20px 0px 0px 30px;
+    text-align: left;
 }
 .orderdetail{
     margin: 20px 0px 0px 30px;
+    text-align: left;
 }
 
 .order_statusBox{
@@ -200,13 +194,30 @@ h1{
     border-radius: 10px;
 }
 .deleteOrder{
-    margin-left: 65%;
+    margin-left: 60%;
 }
-.deleteOrderButton{
+/*.deleteOrderButton{
     border-style: none;
     background: red;
     color:white;
     font-size: 20px;
     padding: 8px 20px;
+} */
+.delete-button {
+    background-color: red;
+    border: none ;
+    color: white;
+    font-size: 20px;
+    padding: 0.25rem 1.5rem;
+    border-radius: 5px;
+    margin-right: 140px;
+}
+
+.delete-button:hover {
+    background-color: rgb(214, 2, 2);
+}
+
+.delete-button:focus {
+    box-shadow: 0 0 0 0.2rem red;
 }
 </style>
