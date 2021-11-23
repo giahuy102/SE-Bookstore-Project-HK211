@@ -39,6 +39,9 @@ Route::put('user/password/{id}', 'BookShopController@updateUserPassword');  // u
 Route::get('categories', 'BookShopController@indexCategories');               // get all categories
 // Route::get('category/{id}', 'BookShopController@showCategory');  
 Route::get('/orders', [OrderController::class, 'index']);
+Route::get('/orders/cusName', [OrderController::class, 'getAllCusName']);
+Route::get('/orders/total', [OrderController::class, 'getAllOrderTotal']);
+
 Route::prefix('/order') -> group ( function (){
     Route::post('/store', [OrderController::class, 'store']);
     Route::put('/{id}', [OrderController::class, 'update']);

@@ -19,9 +19,9 @@
 
                 <tr v-for="item in items" :key="item.id" >
                     <td>{{item.order_id}}</td>
-                    <td>{{item.cus_id}}</td>
+                    <td>{{cusNames[item.order_id]}}</td>
                     <td>{{item.create_at}}</td>
-                    <td>{{item.total}}</td>
+                    <td>{{ (totals[item.order_id] == null) ? 0 : totals[item.order_id]}}</td>
                     <td>{{item.order_status | capitalize}}</td>
                     <td>{{item.delivery | capitalize}}</td>
                     <td>
@@ -40,7 +40,6 @@
                                 </svg>
                             </button>
                         </router-link>
-                        
                     </td>
                 </tr>
             </tbody>
@@ -58,6 +57,8 @@ export default {
     data: function(){
         return{
             selected: [],
+            cusNames: {},
+            totals: {}
         }
     },
     filters: {
@@ -73,6 +74,7 @@ export default {
             .then (response =>{
                 if (response.status == 200){
                     this.$emit('orderchanged');
+                    this.getAllOrderInfo();
                 }
             })
             .catch(error => {
@@ -94,8 +96,48 @@ export default {
             }
             this.selected = [];
             this.$emit('orderchanged');
+            this.getAllOrderInfo();
+        },
+        getAllCusName: async function(){
+            try{
+                const res = await axios.get(`/api/orders/cusName`);
+                let output = {};
+                for(let i = 0; i < res.data.length; i++){
+                    let key = res.data[i]['order_id'];
+                    let value = res.data[i]['username'];
+                    output[key] = value;
+                }
+                this.cusNames = output;
+                console.log(this.cusNames);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        },
+        getAllOrderTotal:  async function(){
+            try{
+                const res = await axios.get(`/api/orders/total`);
+                let output = {};
+                for(let i = 0; i < res.data.length; i++){
+                    let key = res.data[i]['order_id'];
+                    let value = res.data[i]['total_price'];
+                    output[key] = value;
+                }
+                this.totals = output;
+                console.log(this.totals);
+            }
+            catch(error) {
+                console.log(error);
+            }
+        },
+        getAllOrderInfo(){
+            this.getAllCusName();
+            this.getAllOrderTotal();
         }
     },
+    async created(){
+        this.getAllOrderInfo();
+    }
     
 }
 </script>

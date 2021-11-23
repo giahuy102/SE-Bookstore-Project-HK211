@@ -112,4 +112,23 @@ class OrderController extends Controller
         }
         return "Order not found.";
     }
+
+    public function getAllCusName(){
+        $res = DB::select("select order_id, username from orders join users on orders.cus_id = users.user_id");
+        if ($res){
+
+            return $res;
+        }
+        return "Order List is empty.";
+    }
+
+    public function getAllOrderTotal(){
+        $res = DB::select("select order_id, sum(selling_price * amount) as total_price 
+                            from include join book on include.book_id = book.book_id 
+                            group by order_id",);
+        if ($res){
+            return $res;
+        }
+        return "Order List is empty.";
+    }
 }
