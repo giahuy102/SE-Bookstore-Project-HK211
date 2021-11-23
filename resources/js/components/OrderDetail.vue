@@ -19,12 +19,12 @@
                     </div>
                     <div class="orderdetail">
                         <p>{{order.order_id}}</p>
-                        <p>{{order.cus_id}}</p>
-                        <p>abc</p>
+                        <p>{{customer.username}}</p>
+                        <p>{{customer.address}}</p>
                         <select v-model="selected" class="order_statusBox" @change="updateorder_status(selected)">
-                            <option value="completed">Completed</option>
-                            <option value="processing">Processing</option>
-                            <option value="cancelled">Cancelled</option>
+                            <option value="COMPLETED">COMPLETED</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="CANCELLED">CANCELLED</option>
                         </select>
                     </div>
                 </div>
@@ -37,23 +37,17 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>The Alchemist</td>
-                                <td>1</td>
-                                <td>4.00</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>The God Father</td>
-                                <td>1</td>
-                                <td>13.52</td>
+                            <tr v-for="item in items" :key="item.id" >
+                                <td>{{item.book_id}}</td>
+                                <td>{{item.title}}</td>
+                                <td>{{item.amount}}</td>
+                                <td>{{item.selling_price}}</td>
                             </tr>
                             <tr>
                                 <td> </td>
                                 <td> </td>
                                 <td class = "Total"><strong> Total: </strong></td>
-                                <td class = "Total"><strong>13.52</strong> </td>
+                                <td class = "Total"><strong>{{total_cost}}</strong> </td>
                             </tr>
                         </tbody>
                     </table>
@@ -77,22 +71,31 @@ export default {
     data: function(){
         return{
             order: {},
+            customer:{},
             id: this.$route.params.orderID,
-            selected: 'completed'
+            selected: 'COMPLETED',
+            current_cus_id: 0,
+            items: [],
+            total_cost: 0
         }
     },
     methods:{
-        getOrderByID(id) {
-            axios.get('/api/order/' + id)
-            .then (response => {
-                this.order = response.data
-                this.selected = this.order.order_status;
-
-                // console.log(this.item)
-            })
-            .catch (error => {
-                console.log(error)
-            })
+        getOrderByID: async function(id) {
+            try{
+                const res = await axios.get('/api/order/' + id);
+                this.order = res.data[0];
+                const res2 = await axios.get('/api/user/' + this.order.cus_id);
+                this.customer = res2.data[0];
+                const res3 = await axios.get('/api/order_book/' + this.order.order_id);
+                this.items = res3.data;
+                for (let i = 0; i < this.items.length; i++){
+                    let item = this.items[i];
+                    this.total_cost += item.selling_price * item.amount;
+                }
+            }
+            catch (error){
+                console.log(error);
+            }
         },
         removeOrder(id){
             axios.delete('/api/order/' + id)
@@ -115,7 +118,7 @@ export default {
             })
         }
     },
-    created(){
+    async created(){
         this.getOrderByID(this.id);
     },
     filters: {

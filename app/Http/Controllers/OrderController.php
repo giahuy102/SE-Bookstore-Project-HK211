@@ -58,7 +58,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::firstWhere('order_id', $id);
+        $order = DB::select("select * from orders where order_id = ?", [$id]);
         if ($order){
             return $order;
         }
@@ -125,9 +125,19 @@ class OrderController extends Controller
     public function getAllOrderTotal(){
         $res = DB::select("select order_id, sum(selling_price * amount) as total_price 
                             from include join book on include.book_id = book.book_id 
-                            group by order_id",);
+                            group by order_id");
         if ($res){
             return $res;
+        }
+        return "Order List is empty.";
+    }
+
+    public function getOrderBookByOrderID($req_order_id){
+        $books = DB::select("select book.book_id, title, amount, selling_price
+                            from include join book on include.book_id = book.book_id 
+                            where order_id = ?",[$req_order_id]);
+        if ($books){
+            return $books;
         }
         return "Order List is empty.";
     }

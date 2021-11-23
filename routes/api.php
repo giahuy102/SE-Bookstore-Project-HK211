@@ -41,6 +41,7 @@ Route::get('categories', 'BookShopController@indexCategories');               //
 Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/orders/cusName', [OrderController::class, 'getAllCusName']);
 Route::get('/orders/total', [OrderController::class, 'getAllOrderTotal']);
+Route::get('/order_book/{id}', [OrderController::class, 'getOrderBookByOrderID']);
 
 Route::prefix('/order') -> group ( function (){
     Route::post('/store', [OrderController::class, 'store']);
