@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 use App\Order;
 
@@ -43,6 +44,7 @@ class OrderController extends Controller
         $newOrder->delivery = $request->order["delivery"];
         $newOrder->order_status = $request->order["order_status"];
         $newOrder->cus_id = $request->order["cus_id"];
+        $newOrder->create_at = Carbon::now()->toDateTimeString();
         $newOrder->save();
 
         return $newOrder;
