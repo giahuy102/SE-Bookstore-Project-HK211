@@ -153,7 +153,7 @@
 <script>
 import { Arrow } from "@egjs/flicking-plugins";
 import "@egjs/flicking-plugins/dist/arrow.css";
-
+import { addToCart } from "../cartHelper";
 export default {
   props: ["books", "categories"],
   data() {
@@ -187,25 +187,7 @@ export default {
       this.specialDiscounts.slice(0, 5);
     },
     addToCart(id) {
-      axios
-        .post("/api/cart/store", {
-          data: { book_id: id },
-        })
-        .then((responde) => {
-          if (responde.status == 200) {
-            this.$notify({
-              type: "success ",
-              group: "foo",
-              title: "Notifications",
-              text: responde.data,
-            });
-            console.log(responde.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.$root.$emit("changeTotalAmount", 1);
+      return addToCart(id, this);
     },
   },
   mounted() {

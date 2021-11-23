@@ -15,7 +15,7 @@
             "$" + (book.selling_price - book.selling_price * book.sale)
           }}</span>
         </p>
-        <button @click="addToCart(book.book_id)">BUY NOW</button>
+        <button v-on:click="addToCart(book.book_id)">BUY NOW</button>
 
         <h3>Description</h3>
         <p>
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { addToCart } from "../cartHelper";
 export default {
   props: ["book", "category"],
   data() {
@@ -59,25 +60,7 @@ export default {
   },
   methods: {
     addToCart(id) {
-      axios
-        .post("/api/cart/store", {
-          data: { book_id: id },
-        })
-        .then((responde) => {
-          if (responde.status == 200) {
-            this.$notify({
-              type: "success ",
-              group: "foo",
-              title: "Notifications",
-              text: responde.data,
-            });
-            console.log(responde.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      this.$root.$emit("changeTotalAmount", 1);
+      return addToCart(id, this);
     },
   },
 };
@@ -179,4 +162,6 @@ li span:last-child {
   font-weight: 500;
   font-size: 20px;
 }
+
+
 </style>

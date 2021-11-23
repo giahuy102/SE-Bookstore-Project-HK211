@@ -177,6 +177,7 @@
 </template>
 
 <script>
+import { addToCart } from "../cartHelper";
 export default {
   props: ["books"],
   data() {
@@ -255,25 +256,7 @@ export default {
     },
 
     addToCart(id) {
-      axios
-        .post("/api/cart/store", {
-          data: { book_id: id },
-        })
-        .then((responde) => {
-          if (responde.status == 200) {
-            this.$notify({
-              type: "success ",
-              group: "foo",
-              title: "Notifications",
-              text: responde.data,
-            });
-            console.log(responde.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        this.$root.$emit("changeTotalAmount", 1);
+      return addToCart(id, this);
     },
   },
   mounted() {
