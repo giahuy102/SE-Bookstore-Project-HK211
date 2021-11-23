@@ -8,7 +8,7 @@
             @click="addToCart(3)"
             id="buy-link"
             class="d-flex justify-content-center align-items-center"
-            style="color:white"
+            style="color: white"
           >
             Buy now
           </button>
@@ -145,6 +145,7 @@
         </div>
       </div>
     </div>
+    <notifications group="foo" position="bottom right" />
   </div>
 </template>
 
@@ -192,12 +193,19 @@ export default {
         })
         .then((responde) => {
           if (responde.status == 200) {
-            console.log("Add to cart !!!");
+            this.$notify({
+              type: "success ",
+              group: "foo",
+              title: "Notifications",
+              text: responde.data,
+            });
+            console.log(responde.data);
           }
         })
         .catch((error) => {
           console.log(error);
         });
+      this.$root.$emit("changeTotalAmount", 1);
     },
   },
   mounted() {

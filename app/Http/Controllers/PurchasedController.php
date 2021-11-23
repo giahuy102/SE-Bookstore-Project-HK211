@@ -18,10 +18,10 @@ class PurchasedController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -34,12 +34,12 @@ class PurchasedController extends Controller
         // $cartItems = DB::table('book')->rightJoin('cart', 'book.book_id', '=', 'cart.book_id');
         $isLogin = false;
         $username = null;
-        $user_id = 2;
-        // if (Auth::check()) {
-        //     $isLogin = true;
-        //     $username = Auth::user()->username;
-        //     $user_id = Auth::user()->user_id;
-        // }
+        $user_id = null;
+        if (Auth::check()) {
+            $isLogin = true;
+            $username = Auth::user()->username;
+            $user_id = Auth::user()->user_id;
+        }
 
         $mypurchased = DB::table('orders')
         ->rightJoin('include', 'orders.order_id', '=', 'include.order_id')

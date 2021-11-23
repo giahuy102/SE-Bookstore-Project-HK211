@@ -19,10 +19,10 @@ class CartController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
@@ -31,16 +31,14 @@ class CartController extends Controller
      */
     public function index()
     {
-        // $cartItems = DB::table('cart')->join('book', 'cart.book_id', '=', 'book.book_id');
-        // $cartItems = DB::table('book')->rightJoin('cart', 'book.book_id', '=', 'cart.book_id');
         $isLogin = false;
         $username = null;
-        $user_id = 2;
-        // if (Auth::check()) {
-        //     $isLogin = true;
-        //     $username = Auth::user()->username;
-        //     $user_id = Auth::user()->user_id;
-        // }
+        $user_id = null;
+        if (Auth::check()) {
+            $isLogin = true;
+            $username = Auth::user()->username;
+            $user_id = Auth::user()->user_id;
+        }
 
         $mycart = DB::table('book')
             ->rightJoin('cart', 'book.book_id', '=', 'cart.book_id')
@@ -79,22 +77,29 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = 2;
+        $user_id = null;
+        if (Auth::check()) {
+            $user_id = Auth::user()->user_id;
+        }
         $book_id = $request->data['book_id'];
 
         if (DB::table('cart')
             ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
             ->exists()
-        )
-            return "Add failed ...";
-        else {
+        ) {
+            DB::table('cart')
+                ->select('amount')
+                ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
+                ->update(['amount' => DB::raw('amount + 1')]);
+            return "Add amount to cart ...";
+        } else {
             $affected = DB::table('cart')->insert([
                 'book_id' => $book_id,
                 'user_id' => $user_id,
                 'amount' => 1
             ]);
 
-            if ($affected) return "Add successfull ...";
+            if ($affected) return "Add new product to cart ...";
         }
     }
 
@@ -129,23 +134,11 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user_id = 2;
-        // if (Auth::check()) {
-        //     $user_id = Auth::user()->user_id;
-        // }
+        $user_id = null;
+        if (Auth::check()) {
+            $user_id = Auth::user()->user_id;
+        }
 
-        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
-        // $existingItem = CartItem::where([
-        //     'user_id' => $user_id,
-        //     'book_id' => $id
-        // ])->first();
-
-        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
-
-        // if ($existingItem) {
-        //     $existingItem->amount = 99;
-        //     return $existingItem;
-        // }
         $affected = DB::table('cart')
             ->where([['user_id', '=', $user_id], ['book_id', '=', $id]])
             ->update(['amount' => $request->data['amount']]);
@@ -162,23 +155,11 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        $user_id = 2;
-        // if (Auth::check()) {
-        //     $user_id = Auth::user()->user_id;
-        // }
+        $user_id = null;
+        if (Auth::check()) {
+            $user_id = Auth::user()->user_id;
+        }
 
-        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
-        // $existingItem = CartItem::where([
-        //     'user_id' => $user_id,
-        //     'book_id' => $id
-        // ])->first();
-
-        // $existingItem = CartItem::where([['user_id', '=', $user_id], ['book_id', '=', $id]])->first();
-
-        // if ($existingItem) {
-        //     $existingItem->amount = 99;
-        //     return $existingItem;
-        // }
         $affected = DB::table('cart')
             ->where([['user_id', '=', $user_id], ['book_id', '=', $id]])
             ->delete();
@@ -189,7 +170,10 @@ class CartController extends Controller
 
     public function payment(Request $request)
     {
-        $user_id = 2;
+        $user_id = null;
+        if (Auth::check()) {
+            $user_id = Auth::user()->user_id;
+        }
 
         $order_id = DB::table('orders')->insertGetId(
             [
@@ -227,5 +211,19 @@ class CartController extends Controller
         return DB::table('include')
             ->where('order_id', '=', $order_id)
             ->get();
+    }
+
+    public function totalAmount()
+    {
+        $user_id = null;
+        if (Auth::check()) {
+            $user_id = Auth::user()->user_id;
+        }
+
+        $total = DB::table('cart')
+            ->where([['user_id', '=', $user_id]])
+            ->sum('amount');
+
+        return $total;
     }
 }

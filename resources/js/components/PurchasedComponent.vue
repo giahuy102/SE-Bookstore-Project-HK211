@@ -11,6 +11,14 @@
         <div>
           <h1><strong>Purchased</strong></h1>
         </div>
+        <div class="search" style="margin-left: auto">
+          <input
+            class="form-control"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Search"
+          />
+        </div>
       </div>
       <empty-cart
         v-if="itemPurchased.length == 0"
@@ -28,7 +36,7 @@
 
         <div
           class="itemCart"
-          v-for="(item, index) in itemPurchased"
+          v-for="(item, index) in filteredResources"
           :key="index"
         >
           <div class="product">
@@ -61,16 +69,30 @@
 </template>
 
 <script>
-import EmptyCart from './EmptyCart.vue';
+import EmptyCart from "./EmptyCart.vue";
 export default {
   props: ["mypurchased"],
   components: { EmptyCart },
   data: function () {
     return {
+      searchQuery: "",
       itemPurchased: {},
     };
   },
-
+  computed: {
+    filteredResources() {
+      if (this.searchQuery) {
+        return this.itemPurchased.filter((item) => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.title.toLowerCase().includes(v));
+        });
+      } else {
+        return this.itemPurchased;
+      }
+    },
+  },
   methods: {},
   created() {
     this.itemPurchased = this.mypurchased;

@@ -12,6 +12,14 @@
         <div>
           <h1><strong>Cart</strong></h1>
         </div>
+        <div class="search" style="margin-left: auto">
+          <input
+            class="form-control"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Search"
+          />
+        </div>
       </div>
       <empty-cart
         v-if="cartItem.length == 0"
@@ -29,7 +37,7 @@
 
         <div
           class="cartItem"
-          v-for="(item, index) in cartItem"
+          v-for="(item, index) in filteredResources"
           v-bind:key="index"
         >
           <input
@@ -76,7 +84,13 @@
         <div class="footerCart">
           <input class="select" type="checkbox" v-model="selectAll" />
           <button class="selectAll" @click="toggleSelect">Select all</button>
-          <button class="delete" @click="deleteSelect">Delete</button>
+          <button
+            class="delete"
+            @click="deleteSelect"
+            :disabled="selectedID.length <= 0"
+          >
+            Delete
+          </button>
           <div class="total">
             <p class="totalPayment">Total Payment</p>
             <p class="totalPrice">{{ totalCal() }}</p>
@@ -144,6 +158,8 @@ export default {
   components: { EmptyCart },
   data: function () {
     return {
+      searchQuery: "",
+
       cartItem: {},
       selectedID: [],
 
@@ -179,6 +195,8 @@ export default {
             console.log(error);
           });
       }
+
+      this.$root.$emit("changeTotalAmount", x);
     },
     totalCal: function () {
       var res = this.cartItem.reduce(
@@ -196,12 +214,31 @@ export default {
       this.selectAll = !select;
     },
     deleteSelect: function () {
-      console.log("start delete", this.cartItem, this.selectedID);
-      while (this.selectedID.length != 0) {
-        this.deleteId(this.selectedID[0]);
-        this.selectedID.splice(0, 1);
-      }
-      console.log("end delete", this.cartItem, this.selectedID);
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          //
+          console.log("start delete", this.cartItem, this.selectedID);
+
+          while (this.selectedID.length != 0) {
+            this.deleteId(this.selectedID[0]);
+            this.selectedID.splice(0, 1);
+          }
+          console.log("end delete", this.cartItem, this.selectedID);
+          //
+          // swal("Poof! Your imaginary file has been deleted!", {
+          //   icon: "success",
+          // });
+        }
+        // else {
+        //   swal("Your imaginary file is safe!");
+        // }
+      });
     },
     deleteId: function (id) {
       axios
@@ -217,6 +254,7 @@ export default {
 
       for (var i = 0; i < this.cartItem.length; i++) {
         if (this.cartItem[i].book_id === id) {
+          this.$root.$emit("changeTotalAmount", -this.cartItem[i].amount);
           this.cartItem.splice(i, 1);
           return true;
         }
@@ -287,8 +325,25 @@ export default {
         this.selectedID = selectedID;
       },
     },
+    filteredResources() {
+      if (this.searchQuery) {
+        return this.cartItem.filter((item) => {
+          return this.searchQuery
+            .toLowerCase()
+            .split(" ")
+            .every((v) => item.title.toLowerCase().includes(v));
+        });
+      } else {
+        return this.cartItem;
+      }
+    },
   },
   created() {
+    axios
+      .get("/api/user")
+      .then((response) => console.dir(response.data))
+      .catch((error) => console.log(error));
+
     this.cartItem = this.mycart;
   },
 };
@@ -307,6 +362,15 @@ export default {
 }
 .select {
   width: 10%;
+}
+input[type="checkbox"] {
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  /* padding: 10px; */
 }
 .product {
   display: flex;
