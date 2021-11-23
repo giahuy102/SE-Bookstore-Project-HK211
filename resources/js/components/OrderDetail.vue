@@ -87,6 +87,9 @@ export default {
                 const res2 = await axios.get('/api/user/' + this.order.cus_id);
                 this.customer = res2.data[0];
                 const res3 = await axios.get('/api/order_book/' + this.order.order_id);
+                if (res3.data == 'Order List is empty.'){
+                    return;
+                }
                 this.items = res3.data;
                 for (let i = 0; i < this.items.length; i++){
                     let item = this.items[i];
