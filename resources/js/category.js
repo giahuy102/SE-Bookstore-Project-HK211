@@ -54,6 +54,7 @@
  Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 
  Vue.component('category-component', require('./components/CategoryComponent.vue').default);
+ Vue.component('search-result-component', require('./components/SearchResultComponent.vue').default);
  
  /**
   * Next, we will create a fresh Vue application instance and attach it to

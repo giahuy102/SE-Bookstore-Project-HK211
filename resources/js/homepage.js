@@ -28,10 +28,6 @@
  import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
-
-
-
-
  import Flicking from "@egjs/vue-flicking";
  import "@egjs/vue-flicking/dist/flicking.css";
 
