@@ -149,9 +149,19 @@ __webpack_require__.r(__webpack_exports__);
     getUser: function getUser(userID) {
       var _this = this;
 
-      axios.get('/api/user/' + userID).then(function (response) {
+      //   axios.get('/api/user/' + userID)
+      //   .then (response => {
+      //       console.log(response)
+      //       this.user = response.data[0]
+      //       //console.log(this.book)
+      //   })
+      //   .catch (error => {
+      //       console.log(error)
+      //   })
+      axios.get('/api/getUser').then(function (response) {
         console.log(response);
-        _this.user = response.data[0]; //console.log(this.book)
+        _this.user = response.data[0];
+        console.log(_this.book);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -296,14 +306,6 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "container filling-change-password" }, [
-      _c("div", [_vm._v(" " + _vm._s(_vm.user.password) + " ")]),
-      _vm._v(" "),
-      _c("div", [_vm._v(" " + _vm._s(_vm.temp_old_password) + " ")]),
-      _vm._v(" "),
-      _c("div", [_vm._v(" " + _vm._s(_vm.temp_new_password) + " ")]),
-      _vm._v(" "),
-      _c("div", [_vm._v(" " + _vm._s(_vm.temp_new_confirm_password) + " ")]),
-      _vm._v(" "),
       _c("div", { staticClass: "row filling-one-row" }, [
         _vm._m(0),
         _vm._v(" "),

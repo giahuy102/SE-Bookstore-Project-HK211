@@ -48,7 +48,7 @@
 
         <!-- Have data() script-->
 
-
+        <!-- {{user_account}} -->
         <div class="container content">
             <div class="row no-padding ">
                 <div class="col-4 avatar">
@@ -140,7 +140,8 @@ import changePassword from './ChangePassword.vue'
             
             // }
             getUser() {
-                axios.get('/api/user/' + 1910409)
+                // axios.get('/api/user/' + 1910409)
+                axios.get('/api/getUser')
                 .then (response => {
                     console.log(response)
                     this.user_account = response.data[0]

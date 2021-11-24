@@ -71,6 +71,12 @@ class BookShopController extends Controller
         //echo ("pass echo 0");
 
         // tam thoi test cid la 1
+
+        //$test = $request->input('image');
+        //dd($test);
+        //print_r($test);
+        
+
         $book = DB::insert("insert into book(book_id, title, page_number, author, cost_price, selling_price, input_date, publish_date, sale, num_view, 
         language, image, quantity, publisher, description, num_sale, cid) 
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -79,6 +85,23 @@ class BookShopController extends Controller
         $request->input('sale'), $request->input('num_view'), $request->input('language'), $request->input('image'), $request->input('quantity'),
         $request->input('publisher'), $request->input('description'), $request->input('num_sale'), $request->input('cid')]);
     }
+
+
+
+    public function fileStore(Request $request)
+    {
+        $upload_path = public_path('images');
+        $file_name = $request->file->getClientOriginalName();
+        //$generated_new_name = time() . '.' . $request->file->getClientOriginalExtension();
+        //echo $generated_new_name;
+        //$request->file->move($upload_path, $generated_new_name);
+        $request->file->move($upload_path, $file_name);
+         
+        //$insert['title'] = $file_name;
+        //$check = Photo::insertGetId($insert);
+        //return response()->json(['success' => 'You have successfully uploaded "' . $file_name . '"']);
+    }
+
 
     /**
      * Display the specified resource.
@@ -98,8 +121,14 @@ class BookShopController extends Controller
 
     }
 
-    public function showUser($id) {
-        $user = DB::select("select * from users where user_id = ? ", [$id]);
+    public function showUser() {
+        // $user = DB::select("select * from users where user_id = ? ", [$id]);
+        // if ($user) {
+        //     return $user;
+        // }
+        // return 'Not found user manager';
+
+        $user = DB::select("select * from users where role = ?", ["WarehouseManager"]);
         if ($user) {
             return $user;
         }

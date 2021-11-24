@@ -148,7 +148,8 @@ __webpack_require__.r(__webpack_exports__);
     getUser: function getUser() {
       var _this = this;
 
-      axios.get('/api/user/' + 1910409).then(function (response) {
+      // axios.get('/api/user/' + 1910409)
+      axios.get('/api/getUser').then(function (response) {
         console.log(response);
         _this.user_account = response.data[0];
         console.log(_this.book);

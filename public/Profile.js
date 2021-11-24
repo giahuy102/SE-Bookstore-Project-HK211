@@ -242,10 +242,73 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['items'],
+  data: function data() {
+    return {};
+  },
+  props: ['items', 'resultQuery'],
   components: {
     updateBook: _UpdateBook_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     bookInfo: _BookInfo_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -408,19 +471,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
     //console.log('hihihi')
     this.getList();
+    this.getAllCategories();
   },
   components: {
     listBooks: _ListBooks_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      items: [// {'id':1, 'title': 'abcxyz'}
-      ]
+      items: [// store all books
+        // {'id':1, 'title': 'abcxyz'}
+      ],
+      categories: [],
+      searchQuery: null,
+      items_search: [] // for props search ListBooks.vue
+
     };
   },
   methods: {
@@ -434,6 +552,48 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response);
       });
+    },
+    getAllCategories: function getAllCategories() {
+      var _this2 = this;
+
+      axios.get('/api/categories').then(function (response) {
+        //console.log("Get all categories");
+        _this2.categories = response.data;
+        console.log(_this2.categories);
+      })["catch"](function (error) {
+        console.log(error.response);
+      });
+    },
+    // getData() {
+    //     //console.log(this.items)
+    //     if (this.query.length == 0) {
+    //         this.search_data = []
+    //     }
+    //     else {
+    //     for (var key in this.items) {
+    //         if (this.items[key].title.includes(this.query)) {
+    //             //console.log(this.items[key].title)
+    //             this.search_data.push(this.items[key].title)
+    //         }
+    //     }
+    //     }
+    // },
+    resultQuery: function resultQuery() {
+      var _this3 = this;
+
+      if (this.searchQuery) {
+        return this.items.filter(function (item) {
+          //this.items_search = this.searchQuery.toLowerCase().split(' ').every( v => item.title.toLowerCase().includes(v) );
+          //console.log(this.items_search)
+          return _this3.searchQuery.toLowerCase().split(' ').every(function (v) {
+            return item.title.toLowerCase().includes(v);
+          });
+        });
+      } else {
+        //this.items_search = this.items;
+        //console.log(this.items_search)
+        return this.items;
+      }
     }
   }
 });
@@ -449,6 +609,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -580,15 +743,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       book: {},
       bookID: this.$route.params.bookID,
-      categories: []
+      categories: [],
+      filename: '',
+      file: ''
     };
   },
   methods: {
+    onFileChange: function onFileChange(e) {
+      //console.log(e.target.files[0]);
+      this.filename = "Selected File: " + e.target.files[0].name;
+      this.file = e.target.files[0];
+      this.book.image = e.target.files[0].name;
+    },
+    submitForm: function submitForm(e) {
+      e.preventDefault();
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+      }; // form data
+
+      var formData = new FormData();
+      formData.append('file', this.file); // send upload request
+
+      axios.post('/api/store_file', formData, config).then(function (response) {
+        console.log("Done upload image");
+        currentObj.success = response.data.success;
+        currentObj.filename = "";
+      })["catch"](function (error) {
+        console.log(error);
+        currentObj.output = error;
+      });
+    },
     getBookByID: function getBookByID(id) {
       var _this = this;
 
@@ -636,6 +875,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response);
       });
+    },
+    previewFiles: function previewFiles(event) {
+      console.log(event.target.files);
+      console.log(event.target.files[0].name);
+      this.book.image = event.target.files[0].name;
     }
   },
   created: function created() {
@@ -679,7 +923,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.search {\r\n    margin-top: 10px;\n}\n.search-icon {\n}\n.search-typing {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    text-indent: 30px;\r\n    /* background: url(../assets/hcmut1.png) no-repeat;\r\n    background-size: 10px 10px; */\r\n    background: url(" + escape(__webpack_require__(/*! ../../../public/images/warehouse/search-icon.png */ "./public/images/warehouse/search-icon.png")) + ") no-repeat scroll 5px 5px; \r\n    background-size: 15px 15px;\n}\n.text-category {\r\n    color: #0084B4;\r\n    font-weight: bold;\r\n    font-size: 18px;\n}\n.category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.search-category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    width: 145px;\r\n    height: 30px;\n}\n.search-button {\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.search-button:hover {\r\n    background-color: #0084B4;\n}\n.search-button:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.list-book {\r\n    margin-top: 30px;\n}\n.icon {\r\n    margin-top: -7px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.search {\r\n    margin-top: 10px;\n}\n.search-icon {\n}\n.search-typing {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    text-indent: 30px;\r\n    /* background: url(../assets/hcmut1.png) no-repeat;\r\n    background-size: 10px 10px; */\r\n    background: url(" + escape(__webpack_require__(/*! ../../../public/images/warehouse/search-icon.png */ "./public/images/warehouse/search-icon.png")) + ") no-repeat scroll 5px 5px; \r\n    background-size: 15px 15px;\n}\n.text-category {\r\n    color: #0084B4;\r\n    font-weight: bold;\r\n    font-size: 18px;\n}\n.category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.search-category {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\r\n    width: 145px;\r\n    height: 30px;\n}\n.search-button {\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.search-button:hover {\r\n    background-color: #0084B4;\n}\n.search-button:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.list-book {\r\n    margin-top: 30px;\n}\n.icon {\r\n    margin-top: -7px;\n}\n::-moz-placeholder {\r\n    color: #aca5a5;\n}\n:-ms-input-placeholder {\r\n    color: #aca5a5;\n}\n::placeholder {\r\n    color: #aca5a5;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -698,7 +942,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header-update {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.select-category {\r\n    width: 684px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.select-language {\r\n    width: 210px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle-update {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle-update:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle-update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.update {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.update:hover {\r\n    background-color: #0084B4;\n}\n.update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n", ""]);
+exports.push([module.i, "\n.header-update {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.select-category {\r\n    width: 684px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.select-language {\r\n    width: 210px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle-update {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle-update:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle-update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.update {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.update:hover {\r\n    background-color: #0084B4;\n}\n.update:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.input-group {\r\n    width: 83%;\n}\n.custom-file-label {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n#custom-file-label {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\r\n\r\n/* .custom-file-input {\r\n    opacity: 1;\r\n    padding-top: 3px;\r\n    width: 105px;\r\n} */\n.custom-file-input-temp {\r\n    opacity: 1;\r\n    padding-top: 3px;\r\n    width: 105px;\n}\n#upload-button {\r\n    border-radius: 3px;\n}\n::-moz-placeholder {\r\n    color: black;\n}\n:-ms-input-placeholder {\r\n    color: black;\n}\n::placeholder {\r\n    color: black;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -1412,7 +1656,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "tbody",
-        _vm._l(_vm.items, function(item) {
+        _vm._l(_vm.resultQuery, function(item) {
           return _c(
             "tr",
             {
@@ -1424,7 +1668,7 @@ var render = function() {
               }
             },
             [
-              _c("td", [_vm._v(" " + _vm._s(item.book_id) + " ")]),
+              _c("td", [_vm._v(_vm._s(item.book_id) + " ")]),
               _vm._v(" "),
               _c("td", [_vm._v(" " + _vm._s(item.title) + " ")]),
               _vm._v(" "),
@@ -1577,7 +1821,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "col-2" }, [_vm._v("ID")]),
+        _c("th", { staticClass: "col-2" }, [_vm._v("  ID ")]),
         _vm._v(" "),
         _c("th", { staticClass: "col-4" }, [_vm._v("Title")]),
         _vm._v(" "),
@@ -1612,14 +1856,40 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "container search" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.searchQuery,
+                expression: "searchQuery"
+              }
+            ],
+            staticClass: "search-typing",
+            attrs: { type: "text", placeholder: "Title", size: "50" },
+            domProps: { value: _vm.searchQuery },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.searchQuery = $event.target.value
+              }
+            }
+          })
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c(
       "div",
       { staticClass: "bookList" },
       [
         _c("listBooks", {
-          attrs: { items: _vm.items },
+          attrs: { items: _vm.items, resultQuery: _vm.resultQuery() },
           on: {
             orderchanged: function($event) {
               return _vm.getList()
@@ -1631,71 +1901,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container search" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-5 text-start" }, [
-          _c("input", {
-            staticClass: "search-typing",
-            attrs: { type: "text", placeholder: "Name, ID", size: "50" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-1 text-right text-category" }, [
-          _vm._v("Category:")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-3 text-left" }, [
-          _c("select", { staticClass: "search-category" }, [
-            _c("option", { attrs: { value: "Choose..." } }),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Business" } }, [
-              _vm._v("Business")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Comic" } }, [_vm._v("Comic")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Technology" } }, [
-              _vm._v("Technology")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Cooking" } }, [_vm._v("Cooking")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Education" } }, [
-              _vm._v("Education")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Self-help" } }, [
-              _vm._v("Self-help")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "History" } }, [_vm._v("History")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Sports" } }, [_vm._v("Sports")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Travel" } }, [_vm._v("Travel")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Health" } }, [_vm._v("Health")]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Literature" } }, [
-              _vm._v("Literature")
-            ]),
-            _vm._v(" "),
-            _c("option", { attrs: { value: "Literature" } }, [_vm._v("Novel")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col text-left" }, [
-          _c("button", { staticClass: "search-button" }, [_vm._v("Search")])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -1888,29 +2094,30 @@ var render = function() {
       _c("div", { staticClass: "row one-row-field" }, [
         _vm._m(5),
         _vm._v(" "),
-        _c("div", { staticClass: "col-3 text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
+        _c(
+          "div",
+          { staticClass: "col-3 text-left" },
+          [
+            _c("date-picker", {
+              attrs: {
+                size: "20",
+                placeholder: _vm.book.input_date,
+                lang: "en",
+                type: "date",
+                format: "YYYY-MM-DD",
+                "value-type": "YYYY/MM/DD"
+              },
+              model: {
                 value: _vm.book.input_date,
+                callback: function($$v) {
+                  _vm.$set(_vm.book, "input_date", $$v)
+                },
                 expression: "book.input_date"
               }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "20", placeholder: "yyyy/mm/dd" },
-            domProps: { value: _vm.book.input_date },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "input_date", $event.target.value)
-              }
-            }
-          })
-        ]),
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _vm._m(6),
         _vm._v(" "),
@@ -2052,29 +2259,30 @@ var render = function() {
       _c("div", { staticClass: "row one-row-field" }, [
         _vm._m(10),
         _vm._v(" "),
-        _c("div", { staticClass: "col-3 text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
+        _c(
+          "div",
+          { staticClass: "col-3 text-left" },
+          [
+            _c("date-picker", {
+              attrs: {
+                size: "20",
+                placeholder: _vm.book.publish_date,
+                lang: "en",
+                type: "date",
+                format: "YYYY-MM-DD",
+                "value-type": "YYYY/MM/DD"
+              },
+              model: {
                 value: _vm.book.publish_date,
+                callback: function($$v) {
+                  _vm.$set(_vm.book, "publish_date", $$v)
+                },
                 expression: "book.publish_date"
               }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "20", placeholder: "yyyy/mm/dd" },
-            domProps: { value: _vm.book.publish_date },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "publish_date", $event.target.value)
-              }
-            }
-          })
-        ]),
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _vm._m(11),
         _vm._v(" "),
@@ -2139,32 +2347,40 @@ var render = function() {
         _vm._m(12),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.book.image,
-                expression: "book.image"
-              }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "80" },
-            domProps: { value: _vm.book.image },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "image", $event.target.value)
-              }
-            }
-          })
+          _c(
+            "form",
+            {
+              attrs: { id: "upload-image", enctype: "multipart/form-data" },
+              on: { submit: _vm.submitForm }
+            },
+            [
+              _c("div", { staticClass: "input-group" }, [
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input custom-file-input-temp",
+                    attrs: {
+                      type: "file",
+                      name: "filename",
+                      id: "inputFileUpload"
+                    },
+                    on: { change: _vm.onFileChange }
+                  }),
+                  _vm._v(
+                    "\n                              " +
+                      _vm._s(_vm.book.image) +
+                      "\n                              "
+                  )
+                ]),
+                _vm._v(" "),
+                _vm._m(13)
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row one-row-field" }, [
-        _vm._m(13),
+        _vm._m(14),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
           _c("textarea", {
@@ -2342,6 +2558,17 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-3 text-left field-name-left" }, [
       _vm._v("Image"),
       _c("span", { staticClass: "red-star" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("input", {
+        staticClass: "btn btn-primary",
+        attrs: { type: "submit", id: "upload-button", value: "Upload" }
+      })
     ])
   },
   function() {

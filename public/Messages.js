@@ -9,6 +9,9 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-datepicker */ "./node_modules/vue2-datepicker/index.esm.js");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-datepicker/index.css */ "./node_modules/vue2-datepicker/index.css");
+/* harmony import */ var vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_index_css__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -123,7 +126,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    DatePicker: vue2_datepicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       book: {
@@ -149,7 +219,11 @@ __webpack_require__.r(__webpack_exports__);
       //     {index: 2, value: 'lang man'},
       //     {index: 3, value: 'tieu thuyet'}
       // ],
-      categories: [] // category: {},
+      categories: [],
+      // category: {},
+      // for image upload
+      filename: '',
+      file: '' //csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
 
     };
   },
@@ -157,6 +231,34 @@ __webpack_require__.r(__webpack_exports__);
     this.getAllCategories();
   },
   methods: {
+    onFileChange: function onFileChange(e) {
+      //console.log(e.target.files[0]);
+      this.filename = "Selected File: " + e.target.files[0].name;
+      this.file = e.target.files[0];
+      this.book.image = e.target.files[0].name;
+    },
+    submitForm: function submitForm(e) {
+      e.preventDefault();
+      var currentObj = this;
+      var config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        }
+      }; // form data
+
+      var formData = new FormData();
+      formData.append('file', this.file); // send upload request
+
+      axios.post('/api/store_file', formData, config).then(function (response) {
+        console.log("Done upload image");
+        currentObj.success = response.data.success;
+        currentObj.filename = "";
+      })["catch"](function (error) {
+        console.log(error);
+        currentObj.output = error;
+      });
+    },
     createBook: function createBook() {
       this.check_add_id = this.book.book_id; // console.log(this.check_add_id);
       // console.log(this.book.book_id);
@@ -230,7 +332,8 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.log(error.response);
       });
-    } // findCid(id = 0) {
+    },
+    // findCid(id = 0) {
     //     axios.get('/api/category/' + id)
     //     .then (response => {
     //         console.log("find cid")
@@ -242,7 +345,11 @@ __webpack_require__.r(__webpack_exports__);
     //         console.log(error)
     //     })
     // }
-
+    previewFiles: function previewFiles(event) {
+      console.log(event.target.files[0]);
+      console.log(event.target.files[0].name);
+      this.book.image = event.target.files[0].name;
+    }
   }
 });
 
@@ -260,7 +367,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.header-additems {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.select-language {\r\n    width: 210px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.select-category {\r\n    width: 684px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.addbook {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.addbook:hover {\r\n    background-color: #0084B4;\n}\n.addbook:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.header-additems {\r\n    margin-top: 30px;\r\n    font-weight: bold;\r\n    font-size: 30px;\n}\n.select-language {\r\n    width: 210px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.select-category {\r\n    width: 684px;\r\n    height: 30px;\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.filling-all-info {\r\n    margin-top: 40px;\n}\n.one-row-field {\r\n    margin-top: 15px;\n}\n.row-input {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.field-name-left {\r\n    padding-left: 115px;\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\n}\n.field-name-right {\r\n    color: #0084B4;\r\n    font-size: 18px;\r\n    font-weight: bold;\r\n    padding-left: 0px;\n}\n.red-star {\r\n    color: red;\n}\n.field-right {\r\n    padding-left: 12px;\n}\n.text-area {\r\n    margin-left: 3px;\n}\n.button-below {\r\n    margin-top: 20px;\r\n    margin-bottom: 30px;\n}\n.cancle {\r\n    background-color: #EEEEEE;\r\n    border: none ;\r\n    border-radius: 5px;\r\n    color: #616161;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    margin-right: 30px;\n}\n.cancle:hover {\r\n    background-color: #d0d6d6;\n}\n.cancle:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.addbook {\r\n    /* margin-left: 290px; */\r\n    background-color: #00ACED;\r\n    border: none ;\r\n    color: white;\r\n    font-size: 20px;\r\n    padding: 0.25rem 1.5rem;\r\n    border-radius: 5px;\r\n    margin-right: 140px;\n}\n.addbook:hover {\r\n    background-color: #0084B4;\n}\n.addbook:focus {\r\n    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);\n}\n.input-group {\r\n    width: 83%;\n}\n.custom-file-label {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n#custom-file-label {\r\n    border: 2px solid #D8DBE0;\r\n    border-radius: 3px;\n}\n.custom-file-input {\r\n    opacity: 1;\r\n    padding-top: 3px;\r\n    width: 600px;\n}\n#upload-button {\r\n    border-radius: 3px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -483,29 +590,30 @@ var render = function() {
       _c("div", { staticClass: "row one-row-field" }, [
         _vm._m(5),
         _vm._v(" "),
-        _c("div", { staticClass: "col-3 text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
+        _c(
+          "div",
+          { staticClass: "col-3 text-left" },
+          [
+            _c("date-picker", {
+              attrs: {
+                size: "20",
+                placeholder: _vm.book.input_date,
+                lang: "en",
+                type: "date",
+                format: "YYYY-MM-DD",
+                "value-type": "YYYY/MM/DD"
+              },
+              model: {
                 value: _vm.book.input_date,
+                callback: function($$v) {
+                  _vm.$set(_vm.book, "input_date", $$v)
+                },
                 expression: "book.input_date"
               }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "20", placeholder: "yyyy/mm/dd" },
-            domProps: { value: _vm.book.input_date },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "input_date", $event.target.value)
-              }
-            }
-          })
-        ]),
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _vm._m(6),
         _vm._v(" "),
@@ -647,29 +755,30 @@ var render = function() {
       _c("div", { staticClass: "row one-row-field" }, [
         _vm._m(10),
         _vm._v(" "),
-        _c("div", { staticClass: "col-3 text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
+        _c(
+          "div",
+          { staticClass: "col-3 text-left" },
+          [
+            _c("date-picker", {
+              attrs: {
+                size: "20",
+                placeholder: _vm.book.publish_date,
+                lang: "en",
+                type: "date",
+                format: "YYYY-MM-DD",
+                "value-type": "YYYY/MM/DD"
+              },
+              model: {
                 value: _vm.book.publish_date,
+                callback: function($$v) {
+                  _vm.$set(_vm.book, "publish_date", $$v)
+                },
                 expression: "book.publish_date"
               }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "20", placeholder: "yyyy/mm/dd" },
-            domProps: { value: _vm.book.publish_date },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "publish_date", $event.target.value)
-              }
-            }
-          })
-        ]),
+            })
+          ],
+          1
+        ),
         _vm._v(" "),
         _vm._m(11),
         _vm._v(" "),
@@ -734,32 +843,35 @@ var render = function() {
         _vm._m(12),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.book.image,
-                expression: "book.image"
-              }
-            ],
-            staticClass: "row-input",
-            attrs: { type: "text", size: "80" },
-            domProps: { value: _vm.book.image },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.book, "image", $event.target.value)
-              }
-            }
-          })
+          _c(
+            "form",
+            {
+              attrs: { id: "upload-image", enctype: "multipart/form-data" },
+              on: { submit: _vm.submitForm }
+            },
+            [
+              _c("div", { staticClass: "input-group" }, [
+                _c("div", { staticClass: "custom-file" }, [
+                  _c("input", {
+                    staticClass: "custom-file-input",
+                    attrs: {
+                      type: "file",
+                      name: "filename",
+                      id: "inputFileUpload"
+                    },
+                    on: { change: _vm.onFileChange }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(13)
+              ])
+            ]
+          )
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row one-row-field" }, [
-        _vm._m(13),
+        _vm._m(14),
         _vm._v(" "),
         _c("div", { staticClass: "col text-left" }, [
           _c("textarea", {
@@ -930,6 +1042,17 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-3 text-left field-name-left" }, [
       _vm._v("Image"),
       _c("span", { staticClass: "red-star" }, [_vm._v("*")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-append" }, [
+      _c("input", {
+        staticClass: "btn btn-primary",
+        attrs: { type: "submit", id: "upload-button", value: "Upload" }
+      })
     ])
   },
   function() {
