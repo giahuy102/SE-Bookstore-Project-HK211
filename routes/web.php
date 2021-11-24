@@ -30,8 +30,8 @@ Route::get('/dashboardw', 'DashboardController@show_dashboardw')->name('dashboar
 Route::get('/dashboardm', 'DashboardController@show_dashboardm')->name('dashboard_m');
 
 Route::get('', 'HomePageController@index');
-Route::get('/category', 'CategoryController@index');
-Route::get('/detail', 'DetailController@index');
+Route::get('/detail/{id}', 'DetailController@index');
+Route::get('/category/{type}', 'CategoryController@index');
 
 
 Auth::routes();
@@ -41,3 +41,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// admin page
+Route::get('/{any}', function () {
+    return view('admin');
+})->where('any', '.*');
+

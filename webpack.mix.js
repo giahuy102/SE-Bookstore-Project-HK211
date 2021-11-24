@@ -17,3 +17,5 @@ mix.js('resources/js/app.js', 'public/js')
 mix.js('resources/js/homepage.js', 'public/js/homepage.js');
 mix.js('resources/js/category.js', 'public/js/category.js');
 mix.js('resources/js/detail.js', 'public/js/detail.js');
+
+mix.js('resources/js/admin.js', 'public/js/admin.js');  // admin page

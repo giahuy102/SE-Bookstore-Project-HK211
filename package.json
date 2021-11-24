@@ -24,7 +24,14 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@egjs/flicking-plugins": "^4.2.2",
+        "@egjs/vue-flicking": "^4.4.0",
         "@splidejs/vue-splide": "^0.5.5",
-        "bootstrap-vue": "^2.21.2"
+        "bootstrap-vue": "^2.21.2",
+        "chart.js": "^3.6.0",
+        "chartjs": "^0.3.24",
+        "moment": "^2.29.1",
+        "vue-chartjs": "^3.5.1",
+        "vue-router": "^3.5.3"
     }
 }

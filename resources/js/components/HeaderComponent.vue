@@ -5,20 +5,20 @@
                 <div class="col-3 d-flex align-items-center">
                     <h1>
                         
-                        <a href="#">
+                        <a href="/">
                             <img src="/images/logo.png" alt="Bookstore">
                         </a>
                     </h1>
                 </div>
 
 
-                <div class="col-4 d-flex align-items-center">
-                    <button>
-                        <i class="fa fa-search"></i>
-                    </button>
+                <div class="col-3 d-flex align-items-center">
+
                     <form  action="">
                         <input type="text" name="" id="">
-
+                        <button>
+                            <i class="fa fa-search"></i>
+                        </button>
                     </form>
                 </div>
 
@@ -31,19 +31,40 @@
 
 
                 <div class="col-15 d-flex align-items-center">
-                    <a href="#"><li>CATEGORY</li></a>
+                    <!-- <a href="#"><li>CATEGORY</li></a> -->
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle custom" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            CATEGORY
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/category/1">Fantasy</a>
+                            <a class="dropdown-item" href="/category/2">Horror</a>
+                            <a class="dropdown-item" href="/category/3">Romance</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-15 d-flex align-items-center">
-                    <a href="#">BEST SELLER</a>
+                    <a href="/category/best_seller">BEST SELLER</a>
                 </div>
 
                 <div class="col-15 d-flex align-items-center">
-                    <a href="#">DISCOUNT</a>
+                    <a href="/category/special_discount">DISCOUNT</a>
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-center">
-                    <i class="fas fa-user"></i>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle custom" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="/login" v-if="!isLogin">Log in</a>
+                            <a class="dropdown-item" href="/register" v-if="!isLogin">Register</a>
+                            <a class="dropdown-item" href="#" v-if="isLogin">{{ username }}</a>
+                            <a class="dropdown-item" href="/logout" v-if="isLogin" @click.prevent="handleLogout">Logout</a>
+                        </div>
+                    </div>
+                    
                 </div>
 
                 <div class="col item d-flex align-items-center justify-content-end">
@@ -55,6 +76,9 @@
         </div>
 
 
+        <form id="logout-form" action="/logout" method="POST" style="display: none;">
+            <input type="hidden" name="_token" :value="csrf">
+        </form>
 
     </div>
 
@@ -64,9 +88,23 @@
 
 <script>
 export default {
-    setup() {
-        
+    data() {
+        return {
+            isLogin: false,
+            username: null,
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
     },
+    methods: {
+      handleLogout() {
+          document.getElementById('logout-form').submit();
+      }  
+    },
+    mounted() {
+        this.isLogin = window.isLogin;
+        this.username = window.username;
+        console.log(this.isLogin);
+    }
 }
 </script>
 
@@ -76,13 +114,14 @@ export default {
 #header {
     background-color: rgba(0, 32, 69, 0.91);
     height: 68px;
+    margin-bottom: 30px;
 }
 
 .col-15 {
     font-family: "Monserat";
     font-weight: 700;
     font-size: 16px;
-    margin-right: 35px;
+    margin-right: 47px;
 }
 
 .item {
@@ -115,8 +154,34 @@ h1 img {
     width: 230px;
 }
 
+form {
+    position: relative;
+}
+
+form input {
+    display: inline-block;
+    height: 40px;
+    width: 280px;
+    border-radius: 20px;
+    outline: 0;
+    border: 0;  
+    padding: 0 45px;
+}
+
+form .fa {
+    color: rgba(83, 82, 83, 0.644);
+}
+
 form button {
+    position: absolute;
+    left: 4px;
+    top: 6px;
     border-radius: 100%;
+    border: transparent;
+    width: 30px;
+    height: 30px;
+    
+
 }
 
 
@@ -205,4 +270,43 @@ form a {
 form:valid a {
   display: block;
 } */
+
+.custom {
+    background-color: transparent;
+    border:none;
+    font-family: "Monserat";
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+}
+
+.custom:focus {
+    background-color: transparent;
+
+}
+
+
+.dropdown-menu {
+    margin-top: 15px;
+    background-color: rgba(0, 32, 69, 0.91);
+    border-radius: 0;
+}
+
+.dropdown-item {
+    color: white;
+    height: 40px;
+    font-size: 20px;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(5, 56, 114, 0.91);
+    
+}
+
+
+
+.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
+    background-color: transparent;
+    border-color: transparent;
+}
 </style>
