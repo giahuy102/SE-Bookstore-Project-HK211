@@ -20,6 +20,14 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        li {
+            list-style: none;
+        }
         .card-header {
             background-color: #021f3f !important;
             color: white;  
@@ -32,6 +40,8 @@
         .card-body {
             border: 1px solid #4d494996;
         }
+
+
     </style>
 </head>
 <body>
