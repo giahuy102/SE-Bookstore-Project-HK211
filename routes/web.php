@@ -24,6 +24,15 @@ Route::get('', 'HomePageController@index');
 Route::get('/detail/{id}', 'DetailController@index');
 Route::get('/category/{type}', 'CategoryController@index');
 
+// Route::get('/cart', 'CartController@index');
+
+// Route::get('/purchased', 'PurchasedController@index');
+// Route::get('/payment', 'PaymentController@index');
+
+Auth::routes();
+Route::get('/purchased', 'PurchasedController@index')->name('purchased');
+Auth::routes();
+Route::get('/cart', 'CartController@index')->name('cart');
 
 Auth::routes();
 

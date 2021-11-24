@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 
+use App\Http\Controllers\CartController;
+use Illuminate\Auth\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,3 +55,20 @@ Route::prefix('/order') -> group ( function (){
 
 
 Route::post('store_file', 'BookShopController@fileStore'); 
+// Route::get('/cart', [CartController::class, 'index']);
+
+Route::middleware('auth')->prefix('/cart')->group(function () {
+    Route::post('/store', [CartController::class, 'store']);
+    Route::put('/{id}', [CartController::class, 'update']);
+    Route::delete('/{id}', [CartController::class, 'destroy']);
+    Route::post('/payment', [CartController::class, 'payment']);
+    Route::get('/totalAmount', [CartController::class, 'totalAmount']);
+});
+
+
+// Route::get('/purchased', 'PurchasedController@index');
+// Route::get('/purchased', 'CartController@getPurchased');
+
+Route::middleware('auth')->get('/user', function (Request $request) {
+    return $request->user();
+});
