@@ -3,10 +3,51 @@
         <div class="container search">
             <div class="row">
                 <!-- <img class="search-icon" src="../assets/search.svg" alt=""> -->
-                <div class="col-5 text-start"> <input class="search-typing" type="text" placeholder="Name, ID" size="50"> </div>
-                <div class="col-1 text-right text-category">Category:</div>
+                
+                
+                
+                
+                <!-- {{searchQuery}} -->
+                <!-- <div class="col-5 text-start"> 
+                    <input class="search-typing" type="text" placeholder="Title" size="50" v-model="searchQuery"> 
+                </div> -->
+
+
+                <div class="col"> 
+                    <input class="search-typing" type="text" placeholder="Title" size="50" v-model="searchQuery"> 
+                </div>
+
+
+
+
+
+                <!-- {{resultQuery()}} -->
+
+                <!-- <div class="table-responsive">
+                    <table v-if="items.length" class="table">
+                        <thead>
+                            <tr>
+                                <th>Items</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in resultQuery()" :key="item.book_id">
+                                <td>{{item.title}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+
+                
+
+                
+
+                
+                <!-- <div class="col-1 text-right text-category">Category:</div> -->
+                
+                
                 <!-- <div class="col-3 text-left"><input class="category" type="text" placeholder="Choose..."></div> -->
-                <div class="col-3 text-left">   
+                <!-- <div class="col-3 text-left">   
                     <select class="search-category">
                         <option value="Choose..."> </option>
                         <option value="Business">Business</option>
@@ -22,8 +63,16 @@
                         <option value="Literature">Literature</option>
                         <option value="Literature">Novel</option>
                     </select>
-                </div>
-                <div class="col text-left"><button class="search-button">Search</button></div>
+                </div> -->
+
+
+                <!-- <div class="col text-left">
+                    <select  class="search-category" data-placeholder="Choose a Language...">
+                        <option v-for="category in categories" :value="category.category_id" :key="category.category_id"> {{category.category_name}} </option>
+                    </select>
+                </div> -->
+
+                <!-- <div class="col text-left"><button class="search-button">Search</button></div> -->
             </div>
         </div>
 
@@ -121,7 +170,7 @@
         </table> -->
 
         <div class="bookList">
-            <listBooks :items="items" v-on:orderchanged="getList()" />
+            <listBooks :items="items" :resultQuery="resultQuery()" v-on:orderchanged="getList()" />
         </div>
 
     </div>
@@ -135,6 +184,7 @@ export default {
     created() {
         //console.log('hihihi')
         this.getList();
+        this.getAllCategories();
     },
 
     components: {
@@ -143,9 +193,15 @@ export default {
     
     data() {
         return {
-            items: [
+            items: [        // store all books
                 // {'id':1, 'title': 'abcxyz'}
-            ]
+            ],
+            
+            categories: [],
+
+            searchQuery: null,
+
+            items_search: [],       // for props search ListBooks.vue
         }
     },
 
@@ -165,6 +221,49 @@ export default {
             
         },
 
+        getAllCategories() {
+            axios.get('/api/categories')
+            .then(response => {
+                //console.log("Get all categories");
+                this.categories = response.data;
+                console.log(this.categories)
+            })
+            .catch(error => {
+                console.log(error.response)
+            });
+        },
+
+        // getData() {
+        //     //console.log(this.items)
+        //     if (this.query.length == 0) {
+        //         this.search_data = []
+                
+        //     }
+        //     else {
+        //     for (var key in this.items) {
+        //         if (this.items[key].title.includes(this.query)) {
+        //             //console.log(this.items[key].title)
+        //             this.search_data.push(this.items[key].title)
+        //         }
+        //     }
+        //     }
+        // },
+
+        resultQuery() {
+            if(this.searchQuery){
+                return this.items.filter( (item)=>{
+                    
+                    //this.items_search = this.searchQuery.toLowerCase().split(' ').every( v => item.title.toLowerCase().includes(v) );
+                    //console.log(this.items_search)
+                    return this.searchQuery.toLowerCase().split(' ').every( v => item.title.toLowerCase().includes(v) );
+                })
+            }
+            else {
+                //this.items_search = this.items;
+                //console.log(this.items_search)
+                return this.items;
+            }
+        }
         
     }
 }
@@ -232,6 +331,10 @@ export default {
 
 .icon {
     margin-top: -7px;
+}
+
+::placeholder {
+    color: #aca5a5;
 }
 
 </style>

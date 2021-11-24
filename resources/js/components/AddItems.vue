@@ -1,6 +1,9 @@
 <template>
     <div>
         <div class="header-additems">NEW BOOK INFORMATION</div>
+
+        <!-- {{book.input_date}} -->
+
         <div class="container filling-all-info">
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Title<span class="red-star">*</span> </div>
@@ -56,7 +59,13 @@
             </div>
             <div class="row one-row-field">  
                 <div class="col-3 text-left field-name-left">Input date<span class="red-star">*</span> </div>
-                <div class="col-3 text-left"><input class="row-input" v-model="book.input_date" type="text" size = "20" placeholder="yyyy/mm/dd"></div>
+                
+                <!-- <div class="col-3 text-left"><input class="row-input" v-model="book.input_date" type="text" size = "20" placeholder="yyyy/mm/dd"></div> -->
+                <div class="col-3 text-left">
+                    <date-picker size="20" :placeholder="book.input_date" v-model="book.input_date" lang="en" type="date" format="YYYY-MM-DD" value-type='YYYY/MM/DD'> </date-picker>
+                    
+                </div>
+
                 <div class="col-2 text-left field-name-right">Quantity<span class="red-star">*</span> </div>
                 <div class="col-3 text-left field-right"><input class="row-input" v-model="book.quantity" type="text" size = "21"></div>
             </div>
@@ -74,7 +83,12 @@
             </div>
             <div class="row one-row-field">   
                 <div class="col-3 text-left field-name-left">Publish date<span class="red-star">*</span> </div>
-                <div class="col-3 text-left"><input class="row-input" v-model="book.publish_date" type="text" size = "20" placeholder="yyyy/mm/dd"></div>
+                <!-- <div class="col-3 text-left"><input class="row-input" v-model="book.publish_date" type="text" size = "20" placeholder="yyyy/mm/dd"></div> -->
+                
+                <div class="col-3 text-left">
+                    <date-picker size="20" :placeholder="book.publish_date" v-model="book.publish_date" lang="en" type="date" format="YYYY-MM-DD" value-type='YYYY/MM/DD'> </date-picker>           
+                </div>
+                
                 <div class="col-2 text-left field-name-right">Language<span class="red-star">*</span> </div>
                 <!-- <div class="col-3 text-left field-right"><input class="row-input" v-model="book.language" type="text" size = "21"></div> -->
                 
@@ -93,7 +107,35 @@
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Image<span class="red-star">*</span> </div>
-                <div class="col text-left"><input class="row-input" v-model="book.image" type="text" size="80"></div>
+                <!-- <div class="col text-left"><input class="row-input" v-model="book.image" type="text" size="80"></div> -->
+                
+
+                <!-- này cũng ok -->
+                <!-- <div class="col text-left">
+                    <input class="row-input" type="file" @change="previewFiles" style="width: 681px">
+                </div> -->
+
+                <div class="col text-left">
+                    <form id="upload-image" @submit="submitForm" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="filename" class="custom-file-input" id="inputFileUpload"
+                                v-on:change="onFileChange">
+                                
+                                <!-- <label class="custom-file-label" for="inputFileUpload" id="custom-file-label">Choose file</label> -->
+                            </div>
+                            
+                            <div class="input-group-append">
+                                <input  type="submit" class="btn btn-primary" id="upload-button" value="Upload">
+                            </div>
+
+                        </div>
+                        <!-- <br> -->
+                        <!-- <p class="text-danger font-weight-bold">{{filename}}</p> -->
+                    </form>
+                </div>
+
+
             </div>
             <div class="row one-row-field">
                 <div class="col-3 text-left field-name-left">Description<span class="red-star">*</span> </div>
@@ -109,11 +151,44 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- <form @submit="submitForm" enctype="multipart/form-data">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="filename" class="custom-file-input" id="inputFileUpload"
+                        v-on:change="onFileChange">
+                        <label class="custom-file-label" for="inputFileUpload">Choose file</label>
+                    </div>
+                    
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-primary" value="Upload">
+                    </div>
+
+                </div>
+                <br>
+                <p class="text-danger font-weight-bold">{{filename}}</p>
+        </form> -->
+
+
     </div>
 </template>
 
 <script>
+
+
+import DatePicker from 'vue2-datepicker'
+import 'vue2-datepicker/index.css';
+
+
+
+
 export default {
+
+    components: {
+        DatePicker
+    },
+
     data() {
         return {
 
@@ -132,6 +207,13 @@ export default {
 
             categories: [],
            // category: {},
+
+            
+            
+            // for image upload
+            filename: '',
+            file: '',
+            //csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         }
     },
 
@@ -141,7 +223,53 @@ export default {
     },
 
     methods: {
+
+
+
+        onFileChange(e) {
+            //console.log(e.target.files[0]);
+            this.filename = "Selected File: " + e.target.files[0].name;
+            this.file = e.target.files[0];
+            this.book.image = e.target.files[0].name;
+        },
+
+
+
+        submitForm(e) {
+            e.preventDefault();
+            let currentObj = this;
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                }
+            }
+            // form data
+            let formData = new FormData();
+            formData.append('file', this.file);
+            // send upload request
+            
+            
+            axios.post('/api/store_file', formData, config)
+            .then(function (response) {
+                console.log("Done upload image");
+                currentObj.success = response.data.success;
+                currentObj.filename = "";
+            })
+            .catch(function (error) {
+                console.log(error);
+                currentObj.output = error;
+            });
+        },
+
+
+
+
+
+
+
         createBook() {
+            
             
             this.check_add_id = this.book.book_id;
             // console.log(this.check_add_id);
@@ -226,6 +354,12 @@ export default {
         //         console.log(error)
         //     })
         // }
+
+        previewFiles(event) {
+            console.log(event.target.files[0]);
+            console.log(event.target.files[0].name);
+            this.book.image = event.target.files[0].name;
+        }    
     },
 
     
@@ -332,6 +466,30 @@ export default {
 
 .addbook:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.input-group {
+    width: 83%;
+}
+
+.custom-file-label {
+    border: 2px solid #D8DBE0;
+    border-radius: 3px;
+}
+
+#custom-file-label {
+    border: 2px solid #D8DBE0;
+    border-radius: 3px;
+}
+
+.custom-file-input {
+    opacity: 1;
+    padding-top: 3px;
+    width: 600px;
+}
+
+#upload-button {
+    border-radius: 3px;
 }
 
 </style>

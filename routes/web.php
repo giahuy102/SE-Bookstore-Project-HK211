@@ -40,3 +40,5 @@ Route::get('/{any}', function () {
     return view('admin');
 })->where('any', '.*');
 
+
+Route::post('store_file', 'BookShopController@fileStore'); 

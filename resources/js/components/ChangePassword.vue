@@ -3,10 +3,10 @@
       <div class="header-changepassword">CHANGE PASSWORD</div>
       
       <div class="container filling-change-password">
-          <div> {{user.password}} </div>
+          <!-- <div> {{user.password}} </div>
           <div> {{temp_old_password}} </div>
           <div> {{temp_new_password}} </div>
-          <div> {{temp_new_confirm_password}} </div>
+          <div> {{temp_new_confirm_password}} </div> -->
           <div class="row filling-one-row">
               <div class="col-3 text-left field-name-left">Old password<span class="red-star">*</span> </div>
               <div class="col text-left"><input v-model="temp_old_password" class="row-input" type="password" size="80"></div>

@@ -42,9 +42,17 @@
                         <img src=".../../../public/images/warehouse/person.svg" alt=""  width="40px">
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="http://127.0.0.1:8000/">Logout</a>
+                        <a class="dropdown-item" href="#">{{user_account.username}}</a>
+                        <!-- <a class="dropdown-item" href="http://127.0.0.1:8000/">Logout</a> -->
+                        <a class="dropdown-item" href="http://127.0.0.1:8000/" @click.prevent="handleLogout">Logout</a>
                     </div>
                 </div>
+
+
+                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                    <input type="hidden" name="_token" :value="csrf">
+                </form>
+
 
             </div>
             <router-view/>
@@ -65,6 +73,9 @@ export default {
     data() {
         return {
             open_sidebar: true,
+            user_account: {},
+
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         }
     },
 
@@ -83,7 +94,28 @@ export default {
                 document.getElementById("sidebar_id").style.transition = 'all 0.45s ease-in-out';
                 document.getElementById("content_id").style.transition = 'all 0.45s ease-in-out';
             }
+        },
+
+        getUser() {
+            // axios.get('/api/user/' + 1910409)
+            axios.get('/api/getUser')
+            .then (response => {
+                console.log(response)
+                this.user_account = response.data[0]
+                console.log(this.book)
+            })
+            .catch (error => {
+                console.log(error)
+            })
+        },
+
+        handleLogout() {
+            document.getElementById('logout-form').submit();
         }
+    },
+
+    created() {
+        this.getUser();
     },
 
 }

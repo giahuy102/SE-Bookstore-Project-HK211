@@ -51,17 +51,27 @@ export default {
 
   methods: {
     getUser(userID) {
-      axios.get('/api/user/' + userID)
-      .then (response => {
-          console.log(response)
-          this.user = response.data[0]
-          //console.log(this.book)
-      })
-      .catch (error => {
-          console.log(error)
-      })
+    //   axios.get('/api/user/' + userID)
+    //   .then (response => {
+    //       console.log(response)
+    //       this.user = response.data[0]
+    //       //console.log(this.book)
+    //   })
+    //   .catch (error => {
+    //       console.log(error)
+    //   })
+                axios.get('/api/getUser')
+                .then (response => {
+                    console.log(response)
+                    this.user = response.data[0]
+                    console.log(this.book)
+                })
+                .catch (error => {
+                    console.log(error)
+                })
     
     },
+
     updateUser(userID) {
     //   axios.put('/api/user/' + userID, {email: this.user.email, birthday: this.user.birthday, phone_number: this.user.phone_number,
     //   address: this.user.address})
