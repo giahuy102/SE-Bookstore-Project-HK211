@@ -2,15 +2,15 @@
     <div class="orderManagement">
         <div class="container search">
             <div class="row">
-                <div class="col-5 text-start"> <input class="search-typing" type="text" placeholder="Order ID, Customer" size="50"> </div>
-                <div class="col text-left"><button class="search-button">Search</button></div>
+                <div class="col-5 text-start"> <input class="search-typing" type="text" placeholder="Order ID, Customer" size="50" v-model="search_str"> </div>
+                <!-- <div class="col text-left"><button class="search-button">Search</button></div> -->
             </div>
             
         </div>
-        
         <div class="listOrder">
             <list-order 
             :items="items"
+            :search_str="search_str"
             v-on:orderchanged="getList()"
             />
         </div>
@@ -26,6 +26,7 @@ export default {
     data: function() {
         return{
             items: [],
+            search_str: ''
         }
     },
     methods:{
@@ -39,7 +40,6 @@ export default {
                 console.log(error)
             })
         },
-        
     },
     created(){
         this.getList();
@@ -66,7 +66,7 @@ export default {
 }
 
 
-.search-button {
+/* .search-button {
     background-color: #00ACED;
     border: none ;
     color: white;
@@ -78,7 +78,7 @@ export default {
 
 .search-button:hover {
     background-color: #0084B4;
-}
+} */
 
 
 </style>

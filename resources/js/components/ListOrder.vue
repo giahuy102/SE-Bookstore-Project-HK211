@@ -17,7 +17,7 @@
                 </tr>
 
 
-                <tr v-for="item in items" :key="item.id" >
+                <tr v-for="item in itemsFilter" :key="item.id" >
                     <td>{{item.order_id}}</td>
                     <td>{{cusNames[item.order_id]}}</td>
                     <td>{{item.create_at}}</td>
@@ -50,7 +50,7 @@
 <script>
 import orderDetail from './OrderDetail.vue'
 export default {
-    props: ['items'],
+    props: ['items', 'search_str'],
     components:{
         orderDetail
     },
@@ -59,6 +59,12 @@ export default {
             selected: [],
             cusNames: {},
             totals: {}
+        }
+    },
+    computed:{
+        itemsFilter(){
+            if (this.search_str == '') return this.items;
+            return this.items.filter(item => item.order_id.toString() == this.search_str || this.cusNames[item.order_id].includes(this.search_str));
         }
     },
     filters: {
