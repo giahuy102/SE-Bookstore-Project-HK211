@@ -22,7 +22,7 @@
       </div>
       <empty-cart
         v-if="itemPurchased.length == 0"
-        image="https://png.pngtree.com/png-vector/20190721/ourmid/pngtree-empty-box-icon-for-your-project-png-image_1557183.jpg"
+        image= '/images/emptyPurchased.jpg'
         message="Your Purchased is empty !"
       />
       <div class="cart" v-else>

@@ -23,7 +23,7 @@
       </div>
       <empty-cart
         v-if="cartItem.length == 0"
-        image="https://images.all-free-download.com/images/graphiclarge/blue_shopping_cart_icon_vector_280786.jpg"
+        image='/images/emptyCart.jpg'
         message="Your Cart is empty !"
       />
       <div class="cart" v-else>
