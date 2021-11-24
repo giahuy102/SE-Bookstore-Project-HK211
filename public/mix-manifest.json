@@ -8,5 +8,6 @@
     "/Messages.js": "/Messages.js",
     "/Overview.js": "/Overview.js",
     "/Overview~Profile.js": "/Overview~Profile.js",
-    "/Profile.js": "/Profile.js"
+    "/Profile.js": "/Profile.js",
+    "/vendors~Profile.js": "/vendors~Profile.js"
 }

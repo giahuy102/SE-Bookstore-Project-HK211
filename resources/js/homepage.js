@@ -28,42 +28,16 @@
  import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
-
-
-
-
  import Flicking from "@egjs/vue-flicking";
  import "@egjs/vue-flicking/dist/flicking.css";
 
  Vue.use(Flicking);
-
-
-
-
-
- 
  // Make BootstrapVue available throughout your project
  Vue.use(BootstrapVue)
  // Optionally install the BootstrapVue icon components plugin
  Vue.use(IconsPlugin)
-
-
-
-
-
-
 //  import VueSplide from '@splidejs/vue-splide';
 //  Vue.use( VueSplide );
-
-
-
-
-
-
-
-
-
-
  Vue.component('example-component', require('./components/ExampleComponent.vue').default);
  Vue.component('header-component', require('./components/HeaderComponent.vue').default);
  Vue.component('footer-component', require('./components/FooterComponent.vue').default);

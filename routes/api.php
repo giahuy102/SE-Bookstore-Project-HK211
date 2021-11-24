@@ -37,3 +37,4 @@ Route::put('user/password/{id}', 'BookShopController@updateUserPassword');  // u
 
 Route::get('categories', 'BookShopController@indexCategories');               // get all categories
 // Route::get('category/{id}', 'BookShopController@showCategory');  
+Route::post('dashboard', 'DashboardController@index');
