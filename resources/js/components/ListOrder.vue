@@ -2,7 +2,11 @@
     <div>
         <div class="row optionField">
             <button class="remove-button" @click="deleteSelected">Delete</button>
-            <button class="export-button">Export</button>
+            <export-excel
+                :data   = "items"
+                name    = "OrderList.xls">
+                <button class="export-button">Export</button>
+            </export-excel>
         </div>
         <table class="table table-striped list-book">
             <tbody>

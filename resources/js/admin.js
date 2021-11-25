@@ -14,6 +14,7 @@ require('./bootstrap');   // xai axios
 import Vue from 'vue'
 import App from './components/Warehouse.vue'
 import router from './router/index'
+import excel from 'vue-excel-export'
 
 Vue.config.productionTip = false
 
@@ -33,6 +34,7 @@ library.add(faTrash, faInfoCircle, faArrowCircleLeft, faCaretDown)
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(excel)
 
 
 
