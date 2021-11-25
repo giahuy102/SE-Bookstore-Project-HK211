@@ -15,7 +15,7 @@
                 <div class="col-3 d-flex align-items-center">
 
                     <form action="/search-book" method="GET">
-                        <input type="text" name="search_book" id="">
+                        <input type="text" name="search_book" id="" placeholder="Enter book's name...">
                         <input type="hidden" name="_token" :value="csrf">
                         <button type="submit">
                             <i class="fa fa-search"></i>
@@ -23,171 +23,209 @@
                     </form>
                 </div>
 
-                <!-- <div class="col d-flex align-items-center">
+        <!-- <div class="col d-flex align-items-center">
                     <form action="">
                         <input type="text">
                         <i class="fa fa-search"></i>
                     </form>
                 </div> -->
 
-
-                <div class="col-15 d-flex align-items-center">
-                    <!-- <a href="#"><li>CATEGORY</li></a> -->
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle custom" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            CATEGORY
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/category/1">Fantasy</a>
-                            <a class="dropdown-item" href="/category/2">Horror</a>
-                            <a class="dropdown-item" href="/category/3">Romance</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-15 d-flex align-items-center">
-                    <a href="/category/best_seller">BEST SELLER</a>
-                </div>
-
-                <div class="col-15 d-flex align-items-center">
-                    <a href="/category/special_discount">DISCOUNT</a>
-                </div>
-
-                <div class="col item d-flex align-items-center justify-content-center">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle custom" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user"></i>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="/login" v-if="!isLogin">Log in</a>
-                            <a class="dropdown-item" href="/register" v-if="!isLogin">Register</a>
-                            <a class="dropdown-item" href="#" v-if="isLogin">{{ username }}</a>
-                            <a class="dropdown-item" href="/logout" v-if="isLogin" @click.prevent="handleLogout">Logout</a>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div class="col item d-flex align-items-center justify-content-end">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-
+        <div class="col-15 d-flex align-items-center">
+          <!-- <a href="#"><li>CATEGORY</li></a> -->
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle custom"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              CATEGORY
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/category/1">Fantasy</a>
+              <a class="dropdown-item" href="/category/2">Horror</a>
+              <a class="dropdown-item" href="/category/3">Romance</a>
             </div>
-
+          </div>
         </div>
 
+        <div class="col-15 d-flex align-items-center">
+          <a href="/category/best_seller">BEST SELLER</a>
+        </div>
 
-        <form id="logout-form" action="/logout" method="POST" style="display: none;">
-            <input type="hidden" name="_token" :value="csrf">
-        </form>
+        <div class="col-15 d-flex align-items-center">
+          <a href="/category/special_discount">DISCOUNT</a>
+        </div>
 
+        <div class="col item d-flex align-items-center justify-content-center">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle custom"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="/login" v-if="!isLogin">Log in</a>
+              <a class="dropdown-item" href="/register" v-if="!isLogin"
+                >Register</a
+              >
+              <a class="dropdown-item" href="#" v-if="isLogin">{{
+                username
+              }}</a>
+              <a class="dropdown-item" href="/purchased" v-if="isLogin"
+                >Purchased</a
+              >
+              <a
+                class="dropdown-item"
+                href="/logout"
+                v-if="isLogin"
+                @click.prevent="handleLogout"
+                >Logout</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="col item d-flex align-items-center justify-content-center">
+          <a class="fas fa-shopping-cart" href="/cart"
+            ><p id="totalInCart">{{ totalAmount }}</p></a
+          >
+        </div>
+      </div>
     </div>
 
-
-
+    <form id="logout-form" action="/logout" method="POST" style="display: none">
+      <input type="hidden" name="_token" :value="csrf" />
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            isLogin: false,
-            username: null,
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  data() {
+    return {
+      totalAmount: null,
+      isLogin: false,
+      username: null,
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
+    };
+  },
+  methods: {
+    handleLogout() {
+      document.getElementById("logout-form").submit();
+    },
+    handler(e) {
+      //   alert("recieved: ", e);
+      this.totalAmount = this.totalAmount + e;
+    },
+  },
+  mounted() {
+    this.isLogin = window.isLogin;
+    this.username = window.username;
+    console.log(this.isLogin);
+  },
+  created() {
+    axios
+      .get("/api/cart/totalAmount")
+      .then((responde) => {
+        if (responde.status == 200) {
+          this.totalAmount = responde.data;
         }
-    },
-    methods: {
-      handleLogout() {
-          document.getElementById('logout-form').submit();
-      }  
-    },
-    mounted() {
-        this.isLogin = window.isLogin;
-        this.username = window.username;
-        console.log(this.isLogin);
-    }
-}
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // Listening the event hello
+    this.$root.$on("changeTotalAmount", this.handler);
+  },
+  destroyed() {
+    // Stop listening the event hello with handler
+    this.$root.$off("changeTotalAmount", this.handler);
+  },
+};
 </script>
 
 
 
 <style scoped>
 #header {
-    background-color: rgba(0, 32, 69, 0.91);
-    height: 68px;
-    margin-bottom: 30px;
+  background-color: rgba(0, 32, 69, 0.91);
+  height: 68px;
+  margin-bottom: 30px;
 }
 
 .col-15 {
-    font-family: "Monserat";
-    font-weight: 700;
-    font-size: 16px;
-    margin-right: 47px;
+  font-family: "Monserat";
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 47px;
 }
 
 .item {
-    color: #ffffff;
-    font-size: 22px;
-
+  color: #ffffff;
+  font-size: 22px;
 }
 
-
-
-a, a:hover {
-    text-decoration: none;
-    color: #FFFFFF;
+a,
+a:hover {
+  text-decoration: none;
+  color: #ffffff;
 }
 
 .container-custom {
-    height: 100%;
-    width: 1200px;
-    margin: auto;
-
+  height: 100%;
+  width: 1200px;
+  margin: auto;
 }
 
-.row, .col {
-    height: 100%;
+.row,
+.col {
+  height: 100%;
 }
-
-
 
 h1 img {
-    width: 230px;
+  width: 230px;
 }
 
 form {
-    position: relative;
+  position: relative;
 }
 
 form input {
-    display: inline-block;
-    height: 40px;
-    width: 280px;
-    border-radius: 20px;
-    outline: 0;
-    border: 0;  
-    padding: 0 45px;
+  display: inline-block;
+  height: 40px;
+  width: 280px;
+  border-radius: 20px;
+  outline: 0;
+  border: 0;
+  padding: 0 45px;
 }
 
 form .fa {
-    color: rgba(83, 82, 83, 0.644);
+  color: rgba(83, 82, 83, 0.644);
 }
 
 form button {
-    position: absolute;
-    left: 4px;
-    top: 6px;
-    border-radius: 100%;
-    border: transparent;
-    width: 30px;
-    height: 30px;
-    
-
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  border-radius: 100%;
+  border: transparent;
+  width: 30px;
+  height: 30px;
 }
 
-
-    /* position: relative; */
-    /* top: 50%;
+/* position: relative; */
+/* top: 50%;
     left: 50%; */
 
 /* form{
@@ -273,41 +311,48 @@ form:valid a {
 } */
 
 .custom {
-    background-color: transparent;
-    border:none;
-    font-family: "Monserat";
-    font-weight: 700;
-    font-size: 16px;
-    border: none;
+  background-color: transparent;
+  border: none;
+  font-family: "Monserat";
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
 }
 
 .custom:focus {
-    background-color: transparent;
-
+  background-color: transparent;
 }
 
-
 .dropdown-menu {
-    margin-top: 15px;
-    background-color: rgba(0, 32, 69, 0.91);
-    border-radius: 0;
+  margin-top: 15px;
+  background-color: rgba(0, 32, 69, 0.91);
+  border-radius: 0;
 }
 
 .dropdown-item {
-    color: white;
-    height: 40px;
-    font-size: 20px;
+  color: white;
+  height: 40px;
+  font-size: 20px;
 }
 
 .dropdown-item:hover {
-    background-color: rgba(5, 56, 114, 0.91);
-    
+  background-color: rgba(5, 56, 114, 0.91);
 }
 
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  background-color: transparent;
+  border-color: transparent;
+}
 
-
-.btn-secondary:not(:disabled):not(.disabled):active, .btn-secondary:not(:disabled):not(.disabled).active, .show > .btn-secondary.dropdown-toggle {
-    background-color: transparent;
-    border-color: transparent;
+#totalInCart {
+  position: absolute;
+  left: 40px;
+  top: 10px;
+  font-size: 12px;
+  background-color: #2185D5;
+  padding: 5px;
+  border-radius: 5px;
 }
 </style>

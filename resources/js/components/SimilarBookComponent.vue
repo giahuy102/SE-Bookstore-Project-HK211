@@ -120,7 +120,7 @@
                         <span>{{ "$" + book.selling_price }}</span>
                         <span>{{ "$" + (book.selling_price - book.selling_price * book.sale) }}</span>
                     </p>
-                    <button>BUY NOW</button>
+                    <button @click="addToCart(book.book_id)">BUY NOW</button>
                 </div>
 
 
@@ -130,6 +130,7 @@
 </template>
 
 <script>
+import { addToCart } from "../cartHelper";
 export default {
     props: ['books'],
     data() {
@@ -210,8 +211,13 @@ export default {
                 }
                 else this.displayBooks.push(this.books[i]);
             }
-        }
+        },
+        addToCart(id) {
+            return addToCart(id, this);
+        },
     },
+
+
     mounted() {
         this.getDisplayBooks();
         console.log(this.books);

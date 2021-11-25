@@ -25,6 +25,15 @@ Route::get('/detail/{id}', 'DetailController@index');
 Route::get('/category/{type}', 'CategoryController@index');
 Route::get('/similar-books/{id}', 'SimilarBooksController@index');
 
+// Route::get('/cart', 'CartController@index');
+
+// Route::get('/purchased', 'PurchasedController@index');
+// Route::get('/payment', 'PaymentController@index');
+
+Auth::routes();
+Route::get('/purchased', 'PurchasedController@index')->name('purchased');
+Auth::routes();
+Route::get('/cart', 'CartController@index')->name('cart');
 
 Auth::routes();
 
@@ -35,3 +44,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/search-book', "SearchBookController@index");
+
+
+// admin page
+Route::get('/{any}', function () {
+    return view('admin');
+})->where('any', '.*');
+
+
+Route::post('store_file', 'BookShopController@fileStore'); 

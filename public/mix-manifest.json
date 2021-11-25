@@ -1,7 +1,15 @@
 {
-    "/js/app.js": "/js/app.js",
+    "/js/admin.js": "/js/admin.js",
     "/css/app.css": "/css/app.css",
+    "/js/app.js": "/js/app.js",
+    "/js/cart.js": "/js/cart.js",
     "/js/category.js": "/js/category.js",
     "/js/detail.js": "/js/detail.js",
-    "/js/homepage.js": "/js/homepage.js"
+    "/js/homepage.js": "/js/homepage.js",
+    "/js/purchased.js": "/js/purchased.js",
+    "/Messages.js": "/Messages.js",
+    "/Overview.js": "/Overview.js",
+    "/Overview~Profile.js": "/Overview~Profile.js",
+    "/Profile.js": "/Profile.js",
+    "/vendors~Messages~Profile.js": "/vendors~Messages~Profile.js"
 }
