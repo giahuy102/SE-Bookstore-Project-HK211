@@ -869,6 +869,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -893,11 +899,11 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         title: "New order",
         number: 100,
-        bg: "#ffed4a"
+        bg: "#dfcd4a"
       }, {
         title: "Sales",
         number: 1000,
-        bg: "#e3342f"
+        bg: "#d3242f"
       }],
       rightInfo: [{
         title: "Order",
@@ -1039,15 +1045,21 @@ __webpack_require__.r(__webpack_exports__);
             label: "Sale",
             fill: true,
             data: this.saleData,
-            backgroundColor: "rgba(255, 99, 132, 0.7)",
-            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(0,123,255,0.7)",
+            borderColor: "rgba(0,123,255,1)",
             borderWidth: 1
           }]
         },
         options: {
           legend: {
             display: true
-          }
+          },
+          scales: {
+            y: {
+              min: 0
+            }
+          },
+          tension: 0.5
         }
       });
       var uchart = document.getElementById("uchart");
@@ -1061,15 +1073,21 @@ __webpack_require__.r(__webpack_exports__);
             label: "New User",
             fill: true,
             data: this.userData,
-            backgroundColor: "rgba(255, 99, 132, 0.7)",
-            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(40,167,69,0.7)",
+            borderColor: "rgba(40,167,69,1)",
             borderWidth: 1
           }]
         },
         options: {
           legend: {
             display: true
-          }
+          },
+          scales: {
+            y: {
+              min: 0
+            }
+          },
+          tension: 0.5
         }
       });
       var ochart = document.getElementById("ochart");
@@ -1083,15 +1101,21 @@ __webpack_require__.r(__webpack_exports__);
             label: "New Order",
             fill: true,
             data: this.orderData,
-            backgroundColor: "rgba(255, 99, 132, 0.7)",
-            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(23,162,184,0.7)",
+            borderColor: "rgba(23,162,184,1)",
             borderWidth: 1
           }]
         },
         options: {
           legend: {
             display: true
-          }
+          },
+          scales: {
+            y: {
+              min: 0
+            }
+          },
+          tension: 0.5
         }
       });
     }
@@ -1170,7 +1194,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.container[data-v-1c6353d5] {\r\n  background-color: white;\n}\n.input-date[data-v-1c6353d5] {\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-1c6353d5] {\r\n  background-color: white;\r\n  font-family: \"Vollkorn\";\n}\n.input-date[data-v-1c6353d5] {\n}\n#uchart[data-v-1c6353d5] {\n}\n#ochart[data-v-1c6353d5] {\n}\r\n", ""]);
 
 // exports
 
@@ -2523,12 +2547,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header text-center" }, [
-      _c("span", { staticClass: "text-muted p-0" }, [
+      _c("span", { staticClass: "text-muted p-0 h5" }, [
         _vm._v(_vm._s(this.title))
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "card-body text-dark text-center" }, [
+    _c("div", { staticClass: "card-body text-dark text-center h6" }, [
       _c("b", [_vm._v(_vm._s(this.value))])
     ])
   ])
@@ -2560,7 +2584,7 @@ var render = function() {
     { staticClass: "small-box rounded pt-2", style: _vm.cardStyle },
     [
       _c("div", { staticClass: "inner text-center pb-2 text-white" }, [
-        _c("h6", [_vm._v(_vm._s(this.text))]),
+        _c("h5", [_vm._v(_vm._s(this.text))]),
         _vm._v(" "),
         _c("h3", [_vm._v(_vm._s(this.number))])
       ])
@@ -3247,8 +3271,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row text-center" }, [
+  return _c("div", { staticClass: "container pt-2 pb-2" }, [
+    _c("div", { staticClass: "row text-center pt-2 pb-2" }, [
       _c("div", { staticClass: "col-4" }, [
         _c("span", { staticClass: "date-text" }, [_vm._v("From:")]),
         _vm._v(" "),
@@ -3301,6 +3325,7 @@ var render = function() {
         _c(
           "button",
           {
+            staticClass: "btn btn-primary",
             on: {
               click: function($event) {
                 return _vm.check()
@@ -3314,13 +3339,14 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "row pt-2 pb-2" },
       _vm._l(this.head_value, function(item, i) {
         return _c(
           "div",
           { key: i, staticClass: "col-lg-3 col-6" },
           [
             _c("topcard", {
+              staticClass: "text-light",
               attrs: { text: item.title, number: item.number, bg: item.bg }
             })
           ],
@@ -3330,20 +3356,24 @@ var render = function() {
       0
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "row pt-2" }, [
       _c("div", { staticClass: "col-lg-8 col-12" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
-            _c("h5", { staticClass: "card-title" }, [_vm._v("Sale chart")]),
+            _vm._m(0),
             _vm._v(" "),
-            _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-              _vm._v("\n            as of " + _vm._s(this.startDate)),
-              !_vm.oneDay()
-                ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
-                : _vm._e()
-            ]),
+            _c(
+              "h6",
+              { staticClass: "card-subtitle mb-2 text-muted text-left pl-2" },
+              [
+                _vm._v("\n            as of " + _vm._s(this.startDate)),
+                !_vm.oneDay()
+                  ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
+                  : _vm._e()
+              ]
+            ),
             _vm._v(" "),
-            _vm._m(0)
+            _vm._m(1)
           ])
         ])
       ]),
@@ -3369,28 +3399,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
-        _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "ul",
-              { staticClass: "list-group list-group-flush" },
-              _vm._l(this.topCategory, function(item, i) {
-                return _c("li", { key: i, staticClass: "list-group-item" }, [
-                  _vm._v(
-                    "\n              " + _vm._s(item.name) + "\n            "
-                  )
-                ])
-              }),
-              0
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
+    _c("div", { staticClass: "row pt-2" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "card" }, [
           _c("div", { staticClass: "card-body" }, [
@@ -3398,12 +3407,38 @@ var render = function() {
             _vm._v(" "),
             _c(
               "table",
-              { staticClass: "list-group list-group-flush" },
-              _vm._l(this.topProduct, function(item, i) {
-                return _c("tr", { key: i, staticClass: "list-group-item" }, [
-                  _c("td", [_vm._v(_vm._s(item.name))]),
+              { staticClass: "table" },
+              _vm._l(this.topCategory, function(item, i) {
+                return _c("tr", { key: i }, [
+                  _c("th", { attrs: { scope: "col" } }, [
+                    _vm._v(_vm._s(i + 1))
+                  ]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(item.number))])
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-left",
+                        staticStyle: { width: "75%" }
+                      },
+                      [_vm._v("  " + _vm._s(item.name) + " ")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-right",
+                        staticStyle: { width: "25%" }
+                      },
+                      [
+                        _vm._v(
+                          " " + _vm._s(item.number ? item.number : 0) + " "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               }),
               0
@@ -3418,13 +3453,39 @@ var render = function() {
             _vm._m(3),
             _vm._v(" "),
             _c(
-              "ul",
-              { staticClass: "list-group list-group-flush" },
-              _vm._l(this.topRemainProduct, function(item, i) {
-                return _c("li", { key: i, staticClass: "list-group-item" }, [
-                  _vm._v(
-                    "\n              " + _vm._s(item.name) + "\n            "
-                  )
+              "table",
+              { staticClass: "table" },
+              _vm._l(this.topProduct, function(item, i) {
+                return _c("tr", { key: i }, [
+                  _c("th", { attrs: { scope: "col" } }, [
+                    _vm._v(_vm._s(i + 1))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-left",
+                        staticStyle: { width: "75%" }
+                      },
+                      [_vm._v("  " + _vm._s(item.name) + " ")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-right",
+                        staticStyle: { width: "25%" }
+                      },
+                      [
+                        _vm._v(
+                          " " + _vm._s(item.number ? item.number : 0) + " "
+                        )
+                      ]
+                    )
+                  ])
                 ])
               }),
               0
@@ -3433,40 +3494,99 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c(
+              "table",
+              { staticClass: "table" },
+              _vm._l(this.topRemainProduct, function(item, i) {
+                return _c("tr", { key: i }, [
+                  _c("th", { attrs: { scope: "col" } }, [
+                    _vm._v(_vm._s(i + 1))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-left",
+                        staticStyle: { width: "75%" }
+                      },
+                      [_vm._v("  " + _vm._s(item.name) + " ")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "h6 text-right",
+                        staticStyle: { width: "25%" }
+                      },
+                      [
+                        _vm._v(
+                          " " + _vm._s(item.number ? item.number : 0) + " "
+                        )
+                      ]
+                    )
+                  ])
+                ])
+              }),
+              0
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row pt-2" }, [
+        _c("div", { staticClass: "col-lg-6 col-12" }, [
           _c("div", { staticClass: "card" }, [
             _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [_vm._v("Order chart")]),
+              _vm._m(5),
               _vm._v(" "),
-              _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-                _vm._v("\n            as of " + _vm._s(this.startDate)),
-                !_vm.oneDay()
-                  ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
-                  : _vm._e()
-              ]),
+              _c(
+                "h6",
+                { staticClass: "card-subtitle mb-2 text-muted text-left pl-2" },
+                [
+                  _vm._v("\n            as of " + _vm._s(this.startDate)),
+                  !_vm.oneDay()
+                    ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
+                    : _vm._e()
+                ]
+              ),
               _vm._v(" "),
-              _vm._m(4)
+              _vm._m(6)
             ])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v("New User Chart")
-              ]),
-              _vm._v(" "),
-              _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
-                _vm._v("\n            as of " + _vm._s(this.startDate)),
-                !_vm.oneDay()
-                  ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm._m(5)
-            ])
+        _c("div", { staticClass: "col-lg-6 col-12" }, [
+          _c("div", { staticClass: "card", staticStyle: { width: "100%" } }, [
+            _c(
+              "div",
+              { staticClass: "card-body", staticStyle: { width: "100%" } },
+              [
+                _vm._m(7),
+                _vm._v(" "),
+                _c(
+                  "h6",
+                  {
+                    staticClass: "card-subtitle mb-2 text-muted pl-2 text-left"
+                  },
+                  [
+                    _vm._v("\n            as of " + _vm._s(this.startDate)),
+                    !_vm.oneDay()
+                      ? _c("span", [_vm._v(" to " + _vm._s(this.endDate))])
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(8)
+              ]
+            )
           ])
         ])
       ])
@@ -3478,18 +3598,30 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "schart" } }, [
-      _c("canvas", {
-        staticStyle: { width: "100%", "max-width": "600px" },
-        attrs: { id: "salechart", height: "430px" }
-      })
+    return _c("h5", { staticClass: "card-title text-left" }, [
+      _c("b", [_vm._v(" Sale chart")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-title" }, [
+    return _c(
+      "div",
+      { staticStyle: { width: "100%" }, attrs: { id: "schart" } },
+      [
+        _c("canvas", {
+          staticStyle: { width: "100%", "max-width": "600px" },
+          attrs: { id: "salechart", height: "430px" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-title h5" }, [
       _c("b", [_vm._v("Top Categories")])
     ])
   },
@@ -3497,7 +3629,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-title" }, [
+    return _c("div", { staticClass: "card-title h5" }, [
       _c("b", [_vm._v("Top Products")])
     ])
   },
@@ -3505,7 +3637,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-title" }, [
+    return _c("div", { staticClass: "card-title h5" }, [
       _c("b", [_vm._v("Top Remained Products")])
     ])
   },
@@ -3513,23 +3645,47 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "ochart" } }, [
-      _c("canvas", {
-        staticStyle: { width: "100%", "max-width": "600px" },
-        attrs: { id: "orderchart", height: "455px" }
-      })
+    return _c("h5", { staticClass: "card-title text-left" }, [
+      _c("b", [_vm._v(" Order chart ")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "uchart" } }, [
-      _c("canvas", {
-        staticStyle: { width: "100%", "max-width": "600px" },
-        attrs: { id: "userchart", height: "455px" }
-      })
+    return _c(
+      "div",
+      { staticStyle: { width: "35vw" }, attrs: { id: "ochart" } },
+      [
+        _c("canvas", {
+          staticStyle: { width: "100%", "max-width": "600px" },
+          attrs: { id: "orderchart", height: "455px" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h5", { staticClass: "card-title text-left" }, [
+      _c("b", [_vm._v(" New User Chart ")])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticStyle: { width: "35vw" }, attrs: { id: "uchart" } },
+      [
+        _c("canvas", {
+          staticStyle: { width: "100%", "max-width": "600px" },
+          attrs: { id: "userchart", height: "455px" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true

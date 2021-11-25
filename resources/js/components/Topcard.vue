@@ -1,7 +1,7 @@
 <template>
     <div class="small-box rounded pt-2" :style="cardStyle">
           <div class="inner text-center pb-2 text-white">
-            <h6>{{this.text}}</h6>
+            <h5>{{this.text}}</h5>
             <h3>{{this.number}}</h3>
           </div>
         </div>

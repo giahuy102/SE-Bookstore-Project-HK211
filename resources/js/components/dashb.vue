@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row text-center">
+  <div class="container pt-2 pb-2">
+    <div class="row text-center pt-2 pb-2">
       <div class="col-4">
         <span class="date-text">From:</span>
         <input type="date" v-model="startDate" />
@@ -8,27 +8,27 @@
       <div class="col-4">
         <span class="date-text">To:</span>
         <input type="date" v-model="endDate" />
-        <button @click="check()">Go</button>
+        <button class="btn btn-primary" @click="check()">Go</button>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row pt-2 pb-2">
       <div class="col-lg-3 col-6" v-for="(item, i) in this.head_value" :key="i">
-        <topcard :text="item.title" :number="item.number" :bg="item.bg">
+        <topcard :text="item.title" :number="item.number" :bg="item.bg" class="text-light">
         </topcard>
       </div>
     </div>
-    <div class="row">
+    <div class="row pt-2">
       <!-- chart -->
       <div class="col-lg-8 col-12">
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Sale chart</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
+            <h5 class="card-title text-left"> <b> Sale chart</b> </h5>
+            <h6 class="card-subtitle mb-2 text-muted text-left pl-2">
               as of {{ this.startDate
               }}<span v-if="!oneDay()"> to {{ this.endDate }}</span>
             </h6>
-            <div id="schart">
+            <div id="schart" style="width: 100%">
               <canvas
               id="salechart"
               height="430px"
@@ -51,21 +51,23 @@
         ></mutedcard>
       </div>
     </div>
-    <div class="row">
+    <div class="row pt-2">
       <div class="col">
         <!-- top category -->
         <div class="card">
           <div class="card-body">
-            <div class="card-title"><b>Top Categories</b></div>
-            <ul class="list-group list-group-flush">
-              <li
-                class="list-group-item"
+            <div class="card-title h5"><b>Top Categories</b></div>
+              <table class="table">
+              <tr
+                
                 v-for="(item, i) in this.topCategory"
                 :key="i"
               >
-                {{ item.name }}
-              </li>
-            </ul>
+                <th scope="col">{{i+1}}</th>
+                <td > <span class="h6 text-left"  style="width: 75%">  {{ item.name }} </span> </td>
+                <td > <span class="h6 text-right" style="width: 25%"> {{ item.number ? item.number : 0 }} </span> </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -73,15 +75,17 @@
         <!-- top product -->
         <div class="card">
           <div class="card-body">
-            <div class="card-title"><b>Top Products</b></div>
-            <table class="list-group list-group-flush">
+            <div class="card-title h5"> <b>Top Products</b></div>
+            <table class="table" >
               <tr
-                class="list-group-item"
+                
                 v-for="(item, i) in this.topProduct"
                 :key="i"
+                
               >
-                <td>{{ item.name }}</td>
-                <td>{{ item.number }}</td>
+                <th scope="col">{{i+1}}</th>
+                <td > <span class="h6 text-left"  style="width: 75%">  {{ item.name }} </span> </td>
+                <td > <span class="h6 text-right" style="width: 25%"> {{ item.number ? item.number : 0 }} </span> </td>
               </tr>
             </table>
           </div>
@@ -91,30 +95,32 @@
         <!-- top remain product -->
         <div class="card">
           <div class="card-body">
-            <div class="card-title"><b>Top Remained Products</b></div>
-            <ul class="list-group list-group-flush">
-              <li
-                class="list-group-item"
+            <div class="card-title h5"><b>Top Remained Products</b></div>
+            <table class="table">
+              <tr
+                
                 v-for="(item, i) in this.topRemainProduct"
                 :key="i"
               >
-                {{ item.name }}
-              </li>
-            </ul>
+                <th scope="col">{{i+1}}</th>
+                <td > <span class="h6 text-left"  style="width: 75%">  {{ item.name }} </span> </td>
+                <td > <span class="h6 text-right" style="width: 25%"> {{ item.number ? item.number : 0 }} </span> </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div class="row pt-2">
+        <div class="col-lg-6 col-12">
           <!-- order chart -->
           <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Order chart</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
+            <h5 class="card-title text-left"> <b> Order chart </b></h5>
+            <h6 class="card-subtitle mb-2 text-muted text-left pl-2">
               as of {{ this.startDate
               }}<span v-if="!oneDay()"> to {{ this.endDate }}</span>
             </h6>
-            <div id="ochart">
+            <div id="ochart" style="width: 35vw">
               <canvas
             id="orderchart"
             height="455px"
@@ -126,16 +132,16 @@
         </div>
           
         </div>
-        <div class="col">
+        <div class="col-lg-6 col-12">
           <!-- new user chart -->
-          <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">New User Chart</h5>
-            <h6 class="card-subtitle mb-2 text-muted">
+          <div class="card" style="width: 100%;">
+          <div class="card-body" style="width: 100%">
+            <h5 class="card-title text-left"> <b> New User Chart </b> </h5>
+            <h6 class="card-subtitle mb-2 text-muted pl-2 text-left">
               as of {{ this.startDate
               }}<span v-if="!oneDay()"> to {{ this.endDate }}</span>
             </h6>
-            <div id="uchart">
+            <div id="uchart" style="width: 35vw">
               <canvas
               id="userchart"
               height="455px"
@@ -179,13 +185,13 @@ export default {
         {
           title: "New order",
           number: 100,
-          bg: "#ffed4a",
+          bg: "#dfcd4a",
         },
 
         {
           title: "Sales",
           number: 1000,
-          bg: "#e3342f",
+          bg: "#d3242f",
         },
       ],
       rightInfo: [
@@ -348,14 +354,21 @@ export default {
               label: "Sale",
               fill: true,
               data: this.saleData,
-              backgroundColor: "rgba(255, 99, 132, 0.7)",
-              borderColor: "rgba(255, 99, 132, 1)",
+              backgroundColor: "rgba(0,123,255,0.7)",
+              borderColor: "rgba(0,123,255,1)",
               borderWidth: 1,
             },
           ],
         },
         options: {
           legend: { display: true },
+          scales: {
+          y: {
+            min: 0,
+            
+            }
+          },
+          tension: 0.5
           
         },
       });
@@ -373,14 +386,21 @@ export default {
               label: "New User",
               fill: true,
               data: this.userData,
-              backgroundColor: "rgba(255, 99, 132, 0.7)",
-              borderColor: "rgba(255, 99, 132, 1)",
+              backgroundColor: "rgba(40,167,69,0.7)",
+              borderColor: "rgba(40,167,69,1)",
               borderWidth: 1,
             },
           ],
         },
         options: {
           legend: { display: true },
+          scales: {
+          y: {
+            min: 0,
+            
+            }
+          },
+          tension: 0.5
           
         },
       });
@@ -398,14 +418,21 @@ export default {
               label: "New Order",
               fill: true,
               data: this.orderData,
-              backgroundColor: "rgba(255, 99, 132, 0.7)",
-              borderColor: "rgba(255, 99, 132, 1)",
+              backgroundColor: "rgba(23,162,184,0.7)",
+              borderColor: "rgba(23,162,184,1)",
               borderWidth: 1,
             },
           ],
         },
         options: {
           legend: { display: true },
+          scales: {
+          y: {
+            min: 0,
+            
+            }
+          },
+          tension: 0.5
           
         },
       });
@@ -416,7 +443,16 @@ export default {
 <style scoped>
 .container {
   background-color: white;
+  font-family: "Vollkorn";
 }
 .input-date {
+}
+#uchart {
+  
+  
+}
+#ochart {
+  
+  
 }
 </style>
