@@ -34,7 +34,7 @@ Route::put('book/{id}', 'BookShopController@update');          // update
 
 
 Route::get('users', 'BookShopController@indexUser');          // get user information
-//Route::get('user/{id}', 'BookShopController@showUser');   // show information when editing profile
+Route::get('user/{id}', 'BookShopController@showUserByID');   // show information when editing profile
 Route::get('getUser', 'BookShopController@showUser');   // show information when editing profile
 Route::put('user/{id}', 'BookShopController@updateUser');   // update information
 Route::put('user/password/{id}', 'BookShopController@updateUserPassword');  // update password

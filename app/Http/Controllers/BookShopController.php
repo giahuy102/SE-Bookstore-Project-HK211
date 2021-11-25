@@ -121,6 +121,14 @@ class BookShopController extends Controller
 
     }
 
+    public function showUserByID($id){
+        $user = DB::select("select * from users where user_id = ? ", [$id]);
+        if ($user) {
+            return $user;
+        }
+        return 'Not found user';
+    }
+
     public function showUser() {
         // $user = DB::select("select * from users where user_id = ? ", [$id]);
         // if ($user) {
