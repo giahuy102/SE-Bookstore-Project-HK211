@@ -55,6 +55,7 @@
 
  Vue.component('category-component', require('./components/CategoryComponent.vue').default);
  Vue.component('search-result-component', require('./components/SearchResultComponent.vue').default);
+ Vue.component('similar-books-component', require('./components/SimilarBookComponent.vue').default);
  
  /**
   * Next, we will create a fresh Vue application instance and attach it to

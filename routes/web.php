@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('', 'HomePageController@index');
 Route::get('/detail/{id}', 'DetailController@index');
 Route::get('/category/{type}', 'CategoryController@index');
+Route::get('/similar-books/{id}', 'SimilarBooksController@index');
 
 
 Auth::routes();

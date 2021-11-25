@@ -17,10 +17,14 @@ class DetailController extends Controller
             abort(404);
         }
         $book = Book::where('book_id', $id)->first();
+        
         if (!$book) {
             abort(404);
         }
         $category = Category::where('category_id', $book->cid)->first();
+
+        $similarBooks = Book::where('cid', $book->cid)->orWhere('language', $book->language)->get();
+
 
         $isLogin = false;
         $username = null;
@@ -33,7 +37,8 @@ class DetailController extends Controller
             'book' => $book,
             'category' => $category,
             'isLogin' => $isLogin,
-            'username' => $username
+            'username' => $username,
+            'similarBooks' => $similarBooks
         ]);
     }
 }

@@ -75,7 +75,7 @@
                         :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                         class="display-book-item"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.title">
+                        <img :src="'/images/' + book.image" :alt="book.title" class="img-book">
                     </a>
 
                 </div>
@@ -110,7 +110,7 @@
                         :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                         class="display-book-item"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.title">
+                        <img :src="'/images/' + book.image" :alt="book.title" class="img-book">
                     </a>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                         :href="'http://127.0.0.1:8000/detail/' + book.book_id"
                         class="display-book-item"
                     >
-                        <img :src="'/images/' + book.image" :alt="book.title">
+                        <img :src="'/images/' + book.image" :alt="book.title" class="img-book">
                     </a>
                 </div>
             </div>
@@ -181,7 +181,7 @@ export default {
 
                 return b.num_sale - a.num_sale;
             })
-            this.popularBooks.slice(0, 5);
+            this.bestSellers.slice(0, 5);
 
         },
         getSpecialDiscounts() {
@@ -391,5 +391,13 @@ a {
 
 .book-item-list .display-book-item:first-child {
     margin-left: 0;
+}
+
+.img-book {
+    transition: all 0.5s;
+}
+
+.img-book:hover {
+    transform: scale(1.15);
 }
 </style>

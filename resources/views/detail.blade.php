@@ -25,7 +25,7 @@
 <body>
     <div id="app">
         <header-component></header-component>
-        <detail-component :book="{{ $book }}" :category="{{ $category }}"></detail-component>
+        <detail-component :book="{{ $book }}" :category="{{ $category }}" :similar_books = "{{ $similarBooks }}"></detail-component>
         <footer-component></footer-component>
     </div>
     <script>

@@ -46,18 +46,41 @@
 
             </div>
         </div>
+        
 
+        <div class="container-custom" id="book-list">
+
+            <h3>
+                <a :href="'/similar-books/' + book.book_id">Similar Books</a>
+            </h3>
+
+            <div class="d-flex flex-wrap book-item-list">
+                <a v-for="book in similarBooks"
+                    :key="book.book_id"
+                    :href="'http://127.0.0.1:8000/detail/' + book.book_id"
+                    class="display-book-item"
+                >
+                    <img :src="'/images/' + book.image" :alt="book.title" class="img-book">
+                </a>
+            </div>
+        </div>
         
     </div>    
 </template>
 
 <script>
 export default {
-    props: ['book', 'category'],
+    props: ['book', 'category', 'similar_books'],
     data() {
         return {
-
+            similarBooks: {}
         }
+    }, 
+    methods: {
+
+    },
+    mounted() {
+        this.similarBooks = this.similar_books.slice(0, 5);
     }
 }
 </script>
@@ -158,5 +181,50 @@ li span:last-child {
     color: #1C2A39;
     font-weight: 500;
     font-size: 20px;
+}
+
+
+
+
+
+.display-book-item {
+    margin-left: 22.275px;
+}
+
+.book-item-list .display-book-item:first-child {
+    margin-left: 0;
+}
+
+.img-book {
+    transition: all 0.5s;
+}
+
+.img-book:hover {
+    transform: scale(1.15);
+}
+
+#book-list {
+    margin-top: 100px;
+}
+
+#book-list img {
+    width: 222.18px;
+    height: 355px;
+}
+
+#book-list h3 a {
+    margin-top: 60px;
+    margin-bottom: 50px;
+    font-family: "Inria Serif";
+    font-weight: 700;
+    color: #011445;
+    font-size: 40px;
+    display: inline-block;
+    text-decoration: none;
+
+}
+
+#book-list h3 a:hover {
+    color: rgb(34, 76, 165);
 }
 </style>
