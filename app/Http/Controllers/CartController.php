@@ -80,27 +80,31 @@ class CartController extends Controller
         $user_id = null;
         if (Auth::check()) {
             $user_id = Auth::user()->user_id;
-        }
-        $book_id = $request->data['book_id'];
 
-        if (DB::table('cart')
-            ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
-            ->exists()
-        ) {
-            DB::table('cart')
-                ->select('amount')
+            $book_id = $request->data['book_id'];
+
+            if (DB::table('cart')
                 ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
-                ->update(['amount' => DB::raw('amount + 1')]);
-            return "Add amount to cart ...";
-        } else {
-            $affected = DB::table('cart')->insert([
-                'book_id' => $book_id,
-                'user_id' => $user_id,
-                'amount' => 1
-            ]);
+                ->exists()
+            ) {
+                DB::table('cart')
+                    ->select('amount')
+                    ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
+                    ->update(['amount' => DB::raw('amount + 1')]);
+                return "Add amount to cart ...";
+            } else {
+                $affected = DB::table('cart')->insert([
+                    'book_id' => $book_id,
+                    'user_id' => $user_id,
+                    'amount' => 1
+                ]);
 
-            if ($affected) return "Add new product to cart ...";
+                if ($affected) return "Add new product to cart ...";
+            }
         }
+        // else {
+            
+        // }
     }
 
     /**
