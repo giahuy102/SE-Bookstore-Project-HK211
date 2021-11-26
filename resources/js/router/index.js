@@ -61,6 +61,11 @@ const routes = [
             name: 'orderDetail',
             component: OrderDetail
         },
+        {
+            path: 'dashboard',
+            name: 'dashboard',
+            component: () => import(/* webpackChunkName: "Profile" */ '../components/dashb.vue')
+        }
         ]
     }
 ]

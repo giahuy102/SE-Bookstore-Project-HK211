@@ -72,3 +72,4 @@ Route::middleware('auth')->prefix('/cart')->group(function () {
 Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('dashboard', 'DashboardController@index');
