@@ -2,7 +2,7 @@
     <div class="dashboard">
         <Sidebar id="sidebar_id" />
         <div class=".container-fluid no-padding content" id="content_id">
-            <div class="row header">
+            <div class="row header">  
                 
                 
                 
