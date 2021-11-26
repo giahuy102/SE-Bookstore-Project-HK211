@@ -21,7 +21,7 @@
                         <p>{{order.order_id}}</p>
                         <p>{{customer.username}}</p>
                         <p>{{customer.address}}</p>
-                        <select v-model="selected" class="order_statusBox" @change="updateorder_status(selected)">
+                        <select v-model="selected" class="order_statusBox" v-bind:id="order.order_status" @change="updateorder_status(selected)">
                             <option value="COMPLETED">COMPLETED</option>
                             <option value="PROCESSING">PROCESSING</option>
                             <option value="CANCELLED">CANCELLED</option>
@@ -56,7 +56,7 @@
             <div class="bottomOrderDetail">
                 <div class="delivery">
                     <strong>Delivery Status:</strong>
-                    <div class="deliveryStatus">{{order.delivery | capitalize}}</div>
+                    <div class="deliveryStatus" v-bind:id="order.delivery">{{order.delivery}}</div>
                 </div>
                 <div class="deleteOrder">
                     <router-link :to="{name: 'ordermanagement'}">
@@ -73,7 +73,7 @@ export default {
             order: {},
             customer:{},
             id: this.$route.params.orderID,
-            selected: 'COMPLETED',
+            selected: '',
             current_cus_id: 0,
             items: [],
             total_cost: 0
@@ -84,6 +84,7 @@ export default {
             try{
                 const res = await axios.get('/api/order/' + id);
                 this.order = res.data[0];
+                this.selected = this.order.order_status;
                 const res2 = await axios.get('/api/user/' + this.order.cus_id);
                 this.customer = res2.data[0];
                 const res3 = await axios.get('/api/order_book/' + this.order.order_id);
@@ -176,7 +177,21 @@ h1{
     background: #00ACED;
     color: white;
     border-radius: 10px;
+    padding: 2px;
 }
+
+#COMPLETED {
+  background-color: #00a410;
+}
+
+#CANCELLED {
+  background-color: #fe0000;
+}
+
+#PROCESSING {
+  background-color: #fec400;
+}
+
 .itemTable{
     margin-top: 30px;
 }
@@ -198,9 +213,10 @@ h1{
     padding-right: 7px;
     height: 35px;
     border-radius: 10px;
+    color: white;
 }
 .deleteOrder{
-    margin-left: 60%;
+    margin-left: 40vw;
 }
 /*.deleteOrderButton{
     border-style: none;
