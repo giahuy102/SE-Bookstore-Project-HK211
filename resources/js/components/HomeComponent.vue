@@ -32,7 +32,7 @@
                     <p>fsfsfsfsfs</p>
                 </SplideSlide>
             </Splide> -->
-      <h2>Explore The World with This Categories of Books</h2>
+      <h2>Explore The World with These Categories of Books</h2>
       <Flicking :options="{ circular: true }" :plugins="plugins">
         <!-- <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
                 <div class="card-panel"><img src="/images/harry-potter-1.png" alt=""></div>
@@ -41,9 +41,14 @@
           v-for="category in categories"
           :key="category.category_id"
           class="card-panel"
+          id="background-category"
         >
-          <a :href="'/category/' + category.category_id">
+          <a :href="'/category/' + category.category_id" id="category-display">
             <img :src="'/images/' + category.category_image" alt="" />
+            <span></span>
+            <p>
+              {{ category.category_name }}
+            </p>
           </a>
         </div>
         <span slot="viewport" class="flicking-arrow-prev"></span>
@@ -56,7 +61,7 @@
         <h3>
           <a href="/category/popular_week">Popular Books this Week</a>
         </h3>
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap book-item-list">
           <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
@@ -77,8 +82,13 @@
             v-for="book in popularBooks"
             :key="book.book_id"
             :href="'http://127.0.0.1:8000/detail/' + book.book_id"
+            class="display-book-item"
           >
-            <img :src="'/images/' + book.image" :alt="book.title" />
+            <img
+              :src="'/images/' + book.image"
+              :alt="book.title"
+              class="img-book"
+            />
           </a>
         </div>
       </div>
@@ -88,7 +98,7 @@
           <a href="/category/best_seller">Best seller</a>
         </h3>
 
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap book-item-list">
           <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
@@ -108,8 +118,13 @@
             v-for="book in bestSellers"
             :key="book.book_id"
             :href="'http://127.0.0.1:8000/detail/' + book.book_id"
+            class="display-book-item"
           >
-            <img :src="'/images/' + book.image" :alt="book.title" />
+            <img
+              :src="'/images/' + book.image"
+              :alt="book.title"
+              class="img-book"
+            />
           </a>
         </div>
       </div>
@@ -119,7 +134,7 @@
           <a href="/category/special_discount">Special Discount</a>
         </h3>
 
-        <div class="d-flex flex-wrap justify-content-between">
+        <div class="d-flex flex-wrap book-item-list">
           <!-- <a href="#">
                         <img src="/images/harry-potter-1.png" alt="">
                     </a>
@@ -139,8 +154,13 @@
             v-for="book in specialDiscounts"
             :key="book.book_id"
             :href="'http://127.0.0.1:8000/detail/' + book.book_id"
+            class="display-book-item"
           >
-            <img :src="'/images/' + book.image" :alt="book.title" />
+            <img
+              :src="'/images/' + book.image"
+              :alt="book.title"
+              class="img-book"
+            />
           </a>
         </div>
       </div>
@@ -177,7 +197,7 @@ export default {
       this.bestSellers.sort(function (a, b) {
         return b.num_sale - a.num_sale;
       });
-      this.popularBooks.slice(0, 5);
+      this.bestSellers.slice(0, 5);
     },
     getSpecialDiscounts() {
       this.specialDiscounts = this.books.slice();
@@ -195,6 +215,9 @@ export default {
     this.getPopularBooks();
     this.getBestSellers();
     this.getSpecialDiscounts();
+    this.isLogin = window.isLogin;
+    this.username = window.username;
+    console.log(this.isLogin);
   },
 };
 </script>
@@ -324,5 +347,60 @@ a {
 #category img {
   width: 255px;
   height: 420px;
+}
+
+#category-display {
+  position: relative;
+}
+
+#category-display span {
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  /* height: 100%; */
+  height: 0;
+  background-color: rgba(3, 3, 32, 0.973);
+  top: 0;
+  left: 0;
+  z-index: 9;
+  transition: all 0.5s;
+}
+
+#category-display p {
+  transition: all 0.5s;
+  position: absolute;
+  display: inline-block;
+  top: 48%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  font-size: 0;
+  font-weight: 600;
+  height: 37.5px;
+  margin-bottom: 0;
+}
+
+#category-display:hover span {
+  height: 100%;
+}
+
+#category-display:hover p {
+  font-size: 22px;
+}
+.display-book-item {
+  margin-left: 22.275px;
+}
+
+.book-item-list .display-book-item:first-child {
+  margin-left: 0;
+}
+
+.img-book {
+  transition: all 0.5s;
+}
+
+.img-book:hover {
+  transform: scale(1.15);
 }
 </style>

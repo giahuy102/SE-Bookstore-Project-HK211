@@ -52,7 +52,7 @@
             <div class="title-rating">
               <p>
                 <a :href="'/detail/' + item.book_id"
-                  >{{ item.title }} --- {{ item.book_id }}</a
+                  >{{ item.title }}</a
                 >
               </p>
               <!-- <div class="rating">
@@ -64,7 +64,7 @@
             </div> -->
             </div>
           </div>
-          <div class="unitPrice">{{ item.cost_price }}</div>
+          <div class="unitPrice">{{ item.selling_price }}</div>
           <div class="amount">
             <i
               class="fas fa-minus-circle button minus"
@@ -77,7 +77,7 @@
             ></i>
           </div>
           <div class="price">
-            {{ parseFloat(item.amount * item.cost_price).toFixed(2) }}
+            {{ parseFloat(item.amount * item.selling_price).toFixed(2) }}
           </div>
         </div>
 
@@ -201,7 +201,7 @@ export default {
     totalCal: function () {
       var res = this.cartItem.reduce(
         (x, y) =>
-          this.selectedID.includes(y.book_id) ? x + y.amount * y.cost_price : x,
+          this.selectedID.includes(y.book_id) ? x + y.amount * y.selling_price : x,
         0
       );
       return parseFloat(res).toFixed(2);

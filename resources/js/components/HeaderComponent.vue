@@ -1,23 +1,27 @@
 <template>
-  <div id="header">
-    <div class="container-custom">
-      <div class="row no-gutters">
-        <div class="col-3 d-flex align-items-center">
-          <h1>
-            <a href="/">
-              <img src="/images/logo.png" alt="Bookstore" />
-            </a>
-          </h1>
-        </div>
+    <div id="header">
+        <div class="container-custom">
+            <div class="row no-gutters">
+                <div class="col-3 d-flex align-items-center">
+                    <h1>
+                        
+                        <a href="/">
+                            <img src="/images/logo.png" alt="Bookstore">
+                        </a>
+                    </h1>
+                </div>=
 
-        <div class="col-3 d-flex align-items-center">
-          <form action="">
-            <input type="text" name="" id="" placeholder="Search ..." />
-            <button>
-              <i class="fa fa-search"></i>
-            </button>
-          </form>
-        </div>
+
+                <div class="col-3 d-flex align-items-center">
+
+                    <form action="/search-book" method="GET">
+                        <input type="text" name="search_book" id="" placeholder="Enter book's name...">
+                        <input type="hidden" name="_token" :value="csrf">
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
 
         <!-- <div class="col d-flex align-items-center">
                     <form action="">

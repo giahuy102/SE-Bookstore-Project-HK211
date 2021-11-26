@@ -226,14 +226,17 @@ export default {
       else if (optionIndex == 6) this.vietnam = !this.vietnam;
       this.displayBooks = [];
       for (let i = 0; i < this.books.length; i++) {
+        // if (this.under100 || this.under200 || this.under500 || this.under1000 || this.over1000 || this.english || this.vietnam) {
+        //     if ((this.under100 && this.books[i].selling_price < 100)  || (this.under200 && this.books[i].selling_price < 200 && this.books[i].selling_price >= 100)  || (this.under500 && this.books[i].selling_price < 500 && this.books[i].selling_price >= 200) || (this.under1000 && this.books[i].selling_price < 1000 && this.books[i].selling_price >= 500) || (this.over1000 && this.books[i].selling_price > 1000) || (this.english && this.books[i].language == "English") || (this.vietnam && this.books[i].language == "Vietnamese")) this.displayBooks.push(this.books[i]);
+        // }
+        // else this.displayBooks.push(this.books[i]);
+        // else this.displayBooks.push(this.books[i]);
         if (
           this.under100 ||
           this.under200 ||
           this.under500 ||
           this.under1000 ||
-          this.over1000 ||
-          this.english ||
-          this.vietnam
+          this.over1000
         ) {
           if (
             (this.under100 && this.books[i].selling_price < 100) ||
@@ -246,15 +249,47 @@ export default {
             (this.under1000 &&
               this.books[i].selling_price < 1000 &&
               this.books[i].selling_price >= 500) ||
-            (this.over1000 && this.books[i].selling_price > 1000) ||
+            (this.over1000 && this.books[i].selling_price > 1000)
+          ) {
+            if (this.english || this.vietnam) {
+              if (
+                (this.english && this.books[i].language == "English") ||
+                (this.vietnam && this.books[i].language == "Vietnamese")
+              )
+                this.displayBooks.push(this.books[i]);
+            } else this.displayBooks.push(this.books[i]);
+          }
+        } else if (this.english || this.vietnam) {
+          if (
             (this.english && this.books[i].language == "English") ||
             (this.vietnam && this.books[i].language == "Vietnamese")
-          )
-            this.displayBooks.push(this.books[i]);
+          ) {
+            if (
+              this.under100 ||
+              this.under200 ||
+              this.under500 ||
+              this.under1000 ||
+              this.over1000
+            ) {
+              if (
+                (this.under100 && this.books[i].selling_price < 100) ||
+                (this.under200 &&
+                  this.books[i].selling_price < 200 &&
+                  this.books[i].selling_price >= 100) ||
+                (this.under500 &&
+                  this.books[i].selling_price < 500 &&
+                  this.books[i].selling_price >= 200) ||
+                (this.under1000 &&
+                  this.books[i].selling_price < 1000 &&
+                  this.books[i].selling_price >= 500) ||
+                (this.over1000 && this.books[i].selling_price > 1000)
+              )
+                this.displayBooks.push(this.books[i]);
+            } else this.displayBooks.push(this.books[i]);
+          }
         } else this.displayBooks.push(this.books[i]);
       }
     },
-
     addToCart(id) {
       return addToCart(id, this);
     },
@@ -264,6 +299,10 @@ export default {
     console.log(this.books);
     this.category = window.posts;
     console.log(window.posts);
+    
+    this.isLogin = window.isLogin;
+    this.username = window.username;
+    console.log(this.isLogin);
   },
 };
 </script>
@@ -382,3 +421,6 @@ export default {
   color: white;
 }
 </style>
+
+
+
