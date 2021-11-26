@@ -46,7 +46,7 @@ Route::get('/orders/cusName', [OrderController::class, 'getAllCusName']);
 Route::get('/orders/total', [OrderController::class, 'getAllOrderTotal']);
 Route::get('/order_book/{id}', [OrderController::class, 'getOrderBookByOrderID']);
 
-Route::prefix('/order') -> group ( function (){
+Route::prefix('/order')->group(function () {
     Route::post('/store', [OrderController::class, 'store']);
     Route::put('/{id}', [OrderController::class, 'update']);
     Route::delete('/{id}', [OrderController::class, 'destroy']);
@@ -54,7 +54,7 @@ Route::prefix('/order') -> group ( function (){
 });
 
 
-Route::post('store_file', 'BookShopController@fileStore'); 
+Route::post('store_file', 'BookShopController@fileStore');
 // Route::get('/cart', [CartController::class, 'index']);
 
 Route::middleware('auth')->prefix('/cart')->group(function () {
@@ -66,9 +66,8 @@ Route::middleware('auth')->prefix('/cart')->group(function () {
 });
 
 
-// Route::get('/purchased', 'PurchasedController@index');
-// Route::get('/purchased', 'CartController@getPurchased');
 
 Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('dashboard', 'DashboardController@index');

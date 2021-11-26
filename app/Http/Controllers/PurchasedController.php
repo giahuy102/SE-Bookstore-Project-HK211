@@ -44,7 +44,7 @@ class PurchasedController extends Controller
         $mypurchased = DB::table('orders')
         ->rightJoin('include', 'orders.order_id', '=', 'include.order_id')
         ->rightJoin('book', 'include.book_id', '=', 'book.book_id')
-        ->select('orders.order_id', 'include.book_id', 'include.amount', 'orders.order_status', 'book.image', 'book.title', 'book.cost_price')
+        ->select('orders.order_id', 'include.book_id', 'include.amount', 'orders.order_status', 'book.image', 'book.title', 'book.selling_price')
         ->where('orders.cus_id', '=', $user_id)
         ->get();
         // foreach ($categories as $category) {

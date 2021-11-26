@@ -42,7 +42,7 @@ class CartController extends Controller
 
         $mycart = DB::table('book')
             ->rightJoin('cart', 'book.book_id', '=', 'cart.book_id')
-            ->select('book.title', 'book.image', 'book.cost_price', 'book.book_id', 'cart.amount')
+            ->select('book.title', 'book.image', 'book.selling_price', 'book.book_id', 'cart.amount')
             ->where('cart.user_id', '=', $user_id)
             ->get();
         // foreach ($categories as $category) {
