@@ -190,21 +190,21 @@ export default {
       this.popularBooks.sort(function (a, b) {
         return b.num_view - a.num_view;
       });
-      this.popularBooks.slice(0, 5);
+      this.popularBooks = this.popularBooks.slice(0, 5);
     },
     getBestSellers() {
       this.bestSellers = this.books.slice();
       this.bestSellers.sort(function (a, b) {
         return b.num_sale - a.num_sale;
       });
-      this.bestSellers.slice(0, 5);
+      this.bestSellers = this.bestSellers.slice(0, 5);
     },
     getSpecialDiscounts() {
       this.specialDiscounts = this.books.slice();
       this.specialDiscounts.sort(function (a, b) {
         return b.sale - a.sale;
       });
-      this.specialDiscounts.slice(0, 5);
+      this.specialDiscounts = this.specialDiscounts.slice(0, 5);
     },
     addToCart(id) {
       return addToCart(id, this);
