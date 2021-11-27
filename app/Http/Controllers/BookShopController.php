@@ -77,13 +77,22 @@ class BookShopController extends Controller
         //print_r($test);
         
 
+        // $book = DB::insert("insert into book(book_id, title, page_number, author, cost_price, selling_price, input_date, publish_date, sale, num_view, 
+        // language, image, quantity, publisher, description, num_sale, cid) 
+        // values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        // [$request->input('book_id'), $request->input('title'), $request->input('page_number'), $request->input('author'),
+        // $request->input('cost_price'), $request->input('selling_price'), $request->input('input_date'), $request->input('publish_date'),
+        // $request->input('sale'), $request->input('num_view'), $request->input('language'), $request->input('image'), $request->input('quantity'),
+        // $request->input('publisher'), $request->input('description'), $request->input('num_sale'), $request->input('cid')]);
+
+
         $book = DB::insert("insert into book(book_id, title, page_number, author, cost_price, selling_price, input_date, publish_date, sale, num_view, 
         language, image, quantity, publisher, description, num_sale, cid) 
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         [$request->input('book_id'), $request->input('title'), $request->input('page_number'), $request->input('author'),
         $request->input('cost_price'), $request->input('selling_price'), $request->input('input_date'), $request->input('publish_date'),
-        $request->input('sale'), $request->input('num_view'), $request->input('language'), $request->input('image'), $request->input('quantity'),
-        $request->input('publisher'), $request->input('description'), $request->input('num_sale'), $request->input('cid')]);
+        $request->input('sale'), 0, $request->input('language'), $request->input('image'), $request->input('quantity'),
+        $request->input('publisher'), $request->input('description'), 0, $request->input('cid')]);
     }
 
 
