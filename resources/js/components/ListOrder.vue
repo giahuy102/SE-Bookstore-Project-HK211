@@ -26,8 +26,16 @@
                     <td>{{cusNames[item.order_id]}}</td>
                     <td>{{item.create_at}}</td>
                     <td>{{ (totals[item.order_id] == null) ? 0 : totals[item.order_id]}}</td>
-                    <td>{{item.order_status | capitalize}}</td>
-                    <td>{{item.delivery | capitalize}}</td>
+                    <td >
+                        <div class="order_status" v-bind:id="item.order_status" >
+                            {{item.order_status}}
+                        </div>
+                    </td>
+                    <td >
+                        <div class="order_status" v-bind:id="item.delivery" >
+                            {{item.delivery}}
+                        </div>
+                    </td>
                     <td>
                         <div class = "btn icon"> <input type="checkbox" v-model="selected" v-bind:value="item.order_id"> </div>
                         <button @click ="removeOrder(item.order_id)" class = "btn icon">
@@ -192,5 +200,23 @@ export default {
     padding: 0.25rem 1.5rem;
     border-radius: 5px;
     margin-left: 20px;
+}
+
+.order_status {
+  font-size: 14px;
+  color: white;
+  border-radius: 15px;
+}
+
+#COMPLETED {
+  background-color: #00a410;
+}
+
+#CANCELLED {
+  background-color: #fe0000;
+}
+
+#PROCESSING {
+  background-color: #fec400;
 }
 </style>

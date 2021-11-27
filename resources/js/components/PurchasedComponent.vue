@@ -22,13 +22,13 @@
       </div>
       <empty-cart
         v-if="itemPurchased.length == 0"
-        image= '/images/emptyPurchased.jpg'
+        image="/images/emptyPurchased.jpg"
         message="Your Purchased is empty !"
       />
       <div class="cart" v-else>
         <div class="headerCart">
           <div class="product">Product</div>
-          <div class="cost_price">Unit Price</div>
+          <div class="selling_price">Unit Price</div>
           <div class="amount">Amount</div>
           <div class="price">Price(USD)</div>
           <div class="order_status">Status</div>
@@ -52,12 +52,12 @@
               </div> -->
             </div>
           </div>
-          <div class="cost_price">{{ item.cost_price }}</div>
+          <div class="selling_price">{{ item.selling_price }}</div>
           <div class="amount">
             <span class="amount">{{ item.amount }}</span>
           </div>
           <div class="price">
-            {{ parseFloat(item.amount * item.cost_price).toFixed(2) }}
+            {{ parseFloat(item.amount * item.selling_price).toFixed(2) }}
           </div>
           <div class="order_status" v-bind:id="item.order_status">
             {{ item.order_status }}
@@ -118,7 +118,7 @@ export default {
   display: flex;
   width: 40%;
 }
-.cost_price {
+.selling_price {
   width: 15%;
 }
 .amount {
