@@ -78,9 +78,9 @@
                     </form>
                     
                     <div class="button-below">
-                        <router-link :to="{name: 'changePassword', params: {userID: user_account.user_id}}">     
+                        <!-- <router-link :to="{name: 'changePassword', params: {userID: user_account.user_id}}">     
                             <button class="change-password">Change password</button>
-                        </router-link>
+                        </router-link> -->
                         
                         <router-link :to="{name: 'editProfile', params: {userID: user_account.user_id}}">   
                             <button class="edit-profile">Edit Profile</button>
@@ -272,7 +272,7 @@ import changePassword from './ChangePassword.vue'
 }
 
 .edit-profile {
-    margin-left: 290px;
+    margin-left: 505px;
     background-color: #00ACED;
     border: none ;
     color: white;

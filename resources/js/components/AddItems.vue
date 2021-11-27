@@ -121,7 +121,7 @@
                             <div class="custom-file">
                                 <input type="file" name="filename" class="custom-file-input" id="inputFileUpload"
                                 v-on:change="onFileChange">
-                                
+                                {{book.image}}
                                 <!-- <label class="custom-file-label" for="inputFileUpload" id="custom-file-label">Choose file</label> -->
                             </div>
                             
@@ -253,6 +253,7 @@ export default {
             axios.post('/api/store_file', formData, config)
             .then(function (response) {
                 console.log("Done upload image");
+                alert("Upload image successfully")
                 currentObj.success = response.data.success;
                 currentObj.filename = "";
             })
@@ -485,7 +486,7 @@ export default {
 .custom-file-input {
     opacity: 1;
     padding-top: 3px;
-    width: 600px;
+    width: 103px;
 }
 
 #upload-button {
