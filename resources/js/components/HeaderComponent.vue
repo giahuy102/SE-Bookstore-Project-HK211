@@ -47,7 +47,7 @@
               <a 
                 v-for="category in categories"
                 :key="category.category_id"
-                class="dropdown-item" href="/category/1">
+                class="dropdown-item" :href="'/category/' + category.category_id">
                 {{ category.category_name }}
               </a>
             </div>
