@@ -12,7 +12,7 @@
         <p id="price">
           <span>{{ "$" + book.selling_price }}</span>
           <span>{{
-            "$" + (book.selling_price - book.selling_price * book.sale/100)
+            "$" + (book.selling_price - book.selling_price * book.sale / 100)
           }}</span>
         </p>
         <button v-on:click="addToCart(book.book_id)">BUY NOW</button>

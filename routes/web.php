@@ -19,6 +19,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('homepage');
 });
+
+Route::get('/api/header/category', 'HeaderController@index');
+
 Route::get('/category', function () {
     return view('category');
 });
@@ -61,3 +64,6 @@ Route::get('/{any}', function () {
 
 
 Route::post('store_file', 'BookShopController@fileStore'); 
+
+
+

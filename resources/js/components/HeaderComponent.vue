@@ -44,9 +44,12 @@
               CATEGORY
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="/category/1">Fantasy</a>
-              <a class="dropdown-item" href="/category/2">Horror</a>
-              <a class="dropdown-item" href="/category/3">Romance</a>
+              <a 
+                v-for="category in categories"
+                :key="category.category_id"
+                class="dropdown-item" href="/category/1">
+                {{ category.category_name }}
+              </a>
             </div>
           </div>
         </div>
@@ -117,6 +120,7 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
+      categories: null,
     };
   },
   methods: {
@@ -127,11 +131,24 @@ export default {
       //   alert("recieved: ", e);
       this.totalAmount = this.totalAmount + e;
     },
+    getCategories() {
+        axios.get('/api/header/category')
+        .then (response =>{
+            if (response.status == 200){
+                this.categories = response.data;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    },
   },
   mounted() {
     this.isLogin = window.isLogin;
     this.username = window.username;
     console.log(this.isLogin);
+    this.getCategories();
+    
   },
   created() {
     axios
@@ -146,11 +163,14 @@ export default {
       });
     // Listening the event hello
     this.$root.$on("changeTotalAmount", this.handler);
+    
   },
   destroyed() {
     // Stop listening the event hello with handler
     this.$root.$off("changeTotalAmount", this.handler);
   },
+
+
 };
 </script>
 
