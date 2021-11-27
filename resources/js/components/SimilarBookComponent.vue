@@ -118,7 +118,7 @@
                     <p class="review">{{ book.num_view +"M review" }}</p>
                     <p class="price">
                         <span>{{ "$" + book.selling_price }}</span>
-                        <span>{{ "$" + (book.selling_price - book.selling_price * book.sale) }}</span>
+                        <span>{{ "$" + (book.selling_price - book.selling_price * book.sale / 100) }}</span>
                     </p>
                     <button @click="addToCart(book.book_id)">BUY NOW</button>
                 </div>
