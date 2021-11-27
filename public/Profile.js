@@ -875,6 +875,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.post('/api/store_file', formData, config).then(function (response) {
         console.log("Done upload image");
+        alert("Upload image successfully");
         currentObj.success = response.data.success;
         currentObj.filename = "";
       })["catch"](function (error) {
