@@ -180,6 +180,9 @@ export default {
 
       if (x == -1 && this.cartItem[index].amount == 1) return;
       else {
+        if (x == 1 && this.cartItem[index].amount >= this.cartItem[index].quantity) {
+          return
+        }
         this.cartItem[index].amount += x;
         console.log(this.cartItem);
         axios

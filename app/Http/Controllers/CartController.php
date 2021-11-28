@@ -42,7 +42,7 @@ class CartController extends Controller
 
         $mycart = DB::table('book')
             ->rightJoin('cart', 'book.book_id', '=', 'cart.book_id')
-            ->select('book.title', 'book.image', 'book.selling_price', 'book.book_id', 'cart.amount')
+            ->select('book.title', 'book.image', 'book.selling_price', 'book.book_id', 'cart.amount', 'book.quantity')
             ->where('cart.user_id', '=', $user_id)
             ->get();
         // foreach ($categories as $category) {
@@ -208,6 +208,10 @@ class CartController extends Controller
             DB::table('cart')
                 ->where([['user_id', '=', $user_id], ['book_id', '=', $book_id]])
                 ->delete();
+
+            DB::table('book')
+                ->where([['book_id', '=', $book_id]])
+                ->decrement('quantity', $amount);
         }
 
 
